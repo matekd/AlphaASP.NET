@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://kit.fontawesome.com/a576612222.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+    <title>@ViewData["Title"] - WebApp</title>
+</head>
+<body>
+    <div class="portal">
+        <div class="side">
+            @await Html.PartialAsync("Partials/Components/_AlphaLogotype")
+            @await Html.PartialAsync("Partials/Components/_NavLinks")
+        </div>
+        <div class="top">
+            
+        </div>
+        <div class="main">
+            @RenderBody()
+        </div>
+    </div>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
