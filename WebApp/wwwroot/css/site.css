@@ -130,9 +130,15 @@ h6 {
 }
 
 /* Links */
-a {
+a, a:visited {
     text-decoration: none;
+    color: var(--accent);
 }
+
+    a:hover, a:focus {
+        text-decoration: underline;
+        color: var(--accent-dark);
+    }
 
 /* Structure */
 .center-screen {
@@ -147,8 +153,6 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 320px;
-    padding: 1rem;
 }
 
 .portal {
@@ -227,7 +231,7 @@ a {
     justify-content: center;
     align-items: center;
     gap: 12px;
-    transition: all .2s .2s;
+    transition: all .1s .1s;
     &.blue
 
 {
@@ -247,9 +251,7 @@ a {
 &.blue:hover, &.blue:focus {
     background-color: var(--accent-dark);
 }
-/* &:focus {
-        outline: none;
-    } */
+
 }
 
 .input {
@@ -258,6 +260,54 @@ a {
     font-size: var(--text-size);
     padding: 14px;
     width: 100%;
+    background-color: var(--surface-color);
+}
+
+input[type="password"] {
+    /* add eye, maybe absolute img + js for toggle */
+}
+
+.input-check {
+    appearance: none;
+}
+
+.input-check, .toggle {
+    width: 16px;
+    height: 16px;
+}
+
+.toggle {
+    position: absolute;
+    cursor: pointer;
+    background-color: var(--white-100);
+    border: var(--dark-100) 1px solid;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .toggle > i {
+        display: none;
+        font-size: 10px;
+        color: var(--white-100);
+    }
+
+.input-check:checked + .toggle {
+    background-color: var(--accent);
+    border: none;
+}
+
+    .input-check:checked + .toggle > i {
+        display: inline;
+    }
+
+.check-group {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-block: 1rem;
+    position: relative;
 }
 
 /* Components */
@@ -300,12 +350,13 @@ a {
 .top > .search {
     width: 100%;
     padding-right: 1rem;
+    gap: .75rem;
     .search-input
 
 {
     border: none;
     background-color: transparent;
-    padding-left: .75rem;
+    padding-left: .5rem;
     width: 100%;
     height: 100%;
     color: var(--text-color);
@@ -316,9 +367,7 @@ a {
 {
     color: var(--text-light);
 }
-/* &:focus {
-            outline: none;
-        } */
+
 }
 }
 
@@ -354,5 +403,82 @@ a {
 
 &:hover, &:focus {
     color: var(--accent);
+}
+
+}
+
+.container {
+    /* or make .main-content */
+}
+
+/* Forms */
+.member-form {
+    width: 600px;
+    padding: 100px 100px 0px 100px;
+    > h1, > p
+
+{
+    text-align: center;
+}
+
+h1, .third-party, .or-hr {
+    margin-bottom: 2rem;
+}
+
+.third-party {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+}
+
+.or-hr {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 0;
+    border-top: 1px var(--input-border-color) solid;
+    span
+
+{
+    position: absolute;
+    left: 50%;
+    top: -50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--surface-color);
+    width: 50px;
+    color: var(--text-light);
+    font-size: 12px;
+}
+
+}
+
+label {
+    font-weight: var(--font-semibold);
+    color: var(--heading-color);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    input
+
+{
+    margin-top: .5rem;
+}
+
+}
+
+.memory-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+button[type="submit"] {
+    margin-bottom: 3.5rem;
+}
+
+> p {
+    font-weight: var(--font-semibold);
 }
 }
