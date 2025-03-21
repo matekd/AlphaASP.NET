@@ -8,9 +8,17 @@
     <title>@ViewData["Title"]</title>
 </head>
 <body>
-    <div class="center-screen">
+    <div class="split-screen">
+        <header>
+            <h1>Welcome to<br /><span>Admin Panel</span></h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Vivamus ullamcorper nisl erat, vel convallis elit fermentum pellentesque. 
+                Sed mollis velit facilisis facilisis viverra.</p>
+        </header>
+
         <div class="surface">
             <div class="center-content">
+                @* Form Here *@
                 @RenderBody()
             </div>
         </div>

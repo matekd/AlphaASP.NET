@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /* Variables */
 :root {
@@ -35,12 +36,13 @@
     --dark-600: #202123; /* darkmode surface */
     --dark-700: #1A1926; /* heading */
     --dark-800: #151517; /* darkmode background */
-
+    --dark-900: #000000;
     --accent: #2D99FF;
     --accent-opacity: rgba(45, 153, 255, .1);
     --accent-dark: #2682D9;
     --red: #FF6640;
     --red-opacity: rgba(255, 102, 64, .1);
+    --dark-red: #E94D3F;
     --orange: #FF9640;
     --text-color: var(--dark-400);
     --heading-color: var(--dark-700);
@@ -54,21 +56,25 @@
     --btn-border-color: var(--white-100);
     --surface-color: var(--white-100);
     --logotype-color: var(--dark-400);
+    --x-color: var(--dark-900);
+    --error-text: var(--dark-red);
 }
 
 [data-theme="dark"] {
-    --text-color: var(--gray-100);
+    --text-color: var(--gray-300);
     --heading-color: var(--white-100);
     --text-light: var(--gray-700);
     --border-color: var(--dark-500);
     --background-color: var(--dark-800);
     --tab-link-color: var(--gray-700);
-    --nav-link-color: var(--gray-100);
+    --nav-link-color: var(--gray-300);
     --gray-btn-color: var(--dark-200);
     --input-border-color: var(--dark-300);
     --btn-border-color: var(--dark-600);
     --surface-color: var(--dark-600);
     --logotype-color: var(--white-100);
+    --x-color: var(--gray-300);
+    --error-text: var(--red);
 }
 
 /* Base */
@@ -153,6 +159,7 @@ a, a:visited {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 
 .portal {
@@ -212,6 +219,48 @@ a, a:visited {
 
 }
 
+.split-screen {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100dvh;
+    background-image: url("~/images/admin-login-bg.svg");
+    header
+
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    height: 100dvh;
+    padding-inline: 50px;
+    padding-bottom: 80px;
+    color: var(--white-100);
+    backdrop-filter: blur(40px);
+    h1
+
+{
+    font-family: "Poppins", sans-serif;
+    font-size: 70px;
+    line-height: 90px;
+    color: var(--white-100);
+    span
+
+{
+    color: var(--orange);
+}
+
+}
+}
+
+.surface {
+    border-radius: 0;
+}
+
+#admin-form {
+    padding-block: 0;
+}
+
+}
+
 .surface {
     border-radius: 16px;
     padding: 2rem;
@@ -232,6 +281,7 @@ a, a:visited {
     align-items: center;
     gap: 12px;
     transition: all .1s .1s;
+    cursor: pointer;
     &.blue
 
 {
@@ -252,6 +302,16 @@ a, a:visited {
     background-color: var(--accent-dark);
 }
 
+}
+
+.btn-close {
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    color: var(--x-color);
 }
 
 .input {
@@ -412,7 +472,7 @@ input[type="password"] {
 }
 
 /* Forms */
-.member-form {
+.auth-from {
     width: 600px;
     padding: 100px 100px 0px 100px;
     > h1, > p
@@ -454,6 +514,7 @@ h1, .third-party, .or-hr {
 label {
     font-weight: var(--font-semibold);
     color: var(--heading-color);
+    display: grid;
 }
 
 .input-group {
@@ -464,6 +525,27 @@ label {
 
 {
     margin-top: .5rem;
+}
+
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.field-validation-error {
+    width: fit-content;
+    padding: .25rem;
+    border-radius: 10px;
+    margin-top: .5rem;
+    color: var(--error-text);
+    font-weight: var(--font-regular);
+    background-color: var(--red-opacity);
+    &::before
+
+{
+    content: '*';
+    padding-right: .25rem;
 }
 
 }
@@ -481,4 +563,26 @@ button[type="submit"] {
 > p {
     font-weight: var(--font-semibold);
 }
+
 }
+
+.modal {
+    /* display: none; */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .modal .modal-content {
+    }
+
+        .modal .modal-content .modal-header {
+            display: flex;
+            justify-content: space-between;
+            /* align-items: center; */
+        }
