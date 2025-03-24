@@ -1,0 +1,62 @@
+﻿@model AddProjectModel
+
+<div id="addProjectModal" class="modal">
+	<div class="modal-content surface">
+		<div class="modal-header">
+			<h3>Add Project</h3>
+			<button type="button" class="btn-close" data-close="true"></button>
+		</div>
+
+		<form method="post" asp-controller="Projects" asp-action="Add">
+			<div class="form-group">
+				<div class="file-group">
+					<label class="image-previewer square" asp-for="ProjectImage">
+						<img src="" class="image-preview"/>
+						<input asp-for="ProjectImage" accept="image/*" />
+					</label>
+				</div>
+				<div class="input-group">
+					<label asp-for="ProjectName"></label>
+					<input class="input" asp-for="ProjectName" />
+					<span asp-validation-for="ProjectName"></span>
+				</div>
+				<div class="input-group">
+					<label asp-for="ClientName"></label>
+					<input class="input" asp-for="ClientName" />
+					<span asp-validation-for="ClientName"></span>
+				</div>
+				<div class="input-group">
+					<label asp-for="Description"></label>
+					<textarea class="input" rows="4" asp-for="Description"></textarea>
+				</div>
+				<div class="date-group">
+					<div class="input-group">
+						<label asp-for="StartDate"></label>
+						<input class="input" asp-for="StartDate" />
+						<span asp-validation-for="StartDate"></span>
+					</div>
+					<div class="input-group">
+						<label asp-for="EndDate"></label>
+						<input class="input" asp-for="EndDate" />
+						<span asp-validation-for="EndDate"></span>
+					</div>
+				</div>
+				@*<div class="input-group">
+					<label asp-for="Members"></label>
+					<select asp-for="Members">
+						<option></option>
+					</select>
+					<span asp-validation-for="Members"></span>
+				</div>*@
+				<div class="input-group">
+					<label asp-for="Budget"></label>
+					<span class="currency-icon">
+						<input class="input" asp-for="Budget" />
+					</span>
+					<span asp-validation-for="Budget"></span>
+				</div>
+				<button type="submit" class="btn blue">Create</button>
+			</div>
+		</form>
+	</div>
+</div>
