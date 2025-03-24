@@ -15,4 +15,22 @@ public class AuthController : Controller
         return LocalRedirect("/projects");
         //return View();
     }
+
+    public IActionResult Logout()
+    {
+        return LocalRedirect("/projects");
+        //return View();
+    }
+
+    public IActionResult LoginAdmin()
+    {
+        return LocalRedirect("/projects");
+        //return View();
+    }
+
+    public IActionResult LogoutAdmin()
+    {
+        return LocalRedirect("/projects");
+        //return View();
+    }
 }

@@ -9,16 +9,14 @@
 </head>
 <body>
     <div class="portal">
-        <div class="side">
-            @await Html.PartialAsync("Partials/Components/_AlphaLogotype")
-            @await Html.PartialAsync("Partials/Components/_NavLinks")
-        </div>
-        <div class="top">
-            
-        </div>
+        @await Html.PartialAsync("Partials/Sections/_Side")
+        
+        @await Html.PartialAsync("Partials/Sections/_Top")
+        
         <div class="main">
             @RenderBody()
         </div>
+        
     </div>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </body>

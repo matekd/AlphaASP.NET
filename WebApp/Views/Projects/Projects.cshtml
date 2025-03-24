@@ -1,5 +1,22 @@
-﻿@{
+﻿@* list of projects *@
+
+@{
 	ViewData["Title"] = "Projects";
 }
+@await Html.PartialAsync("Partials/Components/_AddProjectForm", new AddProjectModel())
 
-<h2>@ViewData["Title"]</h2>
+<div class="main-header">
+    <h2>@ViewData["Title"]</h2>
+    <button class="btn blue add" data-modal="true" data-target="#addProjectModal"><i class="fa-solid fa-plus"></i>Add Project</button>
+</div>
+
+@* get all statuses, count, loop through *@
+<div class="navbar">
+    <a href="" class="tab-link active">ALL [9]</a>
+    <a href="" class="tab-link">STARTED [9]</a>
+    <a href="" class="tab-link">COMPLETED [0]</a>
+</div>
+
+<div class="projects">
+
+</div>
