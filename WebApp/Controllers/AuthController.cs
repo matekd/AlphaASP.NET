@@ -44,7 +44,23 @@ public class AuthController(IAuthService authService) : Controller
     [HttpPost]
     public async Task<IActionResult> Register(RegisterModel model)
     {
-        return View();
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState
+                .Where(x => x.Value?.Errors.Count > 0)
+                .ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value?.Errors.Select(x => x.ErrorMessage).ToArray()
+                );
+
+            return BadRequest(new { success = false, errors });
+        }
+        // create user
+        //var result = await _authService.LoginAsync(model);
+        //if (result)
+        //    return Redirect("~/");
+
+        return BadRequest(new { success = false, submitError = "Email is already registered" });
     }
 
 

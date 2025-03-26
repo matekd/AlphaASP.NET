@@ -16,6 +16,8 @@
         <span>OR</span>
     </div>
 
+    <span class="submit-error"></span>
+
     <div class="form-group">
         <div class="input-group">
             <label asp-for="FirstName"></label>
@@ -47,9 +49,9 @@
     <div class="check-group">
         <input class="input-check" type="checkbox" asp-for="Terms">
         <label class="toggle" asp-for="Terms"><i class="fa-solid fa-check"></i></label>
-        <span> I accept <a href="">Terms and Conditions</a></span>
+        <span> I accept <a href="" style="color:red">Terms and Conditions</a></span>
+        <span class="terms" asp-validation-for="Terms"></span>
     </div>
-    <span class="field-validation-error">Error: Must accept terms</span>
 
 
     <button type="submit" class="btn blue">Create Account</button>

@@ -366,4 +366,4 @@ FodyWeavers.xsd
 Data/Migrations
 
 # App Settings
-appsettings.json
+/WebApp/appsettings.json

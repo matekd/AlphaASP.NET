@@ -25,7 +25,7 @@ public class RegisterModel
     public string Password { get; set; } = null!;
 
     [Display(Name = "Confirm Password", Prompt = "Confirm your password")]
-    [Required(ErrorMessage = "Field is required")]
+    [Required(ErrorMessage = "Must confirm password")]
     [DataType(DataType.Password)]
     [Compare(nameof(Password), ErrorMessage = "Passwords do not match")]
     public string ConfirmPassword { get; set; } = null!;

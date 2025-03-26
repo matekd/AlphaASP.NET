@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         form.addEventListener('change', async (e) => {
-            // work on targetting specific input
+            // work on targetting specific input. span for input id
             //clearErrorMessages(form)
 
             const span = form.querySelector('.submit-error')

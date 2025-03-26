@@ -154,7 +154,7 @@ a:hover, a:focus {
     display:  flex;
     justify-content: center;
     align-items: center;
-    height: 100dvh;
+    /* height: 100dvh; */
 }
 
 .center-content {
@@ -384,6 +384,7 @@ input[type="password"] {
     display: flex;
     align-items: center;
     justify-content: center;
+    top: 3px;
 }
 .toggle > i {
     display: none;
@@ -399,6 +400,7 @@ input[type="password"] {
 }
 .check-group {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: .5rem;
     margin-block: 1rem;
