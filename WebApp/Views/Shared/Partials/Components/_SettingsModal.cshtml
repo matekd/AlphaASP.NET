@@ -1,0 +1,22 @@
+﻿@* @model User *@
+@* User for name and profile image*@
+
+<div id="settingsModal" class="modal">
+	<div class="modal-content">
+		<div class="settings-top">
+			<img src="" alt="profile picture"/>
+			<span>Profile nameProfile nameProfile name</span>
+			<button type="button" class="btn-close" data-close="true"></button>
+		</div>
+		<div class="settings-middle">
+			<span>Dark mode</span>
+			<label for="darkmode" class="darkmode-switch">
+				<input type="checkbox" id="darkmode" />
+			</label>
+		</div>
+		<hr />
+		<div class="settings-bottom">
+			<a class="btn logout" asp-controller="Auth" asp-action="Logout">Log out</a>
+		</div>
+	</div>
+</div>

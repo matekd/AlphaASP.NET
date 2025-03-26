@@ -109,9 +109,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         form.addEventListener('change', async (e) => {
-            // work on targetting specific input. span for input id
-            //clearErrorMessages(form)
-
+            var id = e.target.id
+            if (id) {
+                const span = form.querySelector(`[data-valmsg-for="${id}"]`)
+                if (span) {
+                    span.innerText = ''
+                    span.classList.remove('field-validation-error')
+                    span.classList.add('field-validation-valid')
+                }
+            }
             const span = form.querySelector('.submit-error')
             if (span) {
                 span.innerText = ''

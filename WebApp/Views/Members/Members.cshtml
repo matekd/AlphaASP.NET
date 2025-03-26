@@ -1,0 +1,14 @@
+﻿@* list of members *@
+
+@{
+    ViewData["Title"] = "Members";
+}
+@await Html.PartialAsync("Partials/Components/_AddMemberForm", new AddMemberModel())
+
+<div class="main-header">
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<div class="members">
+
+</div>

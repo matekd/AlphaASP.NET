@@ -1,3 +1,14 @@
-﻿<div class="top">
-
-</div>
+﻿<section class="top">
+    @await Html.PartialAsync("Partials/Components/_SettingsModal")
+    <label class="search" for="search">
+        <input type="text" class="search-input" id="search" placeholder="Search anything..." autocomplete="off">
+    </label>
+    <div class="icons">
+        <button class="btn notifications"></button>
+        <button class="btn settings" data-modal="true" data-target="#settingsModal"></button>
+    </div>
+    <hr />
+    <div class="profile">
+        <img src="" alt="profile picture" />
+    </div>
+</section>

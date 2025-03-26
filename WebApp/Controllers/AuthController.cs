@@ -8,8 +8,10 @@ public class AuthController(IAuthService authService) : Controller
 {
     private readonly IAuthService _authService = authService;
 
-    public IActionResult Login()
+    public IActionResult Login(string returnUrl = "~/")
     {
+        ViewBag.ReturnUrl = returnUrl;
+
         return View();
     }
 
@@ -30,7 +32,7 @@ public class AuthController(IAuthService authService) : Controller
 
         var result = await _authService.LoginAsync(model);
         if (result)
-            return Redirect(returnUrl);
+            return LocalRedirect(returnUrl);
 
         return BadRequest(new { success = false, submitError = "Email or password is incorrect" });
         //return View(model);
@@ -55,22 +57,18 @@ public class AuthController(IAuthService authService) : Controller
 
             return BadRequest(new { success = false, errors });
         }
-        // create user
-        //var result = await _authService.LoginAsync(model);
-        //if (result)
-        //    return Redirect("~/");
+        
+        var result = await _authService.SignUpAsync(model);
+        if (result)
+            return LocalRedirect("~/");
 
-        return BadRequest(new { success = false, submitError = "Email is already registered" });
+        return BadRequest(new { success = false, submitError = "Failed to register" });
     }
 
-
-
-
-
-    [Route("logout")]
-    public IActionResult Logout()
+    public async Task<IActionResult> Logout()
     {
-        return LocalRedirect("/projects");
-        //return View();
+        await _authService.LogoutAsync();
+        return LocalRedirect("~/");
+        //return RedirectToAction("Login", "Auth");
     }
 }

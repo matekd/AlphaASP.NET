@@ -5,6 +5,8 @@
 }
 
 <form method="post" class="auth-from" asp-controller="Auth" asp-action="Login" novalidate>
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl"/>
+
     <h1>Login</h1>
 
     <button class="btn gray third-party">
