@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const fileInput = previewer.querySelector('input[type=file]')
         const imagePreview = previewer.querySelector('.image-preview')
 
+        //using label
         //previewer.addEventListener('click', () => fileInput.click())
 
         fileInput.addEventListener('change', ({ target: { files } }) => {
@@ -58,14 +59,16 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', async (e) => {
             e.preventDefault()
 
-            cleaErrorMessages(form)
+            clearErrorMessages(form)
 
             const formData = new FormData(form)
 
             try {
+                //Method not allowed without credentials
                 const res = await fetch(form.action, {
                     method: 'post',
-                    body: formData
+                    body: formData,
+                    credentials: 'include'
                 })
 
                 if (res.ok) {
@@ -75,10 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     window.location.reload();
                 }
-
                 else if (res.status === 400) {
                     const data = await res.json()
-
                     if (data.errors) {
                         Object.keys(data.errors).forEach(key => {
                             const input = form.querySelector(`[name="${key}"]`)
@@ -90,8 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (span) {
                                 span.innerText = data.errors[key].join('\n')
                                 span.classList.add('field-validation-error')
+                                span.classList.remove('field-validation-valid')
                             }
                         })
+                    }
+                    if (data.submitError) {
+                        const span = form.querySelector('.submit-error')
+                        if (span) {
+                            span.innerText = data.submitError
+                            span.classList.add('field-validation-error')
+                        }
                     }
                 }
             }
@@ -99,10 +108,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('error submitting the form')
             }
         })
+        form.addEventListener('change', async (e) => {
+            // work on targetting specific input
+            //clearErrorMessages(form)
+
+            const span = form.querySelector('.submit-error')
+            if (span) {
+                span.innerText = ''
+                span.classList.remove('field-validation-error')
+            }
+        })
     })
 })
 
-function cleaErrorMessages(form) {
+function clearErrorMessages(form) {
     form.querySelectorAll('[data-val=true]').forEach(input => {
         input.classList.remove('input-validation-error')
     })
@@ -110,6 +129,7 @@ function cleaErrorMessages(form) {
     form.querySelectorAll('[data-valmsg-for]').forEach(span => {
         span.innerText = ''
         span.classList.remove('field-validation-error')
+        span.classList.add('field-validation-valid')
     })
 }
 

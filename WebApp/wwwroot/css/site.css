@@ -262,7 +262,7 @@ a:hover, a:focus {
 
 form .form-group {
     display: grid;
-    row-gap: 2rem;
+    row-gap: 1.5rem;
 }
 form .input-group {
     display: grid;
@@ -279,8 +279,9 @@ form label {
     font-weight: var(--font-semibold);
     color: var(--heading-color);
 }
-form .field-validation-valid {
-    /* display: none; */
+form .submit-error {
+    display: block;
+    margin-bottom: .5rem;
 }
 form .field-validation-error {
     width: fit-content;
@@ -296,7 +297,7 @@ form .field-validation-error {
     }
 }
 
-.input {
+.input, select, textarea {
     border-radius: 14px;
     border: 1px solid var(--input-border-color);
     font-size: var(--text-size);
@@ -442,7 +443,8 @@ input[type="password"] {
     padding: 2rem;
 }
 
-#addProjectModal .modal-content {
+#addProjectModal .modal-content, 
+#editProjectModal .modal-content {
     width: 550px;
 }
 
