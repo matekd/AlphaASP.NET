@@ -1,0 +1,35 @@
+﻿@model AddMemberModel
+
+<div id="addMemberModal" class="modal">
+	<div class="modal-content surface">
+		<div class="modal-header">
+			<h3>New Member</h3>
+			<button type="button" class="btn-close" data-close="true"></button>
+		</div>
+
+		<form method="post" asp-controller="Members" asp-action="Add" novalidate>
+			<div class="form-group">
+				<input type="hidden" asp-for="Password" />
+				@* hidden password default *@
+
+				@* img *@
+
+				@* first name *@
+
+				@* last name *@
+
+				@* email *@
+
+				@* phone *@
+
+				@* titel *@
+
+				@* address (parts seperated) *@
+
+				@* date of birth (3 fields, validate for valid date) *@
+
+				<button type="submit" class="btn blue">Add Member</button>
+			</div>
+		</form>
+	</div>
+</div>

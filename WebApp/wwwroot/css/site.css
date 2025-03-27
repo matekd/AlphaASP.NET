@@ -74,6 +74,7 @@
     --image-box-bg: var(--white-100);
     --darkmode-switch: var(--gray-300);
     --darkmode-circle: var(--white-100);
+    --member-title: var(--white-400);
 }
 
 [data-theme="dark"] {
@@ -94,6 +95,7 @@
     --image-box-bg: var(--dark-700);
     --darkmode-switch: var(--dark-300);
     --darkmode-circle: var(--gray-100);
+    --member-title: var(--dark-100);
 }
 
 /* Base */
@@ -265,15 +267,13 @@ a:hover, a:focus {
     &.settings, &.notifications {
         width: 40px;
         height: 40px;
-        padding: auto;
         border: none;
-        background-color: var(--gray-400);
+        background-color: var(--border-color);
         &::before {
             font-family: var(--font-fa-pro);
             font-weight: var(--font-bold);
             color: var(--heading-color);
         }
-
     }
     &.settings::before {
         content: '\f013';
@@ -297,6 +297,27 @@ a:hover, a:focus {
     content: '\f00d';
     font-family: var(--font-fa-pro);
     font-size: 2em;
+    font-weight: var(--font-bold);
+    font-size: 1rem;
+}
+.edit-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 12px;
+    border: none;
+    background-color: transparent;
+    &::before {
+        content: '\f141';
+        font-family: var(--font-fa-pro);
+        color: var(--text-light);
+    }
+    &:hover, &:focus {
+        background-color: var(--input-border-color);
+    }
 }
 
 form .form-group {
@@ -314,6 +335,12 @@ form .date-group {
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
 }
+form .name-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
 form label {
     font-weight: var(--font-semibold);
     color: var(--heading-color);
@@ -572,10 +599,6 @@ hr {
     }
 }
 
-.container {
-    /* or make .main-content */
-}
-
 #addProjectModal .modal-content, 
 #editProjectModal .modal-content {
     width: 550px;
@@ -654,6 +677,158 @@ hr {
     background-color: var(--darkmode-circle);
     border-radius: 50%;
 }
+.member-list, .project-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+.member-card, .project-card {
+    position: relative;
+}
+.member-card {
+    display: flex;
+    flex-direction: column;
+    /* grid-template-columns: auto; */
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 460px;
+    
+    img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: red;
+        display: block;
+    }
+    .job-title {
+        background-color: var(--member-title);
+        border-radius: .5rem;
+        padding: 7px 12px;
+        font-size: .75rem;
+        color: var(--heading-color);
+    }
+    .btn.gray {
+        display: block;
+    }
+}
+#projectOptionsModal {
+    background-color: transparent;
+    .modal-content {
+        display: grid;
+        position: absolute;
+        top: 0;
+        left: 0;
+        gap: .5rem;
+        min-width: 230px;
+        padding: .5rem;
+        background-color: var(--surface-color);
+        border-radius: 14px;
+        box-shadow: var(--box-shadow);
+        hr {
+            border-bottom: 1px solid var(--input-border-color);
+        }
+        button, a {
+            border: none;
+            background-color: transparent;
+            width: 100%;
+            font-family: var(--font-standard);
+            font-size: var(--font-regular);
+            color: var(--heading-color);
+            justify-content: left;
+        }
+        button:hover, button:focus, a:hover, a:focus {
+            background-color: var(--gray-btn-color);
+        }
+        .modal-edit::before {
+            content: '\f044';
+            font-family: var(--font-fa-pro);
+            font-weight: var(--font-bold);
+        }
+        .add-member::before {
+            content: '\f234';
+            font-family: var(--font-fa-pro);
+            font-weight: var(--font-bold);
+        }
+        .delete-project {
+            color: var(--red);
+        }
+        .delete-project::before {
+            content: '\f1f8';
+            font-family: var(--font-fa-pro);
+            font-weight: var(--font-bold);
+        }
+    }
+}
+.project-card {
+    width: 350px;
+    min-height: 276px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    .card-header {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-areas: 
+            "p-image p-name"
+            "p-image p-client";
+        align-items: center;
+        column-gap: 1rem;
+        img {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            overflow: hidden;
+            grid-area: p-image;
+            background-color: red;
+        }
+    }
+    .project-name {
+        grid-area: p-name;
+        color: var(--heading-color);
+    }
+    .project-client {
+        grid-area: p-client;
+        color: var(--text-light);
+    }
+    .card-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .deadline {
+            background-color: var(--member-title);
+            border-radius: 10px;
+            color: var(--heading-color);
+            padding: 7px 10px;
+        }
+        .deadline::before {
+            content: '\f017';
+            font-family: var(--font-fa-pro);
+            padding-right: .5rem;
+        }
+        .deadline.soon {
+            color: var(--dark-red);
+            background-color: var(--red-opacity);
+        }
+        .member-group {
+            display: flex;
+            gap: .25rem;
+            /* justify-content: center; */
+            /* align-items: center; */
+        }
+        .member-group img {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: red;
+        }
+    }
+}
 
 /* Forms */
 .auth-from {
@@ -705,6 +880,7 @@ hr {
     align-items: center;
     background-color: var(--modal-background-opacity);
     position: fixed;
+    z-index: 1;
     top: 0;
     right: 0;
     bottom: 0;

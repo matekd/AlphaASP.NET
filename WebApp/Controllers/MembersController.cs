@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Business.Interfaces;
+using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,12 +7,16 @@ namespace WebApp.Controllers;
 
 [Authorize]
 [Route("members")]
-public class MembersController : Controller
+public class MembersController(IUserService userService) : Controller
 {
+    private readonly IUserService _userService = userService;
+
     [Route("")]
-    public IActionResult Members()
+    public async Task<IActionResult> Members()
     {
-        return View();
+        var members = await _userService.GetAllUsersAsync();
+
+        return View(members);
     }
 
     [Route("Add")]

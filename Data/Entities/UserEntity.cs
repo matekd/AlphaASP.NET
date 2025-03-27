@@ -13,5 +13,7 @@ public class UserEntity : IdentityUser
     [ProtectedPersonalData]
     public string? JobTitle { get; set; }
 
+    public DateOnly? BirthDate { get; set; }
+
     public virtual UserAddressEntity? Address { get; set; }
 }

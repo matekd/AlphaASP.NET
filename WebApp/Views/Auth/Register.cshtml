@@ -19,15 +19,17 @@
     <span class="submit-error"></span>
 
     <div class="form-group">
-        <div class="input-group">
-            <label asp-for="FirstName"></label>
-            <input class="input" asp-for="FirstName">
-            <span asp-validation-for="FirstName"></span>
-        </div>
-        <div class="input-group">
-            <label asp-for="LastName"></label>
-            <input class="input" asp-for="LastName">
-            <span asp-validation-for="LastName"></span>
+        <div class="name-group">
+            <div class="input-group">
+                <label asp-for="FirstName"></label>
+                <input class="input" asp-for="FirstName">
+                <span asp-validation-for="FirstName"></span>
+            </div>
+            <div class="input-group">
+                <label asp-for="LastName"></label>
+                <input class="input" asp-for="LastName">
+                <span asp-validation-for="LastName"></span>
+            </div>
         </div>
         <div class="input-group">
             <label asp-for="Email"></label>

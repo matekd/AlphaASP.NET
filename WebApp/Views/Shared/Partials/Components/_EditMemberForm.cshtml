@@ -1,0 +1,33 @@
+﻿@model EditMemberModel
+
+<div id="editMemberModal" class="modal">
+	<div class="modal-content surface">
+		<div class="modal-header">
+			<h3>Edit Member</h3>
+			<button type="button" class="btn-close" data-close="true"></button>
+		</div>
+
+		<form method="post" asp-controller="Members" asp-action="Edit" novalidate>
+			<div class="form-group">
+
+				@* img *@
+
+				@* first name *@
+
+				@* last name *@
+
+				@* email *@
+
+				@* phone *@
+
+				@* titel *@
+
+				@* address (parts seperated) *@
+
+				@* date of birth (3 fields, validate for valid date) *@
+
+				<button type="submit" class="btn blue">Save</button>
+			</div>
+		</form>
+	</div>
+</div>

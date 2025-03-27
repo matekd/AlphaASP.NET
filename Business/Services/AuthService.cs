@@ -18,7 +18,7 @@ public class AuthService(SignInManager<UserEntity> signInManager, UserManager<Us
 
     public async Task<bool> SignUpAsync(RegisterModel model)
     {
-        UserEntity entity = new UserEntity
+        UserEntity entity = new()
         {
             UserName = model.Email,
             Email = model.Email,
@@ -37,7 +37,8 @@ public class AuthService(SignInManager<UserEntity> signInManager, UserManager<Us
 
     public async Task<bool> UserExists(string email)
     {
-        //var result = await _userManager
-        return false;
+        var result = await _userManager.FindByEmailAsync(email);
+
+        return result != null;
     }
 }

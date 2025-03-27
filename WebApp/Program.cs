@@ -1,3 +1,4 @@
+using Business.Factories;
 using Business.Interfaces;
 using Business.Services;
 using Data.Contexts;
@@ -11,6 +12,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("alpha")));
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddScoped<UserManager<UserEntity>>();
 
 builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>

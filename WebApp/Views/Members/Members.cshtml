@@ -1,4 +1,4 @@
-﻿@* list of members *@
+﻿@model IEnumerable<User>
 
 @{
     ViewData["Title"] = "Members";
@@ -7,8 +7,20 @@
 
 <div class="main-header">
     <h2>@ViewData["Title"]</h2>
+    <button class="btn blue add" data-modal="true" data-target="#addMemberModal">Add Member</button>
 </div>
 
-<div class="members">
-
+<div class="member-list">
+    @foreach(var member in Model)
+    {
+        @await Html.PartialAsync("Partials/Components/_User", member)
+    }
+    @foreach (var member in Model)
+    {
+        @await Html.PartialAsync("Partials/Components/_User", member)
+    }
+    @foreach (var member in Model)
+    {
+        @await Html.PartialAsync("Partials/Components/_User", member)
+    }
 </div>
