@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models;
 
-public class UserAddress
+public class MemberAddress
 {
     public string? StreetName { get; set; }
     public string? PostalCode { get; set; }

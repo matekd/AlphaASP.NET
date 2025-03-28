@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models;
 
-public class User
+public class Member
 {
     public string? Id { get; set; }
     public string? FirstName { get; set; }
@@ -10,5 +10,5 @@ public class User
     public string? PhoneNumber {  get; set; }
     public DateOnly? BirthDate { get; set; }
     //public File ProfileImage 
-    public UserAddress? Address { get; set; } = new();
+    public MemberAddress? Address { get; set; } = new();
 }

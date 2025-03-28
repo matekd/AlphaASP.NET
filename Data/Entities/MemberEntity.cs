@@ -2,7 +2,7 @@
 
 namespace Data.Entities;
 
-public class UserEntity : IdentityUser
+public class MemberEntity : IdentityUser
 {
     [ProtectedPersonalData]
     public string? FirstName { get; set; }
@@ -15,5 +15,5 @@ public class UserEntity : IdentityUser
 
     public DateOnly? BirthDate { get; set; }
 
-    public virtual UserAddressEntity? Address { get; set; }
+    public virtual MemberAddressEntity? Address { get; set; }
 }

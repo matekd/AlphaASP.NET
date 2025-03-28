@@ -3,11 +3,11 @@ using Domain.Models;
 
 namespace Business.Factories;
 
-public static class UserFactory
+public static class MemberFactory
 {
-    public static User Create(UserEntity entity)
+    public static Member Create(MemberEntity entity)
     {
-        var user = new User
+        var member = new Member
         {
             Id = entity.Id,
             FirstName = entity.FirstName,
@@ -18,10 +18,10 @@ public static class UserFactory
             BirthDate = entity.BirthDate,
             Address = AddressFactory.Create(entity.Address!),
         };
-        return user;
+        return member;
     }
 
-    public static EditMemberModel Create(User user)
+    public static EditMemberModel Create(Member member)
     {
         var model = new EditMemberModel
         {

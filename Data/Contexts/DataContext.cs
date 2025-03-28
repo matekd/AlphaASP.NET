@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Contexts;
 
-public class DataContext(DbContextOptions<DataContext> options) : IdentityDbContext<UserEntity>(options)
+public class DataContext(DbContextOptions<DataContext> options) : IdentityDbContext<MemberEntity>(options)
 {
-    public virtual DbSet<UserAddressEntity> UserAddresses { get; set; }
+    public virtual DbSet<MemberAddressEntity> MemberAddresses { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<User>
+﻿@model IEnumerable<Member>
 
 @{
     ViewData["Title"] = "Members";
@@ -13,14 +13,14 @@
 <div class="member-list">
     @foreach(var member in Model)
     {
-        @await Html.PartialAsync("Partials/Components/_User", member)
+        @await Html.PartialAsync("Partials/Components/_Member", member)
     }
     @foreach (var member in Model)
     {
-        @await Html.PartialAsync("Partials/Components/_User", member)
+        @await Html.PartialAsync("Partials/Components/_Member", member)
     }
     @foreach (var member in Model)
     {
-        @await Html.PartialAsync("Partials/Components/_User", member)
+        @await Html.PartialAsync("Partials/Components/_Member", member)
     }
 </div>

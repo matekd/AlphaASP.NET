@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 namespace Business.Services;
 
-public class UserService(UserManager<UserEntity> userManager) : IUserService
+public class MemberService(UserManager<MemberEntity> userManager) : IMemberService
 {
-    private readonly UserManager<UserEntity> _userManager = userManager;
+    private readonly UserManager<MemberEntity> _userManager = userManager;
 
     public async Task<bool> SignUpAsync(AddMemberModel model)
     {
-        UserEntity entity = new()
+        MemberEntity entity = new()
         {
             UserName = model.Email,
             Email = model.Email,
@@ -24,13 +24,13 @@ public class UserService(UserManager<UserEntity> userManager) : IUserService
         return result.Succeeded;
     }
 
-    public async Task<IEnumerable<User>> GetAllUsersAsync()
+    public async Task<IEnumerable<Member>> GetAllUsersAsync()
     {
         var entities = await _userManager.Users.ToListAsync();
         if (entities.Count == 0)
             return [];
 
-        var users = entities.Select(UserFactory.Create);
-        return users;
+        var members = entities.Select(MemberFactory.Create);
+        return members;
     }
 }

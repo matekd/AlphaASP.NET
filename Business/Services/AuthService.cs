@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Business.Services;
 
-public class AuthService(SignInManager<UserEntity> signInManager, UserManager<UserEntity> userManager) : IAuthService
+public class AuthService(SignInManager<MemberEntity> signInManager, UserManager<MemberEntity> userManager) : IAuthService
 {
-    private readonly SignInManager<UserEntity> _signInManager = signInManager;
-    private readonly UserManager<UserEntity> _userManager = userManager;
+    private readonly SignInManager<MemberEntity> _signInManager = signInManager;
+    private readonly UserManager<MemberEntity> _userManager = userManager;
 
     public async Task<bool> LoginAsync(LoginModel model)
     {
@@ -18,7 +18,7 @@ public class AuthService(SignInManager<UserEntity> signInManager, UserManager<Us
 
     public async Task<bool> SignUpAsync(RegisterModel model)
     {
-        UserEntity entity = new()
+        MemberEntity entity = new()
         {
             UserName = model.Email,
             Email = model.Email,

@@ -4,11 +4,11 @@ namespace Domain.Models;
 
 public class RegisterModel
 {
-    [Display(Name = "First name", Prompt = "Your first name")]
+    [Display(Name = "First Name", Prompt = "Your first name")]
     [Required(ErrorMessage = "First name is required")]
     public string FirstName { get; set; } = null!;
 
-    [Display(Name = "Last name", Prompt = "Your last name")]
+    [Display(Name = "Last Name", Prompt = "Your last name")]
     [Required(ErrorMessage = "Last name is required")]
     public string LastName { get; set; } = null!;
 

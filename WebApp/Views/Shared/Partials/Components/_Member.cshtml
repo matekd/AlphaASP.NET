@@ -1,6 +1,6 @@
-﻿@model User
+﻿@model Member
 
-@await Html.PartialAsync("Partials/Components/_EditMemberForm", UserFactory.Create(Model))
+@await Html.PartialAsync("Partials/Components/_EditMemberForm", MemberFactory.Create(Model))
 
 <div class="member-card surface">
 	<button class="edit-btn" data-modal="true" data-target="#editMemberModal">

@@ -5,12 +5,12 @@ namespace Business.Factories;
 
 public static class AddressFactory
 {
-    public static UserAddress? Create(UserAddressEntity entity)
+    public static MemberAddress? Create(MemberAddressEntity entity)
     {
         if (entity == null)
             return null;
 
-        var address = new UserAddress
+        var address = new MemberAddress
         {
             StreetName = entity.StreetName,
             PostalCode = entity.PostalCode,

@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities;
 
-public class UserAddressEntity
+public class MemberAddressEntity
 {
-    [Key, ForeignKey("User")]
-    public string UserId { get; set; } = null!;
+    [Key, ForeignKey("Member")]
+    public string MemberId { get; set; } = null!;
     public string StreetName { get; set; } = null!;
     public string PostalCode { get; set; } = null!;
     public string City { get; set; } = null!;
 
-    public UserEntity User { get; set; } = null!;
+    public MemberEntity Member { get; set; } = null!;
 }
