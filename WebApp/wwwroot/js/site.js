@@ -128,10 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // dark mode
     // expand on later
-    var btn = document.querySelector('#darkmode')
-    btn.addEventListener('click', () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-    })
+    const btn = document.querySelector('#darkmode')
+    if (btn)
+        btn.addEventListener('click', () => {
+            document.documentElement.setAttribute('data-theme', 'dark')
+        })
 })
 
 function clearErrorMessages(form) {

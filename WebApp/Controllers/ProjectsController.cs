@@ -7,7 +7,7 @@ namespace WebApp.Controllers;
 //[Authorize]
 public class ProjectsController : Controller
 {
-    // Default routing
+    //Default routing
     public IActionResult Index()
     {
         return RedirectToAction("Projects");
@@ -58,6 +58,13 @@ public class ProjectsController : Controller
 
         // Send data to service
 
+        return RedirectToAction("Projects", "Projects");
+    }
+
+    [Route("Delete")]
+    [HttpDelete]
+    public IActionResult Delete()
+    {
         return RedirectToAction("Projects", "Projects");
     }
 }

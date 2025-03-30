@@ -1,0 +1,22 @@
+﻿@model Project
+
+@* @await Html.PartialAsync("Partials/Components/_EditMemberForm", UserFactory.Create(Model)) *@
+
+@await Html.PartialAsync("Partials/Components/_projectOptionsModal")
+
+<div class="project-card surface">
+	<button class="edit-btn" data-modal="true" data-target="#projectOptionsModal"></button>
+	<div class="card-header">
+		<img src="" alt="project image"/>
+		<h6 class="project-name">My project</h6>
+		<span class="project-client">My client</span>
+	</div>
+	<p class="card-description">My description</p>
+	<div class="card-footer">
+		<span class="deadline soon">soon&trade;</span>
+		<div class="member-group">
+			<img src="" alt="member profile image" />
+			<img src="" alt="member profile image" />
+		</div>
+	</div>
+</div>

@@ -1,4 +1,5 @@
-﻿@model AddMemberModel
+﻿@* @model AddMemberModel *@
+@model AddMemberModel
 
 <div id="addMemberModal" class="modal">
 	<div class="modal-content surface">
@@ -9,7 +10,6 @@
 
 		<form method="post" asp-controller="Members" asp-action="Add" novalidate>
 			<div class="form-group">
-				<input type="hidden" asp-for="Password" />
 				@* hidden password default *@
 
 				@* img *@

@@ -1,4 +1,3 @@
-using Business.Factories;
 using Business.Interfaces;
 using Business.Services;
 using Data.Contexts;
@@ -13,7 +12,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("alpha")));
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
-//builder.Services.AddScoped<UserManager<UserEntity>>();
 
 builder.Services.AddIdentity<MemberEntity, IdentityRole>(options =>
 {
@@ -26,11 +24,40 @@ builder.Services.AddIdentity<MemberEntity, IdentityRole>(options =>
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/Auth/Login";
+    options.LoginPath = "/auth/login";
     options.SlidingExpiration = true;
+    options.Cookie.HttpOnly = true;
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    string[] roleNames = { "Administrator", "User" };
+
+    foreach (var roleName in roleNames)
+    {
+        var roleExists = await roleManager.RoleExistsAsync(roleName);
+        if (!roleExists)
+        {
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
+    }
+
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<MemberEntity>>();
+    var user = new MemberEntity { UserName = "admin@domain.com", Email = "admin@domain.com" };
+
+    var memberExist = await userManager.Users.AnyAsync(x => x.Email == user.Email);
+    if (!memberExist)
+    {
+        var result = await userManager.CreateAsync(user, "BytMig123!");
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(user, "Administrator");
+        } 
+    }
+}
 
 app.UseHsts();
 app.UseHttpsRedirection();

@@ -19,7 +19,7 @@ public class MemberService(UserManager<MemberEntity> userManager) : IMemberServi
             FirstName = model.FirstName,
             LastName = model.LastName,
         };
-        var result = await _userManager.CreateAsync(entity, model.Password);
+        var result = await _userManager.CreateAsync(entity, "BytMig123!");
 
         return result.Succeeded;
     }

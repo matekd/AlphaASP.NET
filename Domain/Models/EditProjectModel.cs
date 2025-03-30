@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models;
 
-public class AddProjectModel
+public class EditProjectModel
 {
+    public int Id { get; set; }
+
     [DataType(DataType.Upload)]
     public IFormFile? ProjectImage { get; set; }
 
@@ -20,9 +22,6 @@ public class AddProjectModel
     [DataType(DataType.MultilineText)]
     public string? Description { get; set; }
 
-    [Display(Name = "Status", Prompt = "Select status")]
-    public ICollection<string>? Status { get; set; }
-
     [Display(Name = "Start Date")]
     [Required(ErrorMessage = "Start date is required")]
     [DataType(DataType.Date)]
@@ -33,8 +32,8 @@ public class AddProjectModel
     [DataType(DataType.Date)]
     public DateOnly EndDate { get; set; }
 
-    [Display(Name = "Members", Prompt = "Select member")]
-    public ICollection<string>? Members { get; set; }
+    [Display(Name = "Members", Prompt = "Enter title")]
+    public ICollection<int>? Members { get; set; }
 
     [Display(Name = "Budget", Prompt = "0")]
     [Required(ErrorMessage = "Budget is required")]
