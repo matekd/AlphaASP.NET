@@ -5,6 +5,8 @@
 }
 @await Html.PartialAsync("Partials/Components/_AddProjectForm", new AddProjectModel())
 
+@await Html.PartialAsync("Partials/Components/_EditProjectForm", new EditProjectModel())
+
 <div class="main-header">
     <h2>@ViewData["Title"]</h2>
     <button class="btn blue add" data-modal="true" data-target="#addProjectModal">Add Project</button>
@@ -18,5 +20,6 @@
 </div>
 
 <div class="project-list">
+    @await Html.PartialAsync("Partials/Components/_Project", new Project())
     @await Html.PartialAsync("Partials/Components/_Project", new Project())
 </div>
