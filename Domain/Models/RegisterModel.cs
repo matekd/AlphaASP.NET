@@ -12,13 +12,13 @@ public class RegisterModel
     [Required(ErrorMessage = "Last name is required")]
     public string LastName { get; set; } = null!;
 
-    //[RegularExpression("")]
+    [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Invalid email")]
     [Display(Name = "Email", Prompt = "Your email address")]
     [Required(ErrorMessage = "Email is required")]
     [DataType(DataType.EmailAddress)]
     public string Email { get; set; } = null!;
 
-    //[RegularExpression("")]
+    [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\d)(?=.*?[#?!@$;%^&*-]).{8,}$", ErrorMessage = "Must be a strong password")]
     [Display(Name = "Password", Prompt = "Enter your password")]
     [Required(ErrorMessage = "Password is required")]
     [DataType(DataType.Password)]

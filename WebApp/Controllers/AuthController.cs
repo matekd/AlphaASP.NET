@@ -29,8 +29,8 @@ public class AuthController(IAuthService authService) : Controller
                     kvp => kvp.Key,
                     kvp => kvp.Value?.Errors.Select(x => x.ErrorMessage).ToArray()
                 );
-
-            return BadRequest(new { success = false, errors });
+            //return BadRequest(new { success = false, errors });
+            return View(model);
         }
 
         var result = await _authService.LoginAsync(model);
@@ -39,8 +39,9 @@ public class AuthController(IAuthService authService) : Controller
             ViewBag.ReturnUrl = returnUrl;
             return LocalRedirect(returnUrl);
         }
-
-        return BadRequest(new { success = false, submitError = "Email or password is incorrect" });
+        //return BadRequest(new { success = false, submitError = "Email or password is incorrect" });
+        ViewBag.ErrorMessage = "Email or password is incorrect";
+        return View(model);
     }
 
     [Route("register")]
@@ -62,16 +63,18 @@ public class AuthController(IAuthService authService) : Controller
                     kvp => kvp.Value?.Errors.Select(x => x.ErrorMessage).ToArray()
                 );
 
-            return BadRequest(new { success = false, errors });
+            return View(model);
         }
         
         var result = await _authService.SignUpAsync(model);
         if (result)
             return LocalRedirect("~/");
 
-        return BadRequest(new { success = false, submitError = "Failed to register" });
+        ViewBag.ErrorMessage = "Failed to register";
+        return View(model);
     }
 
+    [Route("logout")]
     [Authorize]
     public async Task<IActionResult> Logout()
     {

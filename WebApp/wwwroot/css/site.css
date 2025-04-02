@@ -14,7 +14,7 @@
     --font-bold: 700;
     --font-extrabold: 800;
     --font-black: 900;
-    --text-size: 16px;
+    --text-size: 1rem;
 
     --size-tablet: 768px;
     --size-desktop: 1400px;
@@ -219,7 +219,6 @@ a:hover, a:focus {
 
 .surface {
     border-radius: 16px;
-    padding: 2rem;
     background-color: var(--surface-color);
     box-shadow: var(--box-shadow);
 }
@@ -348,7 +347,6 @@ form .name-group {
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
-
 form label {
     font-weight: var(--font-semibold);
     color: var(--heading-color);
@@ -361,9 +359,10 @@ form .field-validation-error {
     width: fit-content;
     padding: .25rem .5rem;
     border-radius: 10px;
-    margin-top: .5rem;
+    margin-top: .25rem;
     color: var(--error-text);
     font-weight: var(--font-regular);
+    font-size: .75rem;
     background-color: var(--red-opacity);
     &::before {
         content: '*';
@@ -378,6 +377,7 @@ form .field-validation-error {
     padding: 14px;
     width: 100%;
     background-color: var(--surface-color);
+    color: var(--text-color);
 }
 input[type="password"] {
     /* add eye, maybe absolute img + js for toggle */
@@ -660,9 +660,7 @@ hr {
         min-width: 300px;
         width: fit-content;
         padding: .5rem;
-        background-color: var(--surface-color);
         border-radius: 14px;
-        box-shadow: var(--box-shadow);
         hr {
             border-bottom: 1px solid var(--input-border-color);
         }
@@ -700,9 +698,9 @@ hr {
 .member-card {
     display: flex;
     flex-direction: column;
-    /* grid-template-columns: auto; */
     justify-content: space-between;
     align-items: center;
+    padding: 1.5rem;
     width: 300px;
     height: 460px;
     
@@ -849,9 +847,9 @@ hr {
 }
 
 /* Forms */
-.auth-from {
+.auth-form {
     width: 600px;
-    padding: 100px 100px 0px 100px;
+    padding: 100px 100px 32px 100px;
     > h1, > p {
         text-align: center;
     }
@@ -905,6 +903,7 @@ hr {
     left: 0;
 }
 .modal .modal-content {
+    padding: 2rem;
 }
 .modal .modal-content .modal-header {
     display: flex;

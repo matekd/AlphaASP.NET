@@ -27,7 +27,7 @@
 				</div>
 				<div class="input-group">
 					<label asp-for="Description"></label>
-					<textarea class="input" rows="4" asp-for="Description"></textarea>
+					<textarea class="input" rows="3" asp-for="Description"></textarea>
 				</div>
 				<div class="date-group">
 					<div class="input-group">
@@ -60,3 +60,5 @@
 		</form>
 	</div>
 </div>
+
+@await Html.PartialAsync("_ValidationScript")

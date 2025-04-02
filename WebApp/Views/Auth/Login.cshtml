@@ -4,7 +4,7 @@
     ViewData["Title"] = "Login";
 }
 
-<form method="post" class="auth-from" asp-controller="Auth" asp-action="Login" novalidate>
+<form method="post" class="auth-form" asp-controller="Auth" asp-action="Login" novalidate>
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl"/>
 
     <h1>Login</h1>
@@ -18,7 +18,10 @@
         <span>OR</span>
     </div>
 
-    <span class="submit-error"></span>
+    @if(ViewBag.ErrorMessage != null)
+    {
+        <span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
+    }
 
     <div class="form-group">
         <div class="input-group">

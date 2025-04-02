@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers;
 
+[Route("members")]
 [Authorize]
 public class MembersController(IMemberService memberService) : Controller
 {
     private readonly IMemberService _memberService = memberService;
 
-    [Route("members")]
+    [Route("")]
     public async Task<IActionResult> Members()
     {
         var members = await _memberService.GetAllUsersAsync();

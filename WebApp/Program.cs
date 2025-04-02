@@ -25,6 +25,7 @@ builder.Services.AddIdentity<MemberEntity, IdentityRole>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/auth/login";
+    options.LogoutPath = "/auth/logout";
     options.SlidingExpiration = true;
     options.Cookie.HttpOnly = true;
 });

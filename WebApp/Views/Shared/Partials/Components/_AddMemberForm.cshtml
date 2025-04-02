@@ -8,10 +8,8 @@
 			<button type="button" class="btn-close" data-close="true"></button>
 		</div>
 
-		<form method="post" asp-controller="Members" asp-action="Add" novalidate>
+		<form method="post" asp-controller="Members" asp-action="Add" enctype="multipart/form-data" novalidate>
 			<div class="form-group">
-				@* hidden password default *@
-
 				@* img *@
 
 				@* first name *@
@@ -22,7 +20,7 @@
 
 				@* phone *@
 
-				@* titel *@
+				@* title *@
 
 				@* address (parts seperated) *@
 
@@ -33,3 +31,5 @@
 		</form>
 	</div>
 </div>
+
+@await Html.PartialAsync("_ValidationScript")

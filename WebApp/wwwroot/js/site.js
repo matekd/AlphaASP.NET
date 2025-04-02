@@ -64,8 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.image-previewer').forEach(previewer => {
         const fileInput = previewer.querySelector('input[type=file]')
         const imagePreview = previewer.querySelector('.image-preview')
-
-        //using label
+        //using label instead
         //previewer.addEventListener('click', () => fileInput.click())
 
         fileInput.addEventListener('change', ({ target: { files } }) => {
@@ -78,68 +77,58 @@ document.addEventListener('DOMContentLoaded', () => {
     // handle form submit
     const forms = document.querySelectorAll('form')
     forms.forEach(form => {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault()
+        // Authenitaction forms return a view instead of request, this is needed for returnUrl and redirections to work
+        if (form.getAttribute('class') !== 'auth-form') {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault()
+                clearErrorMessages(form)
+                const formData = new FormData(form)
+                
+                try {
+                    const res = await fetch(form.action, {
+                        method: 'post',
+                        body: formData,
+                    })
 
-            clearErrorMessages(form)
+                    if (res.ok) {
+                        const modal = form.closest('.modal')
+                        if (modal)
+                            modal.style.display = "none";
 
-            const formData = new FormData(form)
-
-            try {
-                //Method not allowed without credentials
-                const res = await fetch(form.action, {
-                    method: 'post',
-                    body: formData,
-                    credentials: 'include'
-                })
-
-                if (res.ok) {
-                    const modal = form.closest('.modal')
-                    if (modal)
-                        modal.style.display = "none";
-
-                    window.location.reload();
-                }
-                else if (res.status === 400) {
-                    const data = await res.json()
-                    if (data.errors) {
-                        Object.keys(data.errors).forEach(key => {
-                            const input = form.querySelector(`[name="${key}"]`)
-                            if (input) {
-                                input.classList.add('input-validation-error')
-                            }
-                            
-                            const span = form.querySelector(`[data-valmsg-for="${key}"]`)
-                            if (span) {
-                                span.innerText = data.errors[key].join('\n')
-                                span.classList.add('field-validation-error')
-                                span.classList.remove('field-validation-valid')
-                            }
-                        })
+                        window.location.reload();
                     }
-                    if (data.submitError) {
-                        const span = form.querySelector('.submit-error')
-                        if (span) {
-                            span.innerText = data.submitError
-                            span.classList.add('field-validation-error')
+                    else if (res.status === 400) {
+                        const data = await res.json()
+                        if (data.errors) {
+                            Object.keys(data.errors).forEach(key => {
+                                const input = form.querySelector(`[name="${key}"]`)
+                                if (input) {
+                                    input.classList.add('input-validation-error')
+                                }
+
+                                const span = form.querySelector(`[data-valmsg-for="${key}"]`)
+                                if (span) {
+                                    span.innerText = data.errors[key].join('\n')
+                                    span.classList.add('field-validation-error')
+                                    span.classList.remove('field-validation-valid')
+                                }
+                            })
+                        }
+                        if (data.submitError) {
+                            const span = form.querySelector('.submit-error')
+                            if (span) {
+                                span.innerText = data.submitError
+                                span.classList.add('field-validation-error')
+                            }
                         }
                     }
                 }
-            }
-            catch {
-                console.log('error submitting the form')
-            }
-        })
-        form.addEventListener('change', async (e) => {
-            var id = e.target.id
-            if (id) {
-                const span = form.querySelector(`[data-valmsg-for="${id}"]`)
-                if (span) {
-                    span.innerText = ''
-                    span.classList.remove('field-validation-error')
-                    span.classList.add('field-validation-valid')
+                catch {
+                    console.log('error submitting the form')
                 }
-            }
+            })
+        }
+        form.addEventListener('change', () => {
             const span = form.querySelector('.submit-error')
             if (span) {
                 span.innerText = ''

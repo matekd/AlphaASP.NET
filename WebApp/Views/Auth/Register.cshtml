@@ -4,7 +4,7 @@
 	ViewData["Title"] = "Register";
 }
 
-<form method="post" class="auth-from" asp-controller="Auth" asp-action="Register" novalidate>
+<form method="post" class="auth-form" asp-controller="Auth" asp-action="Register" novalidate>
     <h1>Create Account</h1>
 
     <button class="btn gray third-party">
@@ -16,7 +16,10 @@
         <span>OR</span>
     </div>
 
-    <span class="submit-error"></span>
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
+    }
 
     <div class="form-group">
         <div class="name-group">
@@ -55,8 +58,9 @@
         <span class="terms" asp-validation-for="Terms"></span>
     </div>
 
-
     <button type="submit" class="btn blue">Create Account</button>
 
     <p>Already have an account? <a asp-action="Login" asp-controller="Auth">Login</a></p>
 </form>
+
+@await Html.PartialAsync("_ValidationScript")
