@@ -28,6 +28,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LogoutPath = "/auth/logout";
     options.SlidingExpiration = true;
     options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
@@ -41,9 +42,7 @@ using (var scope = app.Services.CreateScope())
     {
         var roleExists = await roleManager.RoleExistsAsync(roleName);
         if (!roleExists)
-        {
             await roleManager.CreateAsync(new IdentityRole(roleName));
-        }
     }
 
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<MemberEntity>>();
@@ -54,15 +53,14 @@ using (var scope = app.Services.CreateScope())
     {
         var result = await userManager.CreateAsync(user, "BytMig123!");
         if (result.Succeeded)
-        {
             await userManager.AddToRoleAsync(user, "Administrator");
-        } 
     }
 }
 
 app.UseHsts();
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapStaticAssets();
 app.MapControllerRoute(

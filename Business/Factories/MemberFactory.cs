@@ -14,8 +14,9 @@ public static class MemberFactory
             LastName = entity.LastName,
             Email = entity.Email,
             PhoneNumber = entity.PhoneNumber,
-            JobTitle = entity.JobTitle,
+            JobTitle = entity.JobTitle!.Title,
             BirthDate = entity.BirthDate,
+            // create in service, send ready address
             Address = AddressFactory.Create(entity.Address!),
         };
         return member;

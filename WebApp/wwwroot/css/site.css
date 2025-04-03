@@ -607,9 +607,11 @@ hr {
     }
 }
 
-#addProjectModal .modal-content, 
-#editProjectModal .modal-content {
-    width: 550px;
+#addProjectModal > .modal-content, 
+#editProjectModal > .modal-content,
+#addMemberModal > .modal-content, 
+#editMemberModal > .modal-content {
+    min-width: 550px;
 }
 
 #addProjectModal, #editProjectModal {
