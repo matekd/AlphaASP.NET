@@ -1,5 +1,12 @@
-﻿@* @model AddMemberModel *@
-@model AddMemberModel
+﻿@model AddMemberModel
+
+@* @inject  *@
+@{
+	var titles = new []
+	{
+		"Developer", "Manager", "CEO"
+	};
+}
 
 <div id="addMemberModal" class="modal">
 	<div class="modal-content surface">
@@ -10,18 +17,44 @@
 
 		<form method="post" asp-controller="Members" asp-action="Add" enctype="multipart/form-data" novalidate>
 			<div class="form-group">
-				@* img *@
-
-				@* first name *@
-
-				@* last name *@
-
-				@* email *@
-
-				@* phone *@
-
-				@* title *@
-
+				<div class="file-group">
+					<label class="image-previewer circle" asp-for="MemberImage">
+						<img src="" class="image-preview" />
+						<input asp-for="MemberImage" accept="image/*" />
+					</label>
+				</div>
+				<div class="input-group">
+					<label asp-for="FirstName"></label>
+					<input class="input" asp-for="FirstName" />
+					<span asp-validation-for="FirstName"></span>
+				</div>
+				<div class="input-group">
+					<label asp-for="LastName"></label>
+					<input class="input" asp-for="LastName" />
+					<span asp-validation-for="LastName"></span>
+				</div>
+				<div class="input-group">
+					<label asp-for="Email"></label>
+					<input class="input" asp-for="Email">
+					<span asp-validation-for="Email"></span>
+				</div>
+				<div class="input-group">
+					<label asp-for="PhoneNumber"></label>
+					<input class="input" asp-for="PhoneNumber">
+					<span asp-validation-for="PhoneNumber"></span>
+				</div>
+				<div class="input-group">
+					<label asp-for="JobTitle"></label>
+					<select class="input" asp-for="JobTitle">
+						<option hidden value="">-- Select Title --</option>
+						@foreach(var title in titles)
+						{
+							@* title service? *@
+							<option value=@title>@title</option>
+						}
+					</select>
+					<span asp-validation-for="JobTitle"></span>
+				</div>
 				@* address (parts seperated) *@
 
 				@* date of birth (3 fields, validate for valid date) *@

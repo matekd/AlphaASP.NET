@@ -1,0 +1,21 @@
+﻿@model IEnumerable<JobTitle>
+@{
+    ViewData["Title"] = "Job Titles";
+}
+
+<div class="main-header">
+    <h2>@ViewData["Title"]</h2>
+    @await Html.PartialAsync("Partials/Components/_AddJobTitleForm", new AddJobTitleModel())
+</div>
+
+<div>
+    @if (Model != null)
+    foreach(var title in Model)
+    {
+        <div class="title-card">
+            <span>@title.Title</span>
+            <button>Edit</button> @* Partial, form *@
+            <button>Remove</button> @* form *@
+        </div>
+    }
+</div>

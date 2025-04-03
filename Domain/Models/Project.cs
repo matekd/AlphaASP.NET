@@ -4,6 +4,7 @@ namespace Domain.Models;
 
 public class Project
 {
+    public string? Id { get; set; }
     public IFormFile? ProjectImage { get; set; }
 
     public string ProjectName { get; set; } = null!;
@@ -12,13 +13,13 @@ public class Project
 
     public string? Description { get; set; }
 
-    public ICollection<string>? Status { get; set; }
 
     public DateOnly StartDate { get; set; }
 
     public DateOnly EndDate { get; set; }
-
-    public ICollection<string>? Members { get; set; }
+    public Status Status { get; set; } = null!;
+    public Client Client { get; set; } = null!;
+    public ICollection<Member>? Members { get; set; }
 
     public int Budget { get; set; }
 }

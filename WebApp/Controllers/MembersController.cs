@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApp.Controllers;
 
 [Route("members")]
-[Authorize]
+[Authorize(Roles = "Administrator")]
 public class MembersController(IMemberService memberService) : Controller
 {
     private readonly IMemberService _memberService = memberService;

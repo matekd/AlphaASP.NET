@@ -1,0 +1,11 @@
+﻿@model EditJobTitleModel
+
+<form method="post" asp-action="Add" asp-controller="Admin" novalidate>
+	<input type="hidden" asp-for="Id"/>
+	<div class="input-group">
+		<label asp-for="Title"></label>
+		<input asp-for="Title"/>
+		<span asp-validation-for="Title"></span>
+	</div>
+	<button type="submit">Add Job Title</button>
+</form>

@@ -1,7 +1,10 @@
+using Business.Factories;
 using Business.Interfaces;
 using Business.Services;
 using Data.Contexts;
 using Data.Entities;
+using Data.Interfaces;
+using Data.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,8 +13,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("alpha")));
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<IStatusService, StatusService>();
+
+builder.Services.AddScoped<IJobTitleRepository, JobTitleRepository>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 
 builder.Services.AddIdentity<MemberEntity, IdentityRole>(options =>
 {
@@ -54,6 +65,16 @@ using (var scope = app.Services.CreateScope())
         var result = await userManager.CreateAsync(user, "BytMig123!");
         if (result.Succeeded)
             await userManager.AddToRoleAsync(user, "Administrator");
+    }
+
+    var statusService = scope.ServiceProvider.GetRequiredService<IStatusService>();
+    string[] statuses = { "Started", "Completed" };
+
+    foreach (var status in statuses)
+    {
+        var statusExists = await statusService.ExistsAsync(status);
+        if (!statusExists.Success)
+            await statusService.CreateAsync(status);
     }
 }
 

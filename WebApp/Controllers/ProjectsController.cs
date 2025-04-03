@@ -13,9 +13,12 @@ public class ProjectsController : Controller
         return RedirectToAction("Projects");
     }
 
+    // "/projects?status=test"
     [Route("projects")]
-    public IActionResult Projects()
+    public IActionResult Projects(string? status)
     {
+        if (status != null)
+            Console.WriteLine(status);
         return View();
     }
 

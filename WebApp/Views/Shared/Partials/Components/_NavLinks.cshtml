@@ -3,8 +3,15 @@
         <i class="fa-solid fa-briefcase"></i>
         Projects
     </a>
-    <a class="nav-link @(Context.Request.Path == "/members" ? "active" : "")" asp-action="Members" asp-controller="Members">
-        <i class="fa-solid fa-users"></i>
-        Team Members
-    </a>
+    @if (User.IsInRole("Administrator"))
+    {
+        <a class="nav-link @(Context.Request.Path == "/members" ? "active" : "")" asp-action="Members" asp-controller="Members">
+            <i class="fa-solid fa-users"></i>
+            Team Members
+        </a>
+        <a class="nav-link @(Context.Request.Path == "/titles" ? "active" : "")" asp-action="JobTitles" asp-controller="Admin">
+            <i class="fa-solid fa-user-tie"></i>
+            Job Titles
+        </a>
+    }
 </nav>

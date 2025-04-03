@@ -1,7 +1,9 @@
 ﻿@* list of projects *@
+@* status service *@
 
 @{
-	ViewData["Title"] = "Projects";
+    ViewData["Title"] = "Projects";
+    List<Project> projects = [];
 }
 @await Html.PartialAsync("Partials/Components/_AddProjectForm", new AddProjectModel())
 
@@ -12,13 +14,23 @@
     <button class="btn blue add" data-modal="true" data-target="#addProjectModal">Add Project</button>
 </div>
 
-@* get all statuses, count, loop through *@
+@{
+    // Loop through all statuses                        foreach(var status in statuses)
+    // count the amount of projects with that status        var amount projects.Count(x => x.Status == status);
+    // add tab-link of status                               <a>amount</a>
+    // add all projects with that status                    var project = Model.Where(x => x.Status == status).ToList();
+    //                                                      foreach(var project in projects)
+    //                                                          @await Html.PartialAsync("Partials/Components/_Project", project)
+}
 <div class="navbar">
     <a href="" class="tab-link active">ALL [9]</a>
     <a href="" class="tab-link">STARTED [9]</a>
     <a href="" class="tab-link">COMPLETED [0]</a>
 </div>
-
+@foreach (var p in projects)
+{
+    
+}
 <div class="project-list">
     @await Html.PartialAsync("Partials/Components/_Project", new Project())
     @await Html.PartialAsync("Partials/Components/_Project", new Project())
