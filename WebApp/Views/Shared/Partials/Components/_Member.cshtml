@@ -3,12 +3,17 @@
 @await Html.PartialAsync("Partials/Components/_EditMemberForm", MemberFactory.Create(Model))
 
 <div class="member-card surface">
-	<button class="edit-btn" data-modal="true" data-target="#editMemberModal">
-	</button>
-	<img src="" alt="member image"/>
-	<h4>@Model.FirstName @Model.LastName</h4>
-	<span class="job-title">@(Model?.JobTitle != null ? Model.JobTitle : "TempTempTemp")</span>
+	<button class="edit-btn" data-modal="true" data-target="#editMemberModal"></button>
+
+	<img src="@(Model.ImageUrl != null ? Model.ImageUrl : "")" alt="member image" />
+
+	<h4>@(Model.FirstName != null ? Model.FirstName : Html.Raw("&nbsp;")) @(Model.LastName != null ? Model.LastName : Html.Raw("&nbsp;"))</h4>
+
+	<span class="job-title">@(Model.JobTitle != null ? Model.JobTitle : "No title")</span>
+
 	<span>@Model!.Email</span>
-	<span>@(Model?.PhoneNumber != null ? Model.PhoneNumber : "+12 345-67 89")</span>
+
+	<span>@(Model.PhoneNumber != null ? Model.PhoneNumber : "No phone number")</span>
+
 	<button class="btn gray" onclick="alert('Hi')">Message</button>
 </div>

@@ -13,6 +13,7 @@ public class MemberEntity : IdentityUser
 
     public DateOnly? BirthDate { get; set; }
 
+    public string? ImageUrl { get; set; }
 
     [ForeignKey(nameof(JobTitle))]
     public int? JobTitleId { get; set; }

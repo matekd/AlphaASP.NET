@@ -1,4 +1,12 @@
-﻿<section class="top">
+﻿@using Data.Entities
+@using Microsoft.AspNetCore.Identity
+@inject IJobTitleService _jobTitleService
+@inject UserManager<MemberEntity> _userManager
+
+@{
+    var user = await _userManager.GetUserAsync(User);
+}
+<section class="top">
     @await Html.PartialAsync("Partials/Components/_SettingsModal")
     <label class="search" for="search">
         <input type="text" class="search-input" id="search" placeholder="Search anything..." autocomplete="off">
@@ -9,6 +17,6 @@
     </div>
     <hr />
     <div class="profile">
-        <img src="" alt="profile picture" />
+        <img src="@(user?.ImageUrl != null ? user?.ImageUrl : "")" alt="profile picture" />
     </div>
 </section>

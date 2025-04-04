@@ -2,10 +2,8 @@
 
 @* @inject  *@
 @{
-	var titles = new []
-	{
-		"Developer", "Manager", "CEO"
-	};
+	var titles = new [] { "Developer", "Manager", "CEO" };
+	// titles = _jobTitleService.getAllAsync();
 }
 
 <div id="addMemberModal" class="modal">
@@ -44,16 +42,18 @@
 					<span asp-validation-for="PhoneNumber"></span>
 				</div>
 				<div class="input-group">
-					<label asp-for="JobTitle"></label>
-					<select class="input" asp-for="JobTitle">
+					<label asp-for="JobTitleId"></label>
+					<select class="input" asp-for="JobTitleId">
 						<option hidden value="">-- Select Title --</option>
 						@foreach(var title in titles)
 						{
 							@* title service? *@
-							<option value=@title>@title</option>
+							@* <option value=@title>@title</option> *@
+							<option value="1">Test</option>
+							@* <option value=@title.Id>@title</option> *@
 						}
 					</select>
-					<span asp-validation-for="JobTitle"></span>
+					<span asp-validation-for="JobTitleId"></span>
 				</div>
 				@* address (parts seperated) *@
 

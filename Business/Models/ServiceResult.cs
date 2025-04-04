@@ -17,3 +17,4 @@ public class MemberAddressResult : ServiceResult<MemberAddress> { }
 public class MemberResult : ServiceResult<Member> { }
 public class ProjectResult : ServiceResult<Project> { }
 public class StatusResult : ServiceResult<Status> { }
+public class RegisterResult : ServiceResult<string> { }

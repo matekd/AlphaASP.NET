@@ -76,6 +76,8 @@
     --darkmode-switch: var(--gray-300);
     --darkmode-circle: var(--white-100);
     --member-title: var(--white-400);
+    --img-background-color: var(--accent);
+    --img-missing-color: var(--dark-red);
 }
 
 [data-theme="dark"] {
@@ -482,7 +484,6 @@ hr {
     border: none;
 }
 
-
 /* Sections */
 .portal > .side {
     grid-area: side;
@@ -516,7 +517,10 @@ hr {
         height: 40px;
         border-radius: 50%;
         overflow: hidden;
-        background-color: red;
+        background-color: var(--img-background-color);
+    }
+    img[src=""] {
+        background-color: var(--img-missing-color);
     }
     hr {
         border-right: 1px solid var(--border-color);
@@ -639,7 +643,6 @@ hr {
             height: 40px;
             border-radius: 50%;
             overflow: hidden;
-            background-color: red;
         }
     }
     .settings-middle {
@@ -711,8 +714,11 @@ hr {
         height: 150px;
         border-radius: 50%;
         overflow: hidden;
-        background-color: red;
         display: block;
+        background-color: var(--img-background-color);
+    }
+    img[src=""] {
+        background-color: var(--img-missing-color);
     }
     .job-title {
         background-color: var(--member-title);
@@ -800,7 +806,10 @@ hr {
             border-radius: 14px;
             overflow: hidden;
             grid-area: p-image;
-            background-color: red;
+            background-color: var(--img-background-color);
+        }
+        img[src=""] {
+            background-color: var(--img-missing-color);
         }
     }
     .project-name {
@@ -843,7 +852,10 @@ hr {
             height: 30px;
             border-radius: 50%;
             overflow: hidden;
-            background-color: red;
+            background-color: var(--img-background-color);
+        }
+        img[src=""] {
+            background-color: var(--img-missing-color);
         }
     }
 }

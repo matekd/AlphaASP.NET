@@ -1,5 +1,6 @@
 ﻿using Business.Factories;
 using Business.Interfaces;
+using Business.Models;
 using Data.Entities;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
@@ -10,18 +11,18 @@ public class MemberService(UserManager<MemberEntity> userManager) : IMemberServi
 {
     private readonly UserManager<MemberEntity> _userManager = userManager;
 
-    public async Task<bool> SignUpAsync(AddMemberModel model)
+    public async Task<RegisterResult> SignUpAsync(AddMemberModel model, string ImageUrl = "")
     {
-        MemberEntity entity = new()
-        {
-            UserName = model.Email,
-            Email = model.Email,
-            FirstName = model.FirstName,
-            LastName = model.LastName,
-        };
+        //var result = await _userManager.CreateAsync(MemberFactory.Create(model, ImageUrl), "BytMig123!");
+        //return result.Succeeded;
+        var entity = MemberFactory.Create(model, ImageUrl);
         var result = await _userManager.CreateAsync(entity, "BytMig123!");
 
-        return result.Succeeded;
+        if (result.Succeeded) await _userManager.AddToRoleAsync(entity, "User");
+
+        return result.Succeeded
+            ? new RegisterResult { Success = result.Succeeded, StatusCode = 200, Entity = entity.Id }
+            : new RegisterResult { Success = result.Succeeded, StatusCode = 500, Error = "Failed to register." };
     }
 
     public async Task<IEnumerable<Member>> GetAllUsersAsync()

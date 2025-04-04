@@ -1,4 +1,3 @@
-using Business.Factories;
 using Business.Interfaces;
 using Business.Services;
 using Data.Contexts;
@@ -17,6 +16,7 @@ builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configura
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IStatusService, StatusService>();
+builder.Services.AddScoped<IJobTitleService, JobTitleService>();
 
 builder.Services.AddScoped<IJobTitleRepository, JobTitleRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
@@ -37,6 +37,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/auth/login";
     options.LogoutPath = "/auth/logout";
+    //options.AccessDeniedPath = "/admin/login";
     options.SlidingExpiration = true;
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;

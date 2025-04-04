@@ -367,3 +367,6 @@ Data/Migrations
 
 # App Settings
 /WebApp/appsettings.json
+
+# Member and Project images
+/WebApp/wwwroot/uploads

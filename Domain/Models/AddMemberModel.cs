@@ -27,9 +27,12 @@ public class AddMemberModel
     public string? PhoneNumber { get; set; }
 
     [Display(Name = "Job Title", Prompt = "Your job title")]
-    public string? JobTitle { get; set; }
+    [Required(ErrorMessage = "Member requires a title")]
+    public int JobTitleId { get; set; }
 
+    // is split
+    public MemberAddress? Address { get; set; }
 
-
+    // split into day, month, year? try to combine in service, send date or return submission error
     public DateOnly? BirthDate { get; set; }
 }

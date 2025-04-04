@@ -67,7 +67,7 @@ public class AuthController(IAuthService authService) : Controller
         }
         
         var result = await _authService.SignUpAsync(model);
-        if (result)
+        if (result.Success)
             return LocalRedirect("~/");
 
         ViewBag.ErrorMessage = "Failed to register";
