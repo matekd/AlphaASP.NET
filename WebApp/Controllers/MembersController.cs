@@ -1,7 +1,6 @@
 ﻿using Business.Interfaces;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers;
@@ -12,12 +11,15 @@ public class MembersController(IMemberService memberService, IWebHostEnvironment
 {
     private readonly IMemberService _memberService = memberService;
     private readonly IWebHostEnvironment _env = env;
+    public IEnumerable<Member> MemberList { get; set; } = [];
 
     [Route("")]
     public async Task<IActionResult> Members()
     {
-        var members = await _memberService.GetAllUsersAsync();
-        return View(members);
+        var res = await _memberService.GetAllUsersAsync();
+        if (res.Success && res.Results != null)
+            MemberList = res.Results;
+        return View(MemberList);
     }
 
     [Route("Add")]
@@ -32,12 +34,10 @@ public class MembersController(IMemberService memberService, IWebHostEnvironment
                     kvp => kvp.Key,
                     kvp => kvp.Value?.Errors.Select(x => x.ErrorMessage).ToArray()
                 );
-
             return BadRequest(new { success = false, errors });
         }
 
         var filePath = "";
-
         if (model.MemberImage != null && model.MemberImage.Length != 0)
         {
             var uploadFolder = Path.Combine(_env.WebRootPath, "uploads");
@@ -58,10 +58,17 @@ public class MembersController(IMemberService memberService, IWebHostEnvironment
         }
         
         // Send data to service
-        var result = await _memberService.SignUpAsync(model, filePath);
-
-        // create address (with member id)
-
+        var result = await _memberService.CreateUserAsync(model, filePath);
+        if (result.Success)
+        {
+            // create address (with member id)
+            // if success...
+        }
+        else
+        {
+            ViewBag.ErrorMessage = result.Error;
+            return BadRequest(new { success = false });
+        }
         return Ok(new { success = true });
     }
 

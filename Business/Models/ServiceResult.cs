@@ -7,8 +7,8 @@ public abstract class ServiceResult<TEntity>
     public bool Success { get; set; }
     public int StatusCode { get; set; }
     public string? Error { get; set; }
-    public IEnumerable<TEntity>? Result { get; set; }
-    public TEntity? Entity { get; set; }
+    public IEnumerable<TEntity>? Results { get; set; }
+    public TEntity? Result { get; set; }
 }
 
 public class ClientResult : ServiceResult<Client> { }

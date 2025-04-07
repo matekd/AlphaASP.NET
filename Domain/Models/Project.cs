@@ -3,11 +3,10 @@
 public class Project
 {
     public string Id { get; set; } = null!;
+
     public string? ImageUrl { get; set; }
 
     public string ProjectName { get; set; } = null!;
-
-    public string ClientName { get; set; } = null!;
 
     public string? Description { get; set; }
 

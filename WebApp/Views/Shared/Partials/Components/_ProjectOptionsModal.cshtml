@@ -1,4 +1,8 @@
-﻿<div id="projectOptionsModal" class="modal">
+﻿@model Project
+
+@await Html.PartialAsync("Partials/Components/_EditProjectForm", ProjectFactory.Create(Model))
+
+<div id="projectOptionsModal" class="modal">
 	<div class="modal-content">
 		<button class="btn modal-edit" data-modal="true" data-target="#editProjectModal">Edit</button>
 		<button class="btn add-member">Add Member</button>

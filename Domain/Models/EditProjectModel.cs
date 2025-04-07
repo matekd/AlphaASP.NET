@@ -5,10 +5,11 @@ namespace Domain.Models;
 
 public class EditProjectModel
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
     [DataType(DataType.Upload)]
     public IFormFile? ProjectImage { get; set; }
+    public string? ImageUrl { get; set; }
 
     [Display(Name = "Project Name", Prompt = "Project Name")]
     [Required(ErrorMessage = "Project name is required")]
@@ -16,7 +17,11 @@ public class EditProjectModel
 
     [Display(Name = "Client Name", Prompt = "Client Name")]
     [Required(ErrorMessage = "Client name is required")]
-    public string ClientName { get; set; } = null!;
+    public int ClientId { get; set; }
+
+    [Display(Name = "Project status", Prompt = "Status")]
+    [Required(ErrorMessage = "A status is required")]
+    public int StatusId { get; set; }
 
     [Display(Name = "Description", Prompt = "Type something")]
     [DataType(DataType.MultilineText)]

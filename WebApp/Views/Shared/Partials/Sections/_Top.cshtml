@@ -1,10 +1,9 @@
 ﻿@using Data.Entities
 @using Microsoft.AspNetCore.Identity
-@inject IJobTitleService _jobTitleService
-@inject UserManager<MemberEntity> _userManager
 
 @{
-    var user = await _userManager.GetUserAsync(User);
+    var res = await _memberService.GetUserAsync(x => x.UserName == User.Identity!.Name);
+    var user = res.Result;
 }
 <section class="top">
     @await Html.PartialAsync("Partials/Components/_SettingsModal")
@@ -17,6 +16,9 @@
     </div>
     <hr />
     <div class="profile">
-        <img src="@(user?.ImageUrl != null ? user?.ImageUrl : "")" alt="profile picture" />
+        @if (user != null)
+        {
+            <img src="@(user.ImageUrl ?? "")" alt="profile picture" />
+        }
     </div>
 </section>

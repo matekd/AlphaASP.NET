@@ -11,7 +11,7 @@
 			<div class="form-group">
 				<div class="file-group">
 					<label class="image-previewer square" asp-for="ProjectImage">
-						<img src="" class="image-preview" />
+						<img src="@(Model.ImageUrl ?? "")" class="image-preview" />
 						<input asp-for="ProjectImage" accept="image/*" />
 					</label>
 				</div>
@@ -21,9 +21,14 @@
 					<span asp-validation-for="ProjectName"></span>
 				</div>
 				<div class="input-group">
-					<label asp-for="ClientName"></label>
-					<input class="input" asp-for="ClientName" />
-					<span asp-validation-for="ClientName"></span>
+					<label asp-for="ClientId"></label>
+					<input class="input" asp-for="ClientId" />
+					<span asp-validation-for="ClientId"></span>
+				</div>
+				<div class="input-group">
+					<label asp-for="StatusId"></label>
+					<input class="input" asp-for="StatusId" />
+					<span asp-validation-for="StatusId"></span>
 				</div>
 				<div class="input-group">
 					<label asp-for="Description"></label>

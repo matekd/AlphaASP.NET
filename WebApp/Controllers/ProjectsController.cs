@@ -7,6 +7,8 @@ namespace WebApp.Controllers;
 [Authorize]
 public class ProjectsController : Controller
 {
+    public IEnumerable<Project> ProjectList { get; set; } = [];
+
     //Default routing
     public IActionResult Index()
     {
@@ -15,11 +17,10 @@ public class ProjectsController : Controller
 
     // "/projects?status=test"
     [Route("projects")]
-    public IActionResult Projects(string? status)
+    public IActionResult Projects()
     {
-        if (status != null)
-            Console.WriteLine(status);
-        return View();
+        
+        return View(ProjectList);
     }
 
     [Route("Add")]
@@ -58,6 +59,8 @@ public class ProjectsController : Controller
 
             return BadRequest(new { success = false, errors });
         }
+
+        // check if ImageUrl has value but not imageFile. if so, use ImageUrl
 
         // Send data to service
 

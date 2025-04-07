@@ -26,7 +26,7 @@ public class AuthService(SignInManager<MemberEntity> signInManager, UserManager<
         if(result.Succeeded) await _userManager.AddToRoleAsync(entity, "User");
 
         return result.Succeeded
-            ? new RegisterResult { Success = result.Succeeded, StatusCode = 200, Entity = entity.Id }
+            ? new RegisterResult { Success = result.Succeeded, StatusCode = 200, Result = entity.Id }
             : new RegisterResult { Success = result.Succeeded, StatusCode = 500, Error = "Failed to register." };
     }
 

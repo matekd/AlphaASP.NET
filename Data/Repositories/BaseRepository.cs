@@ -56,7 +56,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         var entities = await query.ToListAsync();
         return entities.IsNullOrEmpty()
             ? new RepositoryResult<IEnumerable<TEntity>> { Success = false, StatusCode = 404, Error = "No entities found." }
-            : new RepositoryResult<IEnumerable< TEntity >> { Success = true, StatusCode = 200, Result = entities };
+            : new RepositoryResult<IEnumerable<TEntity>> { Success = true, StatusCode = 200, Result = entities };
     }
 
     public virtual async Task<RepositoryResult<TEntity>> GetAsync(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includes)

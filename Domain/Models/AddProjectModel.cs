@@ -14,14 +14,15 @@ public class AddProjectModel
 
     [Display(Name = "Client Name", Prompt = "Client Name")]
     [Required(ErrorMessage = "Client name is required")]
-    public string ClientName { get; set; } = null!;
+    public int ClientId { get; set; }
+
+    [Display(Name = "Project status", Prompt = "Status")]
+    [Required(ErrorMessage = "A status is required")]
+    public int StatusId { get; set; }
 
     [Display(Name = "Description", Prompt = "Type something")]
     [DataType(DataType.MultilineText)]
     public string? Description { get; set; }
-
-    [Display(Name = "Status", Prompt = "Select status")]
-    public ICollection<string>? Status { get; set; }
 
     [Display(Name = "Start Date")]
     [Required(ErrorMessage = "Start date is required")]

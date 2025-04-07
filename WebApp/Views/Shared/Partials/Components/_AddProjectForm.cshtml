@@ -1,5 +1,12 @@
 ﻿@model AddProjectModel
 
+@{
+	var res = await _statusService.GetAllAsync();
+	var statuses = res.Results;
+	// res = await _clientService.GetAllAsync();
+	// var clients = res.Results;
+}
+
 <div id="addProjectModal" class="modal">
 	<div class="modal-content surface">
 		<div class="modal-header">
@@ -21,21 +28,31 @@
 					<span asp-validation-for="ProjectName"></span>
 				</div>
 				<div class="input-group">
-					<label asp-for="ClientName"></label>
-					<input class="input" asp-for="ClientName" />
-					<span asp-validation-for="ClientName"></span>
+					<label asp-for="ClientId"></label>
+					<select asp-for="ClientId">
+						<option hidden value="">-- Select client --</option>
+						@*@foreach (var client in clients)
+						{
+							<option value="@client.Id">@client.Name</option>
+						}*@
+					</select>
+					<span asp-validation-for="ClientId"></span>
+				</div>
+				<div class="input-group">
+					<label asp-for="StatusId"></label>
+					<select asp-for="StatusId">
+						<option hidden value="">-- Select status --</option>
+						@foreach(var status in statuses)
+						{
+							<option value="@status.Id">@status.StatusName @status.Id</option>
+						}
+					</select>
+					<span asp-validation-for="StatusId"></span>
 				</div>
 				<div class="input-group">
 					<label asp-for="Description"></label>
 					<textarea class="input" rows="3" asp-for="Description"></textarea>
 				</div>
-				@*<div class="input-group">
-					<label asp-for="Status"></label>
-					<select asp-for="Status">
-						<option></option>
-					</select>
-					<span asp-validation-for="Status"></span>
-				</div>*@
 				<div class="date-group">
 					<div class="input-group">
 						<label asp-for="StartDate"></label>

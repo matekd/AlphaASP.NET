@@ -1,7 +1,7 @@
 ﻿@model Project
 
 <div class="project-card surface">
-	@await Html.PartialAsync("Partials/Components/_projectOptionsModal")
+	@await Html.PartialAsync("Partials/Components/_projectOptionsModal", Model)
 	<button class="edit-btn" data-modal="true" data-toggle="true" data-close="false" data-target="#projectOptionsModal"></button>
 	<div class="card-header">
 		<img src="" alt="project image"/>

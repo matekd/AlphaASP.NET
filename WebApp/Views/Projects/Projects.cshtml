@@ -1,37 +1,35 @@
-﻿@* list of projects *@
+﻿@model IEnumerable<Project>
+@* list of projects *@
 @* status service *@
 
 @{
+    var started = Model.Where(p => p.Status.StatusName == "Sarted");
+    var completed = Model.Where(p => p.Status.StatusName == "Completed");
+    // var sCount = completed.Count(); // count directly in navbar
+    // var cCount = completed.Count();
     ViewData["Title"] = "Projects";
-    List<Project> projects = [];
 }
 @await Html.PartialAsync("Partials/Components/_AddProjectForm", new AddProjectModel())
-
-@await Html.PartialAsync("Partials/Components/_EditProjectForm", new EditProjectModel())
 
 <div class="main-header">
     <h2>@ViewData["Title"]</h2>
     <button class="btn blue add" data-modal="true" data-target="#addProjectModal">Add Project</button>
 </div>
 
-@{
-    // Loop through all statuses                        foreach(var status in statuses)
-    // count the amount of projects with that status        var amount projects.Count(x => x.Status == status);
-    // add tab-link of status                               <a>amount</a>
-    // add all projects with that status                    var project = Model.Where(x => x.Status == status).ToList();
-    //                                                      foreach(var project in projects)
-    //                                                          @await Html.PartialAsync("Partials/Components/_Project", project)
-}
+@* Hardcoded two statuses, for dynamic: iterate over all statuses, filter Model for each status *@
 <div class="navbar">
     <a href="" class="tab-link active">ALL [9]</a>
     <a href="" class="tab-link">STARTED [9]</a>
     <a href="" class="tab-link">COMPLETED [0]</a>
 </div>
-@foreach (var p in projects)
-{
-    
-}
 <div class="project-list">
+    @if (Model != null)
+        foreach (var p in Model)
+        {
+            @await Html.PartialAsync("Partials/Components/_Project", p)
+        }
+    @*
     @await Html.PartialAsync("Partials/Components/_Project", new Project())
     @await Html.PartialAsync("Partials/Components/_Project", new Project())
+    *@
 </div>

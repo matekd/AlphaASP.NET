@@ -15,7 +15,7 @@ public class StatusService(IStatusRepository statusRepository) : IStatusService
     {
         var result = await _statusRepository.AddAsync(new StatusEntity() { StatusName = status });
         return result.Success
-            ? new StatusResult { Success = result.Success, StatusCode = result.StatusCode, Entity = StatusFactory.Create(result.Result!) }
+            ? new StatusResult { Success = result.Success, StatusCode = result.StatusCode, Result = StatusFactory.Create(result.Result!) }
             : new StatusResult { Success = result.Success, StatusCode = result.StatusCode, Error = result.Error };
     }
 
@@ -23,8 +23,8 @@ public class StatusService(IStatusRepository statusRepository) : IStatusService
     {
         var result = await _statusRepository.GetAllAsync();
         return result.Success
-            ? new StatusResult { Success = result.Success, StatusCode = result.StatusCode, Result = result.Result!.Select(StatusFactory.Create) }
-            : new StatusResult { Success = result.Success, StatusCode = result.StatusCode, Error = result.Error, Result = [] };
+            ? new StatusResult { Success = result.Success, StatusCode = result.StatusCode, Results = result.Result!.Select(StatusFactory.Create) }
+            : new StatusResult { Success = result.Success, StatusCode = result.StatusCode, Error = result.Error, Results = [] };
     }
 
 

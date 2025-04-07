@@ -15,6 +15,10 @@
 
 		<form method="post" asp-controller="Members" asp-action="Add" enctype="multipart/form-data" novalidate>
 			<div class="form-group">
+				@if (ViewBag.ErrorMessage != null)
+				{
+					<span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
+				}
 				<div class="file-group">
 					<label class="image-previewer circle" asp-for="MemberImage">
 						<img src="" class="image-preview" />
