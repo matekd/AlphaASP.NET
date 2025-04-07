@@ -336,8 +336,9 @@ form .form-group {
 form .input-group {
     display: grid;
 }
-form .input-group input {
-    margin-top: .5rem;
+form .input-group input,
+form .input-group select {
+    margin-top: .25rem;
 }
 form .date-group {
     display: grid;
@@ -907,7 +908,6 @@ hr {
 .modal {
     display: none;
     justify-content: center;
-    align-items: center;
     background-color: var(--modal-background-opacity);
     position: fixed;
     z-index: 1;
@@ -915,9 +915,13 @@ hr {
     right: 0;
     bottom: 0;
     left: 0;
+    overflow: auto;
+    padding: 2rem;
 }
 .modal .modal-content {
+    margin-block: auto;
     padding: 2rem;
+    height: fit-content;
 }
 .modal .modal-content .modal-header {
     display: flex;
