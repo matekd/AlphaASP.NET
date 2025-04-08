@@ -18,6 +18,7 @@ builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IStatusService, StatusService>();
 builder.Services.AddScoped<IJobTitleService, JobTitleService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IClientService, ClientService>();
 
 builder.Services.AddScoped<IJobTitleRepository, JobTitleRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();

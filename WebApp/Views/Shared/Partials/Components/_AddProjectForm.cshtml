@@ -1,14 +1,14 @@
 ﻿@model AddProjectModel
 
 @{
-	var res = await _statusService.GetAllAsync();
 	IEnumerable<Status> statuses = [];
 	IEnumerable<Client> clients = [];
-	if (res.Success)
-		statuses = res.Results!;
-	// res = await _clientService.GetAllAsync();
-	// if (res.Success)
-	// 	clients = res.Results!;
+	var statusResult = await _statusService.GetAllAsync();
+	if (statusResult.Success)
+		statuses = statusResult.Results!;
+	var clientResult = await _clientService.GetAllAsync();
+	if (clientResult.Success)
+		clients = clientResult.Results!;
 }
 
 <div id="addProjectModal" class="modal">
@@ -48,10 +48,9 @@
 						<option disabled selected value="" class="placeholder">-- Select status --</option>
 						@foreach(var status in statuses)
 						{
-							<option value="@status.Id">@status.StatusName @status.Id</option>
+							<option value="@status.Id">@status.StatusName</option>
 						}
 					</select>
-					@*@Html.DropDownListFor(c => c.StatusId, new SelectList(statuses, "Id", "StatusName"))*@
 					<span asp-validation-for="StatusId"></span>
 				</div>
 				<div class="input-group">

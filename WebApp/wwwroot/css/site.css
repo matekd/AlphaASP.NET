@@ -385,7 +385,9 @@ form .field-validation-error {
         padding-right: .25rem;
     }
 }
-
+select {
+    appearance: none;
+}
 .input, select, textarea {
     border-radius: 14px;
     border: 1px solid var(--input-border-color);
