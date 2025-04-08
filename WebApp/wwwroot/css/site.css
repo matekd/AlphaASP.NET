@@ -191,7 +191,7 @@ a:hover, a:focus {
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 100dvh;
-    background-image: url("~/images/admin-login-bg.svg");
+    background-image: url("/images/admin-login-bg.svg");
     header {
         display: flex;
         flex-direction: column;

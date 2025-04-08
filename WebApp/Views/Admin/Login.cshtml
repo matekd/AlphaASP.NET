@@ -1,11 +1,12 @@
 ﻿@model LoginModel
+
 @{
-    Layout = "_CleanLayout";
-    ViewData["Title"] = "Login";
+	Layout = "_SplitLayout";
+	ViewData["Title"] = "";
 }
 
-<form method="post" class="auth-form" asp-controller="Auth" asp-action="Login" novalidate>
-    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl"/>
+<form method="post" id="admin-form" class="auth-form" asp-controller="Admin" asp-action="Login" novalidate>
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
     <h1>Login</h1>
 
@@ -18,7 +19,7 @@
         <span>OR</span>
     </div>
 
-    @if(ViewBag.ErrorMessage != null)
+    @if (ViewBag.ErrorMessage != null)
     {
         <span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
     }
@@ -46,6 +47,4 @@
     </div>
 
     <button type="submit" class="btn blue">Log In</button>
-
-    <p>Don't have an account? <a asp-action="Register" asp-controller="Auth">Sign Up</a></p>
 </form>

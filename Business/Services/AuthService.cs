@@ -2,15 +2,18 @@
 using Business.Interfaces;
 using Business.Models;
 using Data.Entities;
+using Data.Interfaces;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Business.Services;
 
-public class AuthService(SignInManager<MemberEntity> signInManager, UserManager<MemberEntity> userManager) : IAuthService
+public class AuthService(SignInManager<MemberEntity> signInManager, UserManager<MemberEntity> userManager, IMemberRepository memberRepository, RoleManager<IdentityRole> roleManager) : IAuthService
 {
     private readonly SignInManager<MemberEntity> _signInManager = signInManager;
     private readonly UserManager<MemberEntity> _userManager = userManager;
+    private readonly IMemberRepository _memberRepository = memberRepository;
+    private readonly RoleManager<IdentityRole> _roleManager = roleManager;
 
     public async Task<bool> LoginAsync(LoginModel model)
     {
@@ -35,10 +38,30 @@ public class AuthService(SignInManager<MemberEntity> signInManager, UserManager<
         await _signInManager.SignOutAsync();
     }
 
-    public async Task<bool> UserExists(string email)
+    public async Task<BoolResult> UserExists(string email)
     {
-        var result = await _userManager.FindByEmailAsync(email);
+        var result = await _memberRepository.AnyAsync(x => x.Email == email);
 
-        return result != null;
+        return result.Success
+            ? new BoolResult { Success = result.Success, StatusCode = 200, Result = true }
+            : new BoolResult { Success = result.Success, StatusCode = 404, Error = "Member not found." };
+    }
+
+    public async Task<BoolResult> UserHasRoleAsync(string email, string role)
+    {
+        var member = await _memberRepository.GetAsync(x => x.Email == email);
+
+        if (!member.Success)
+            return new BoolResult { Success = member.Success, StatusCode = 404, Error = "Member not found." };
+
+        var roleExists = await _roleManager.RoleExistsAsync(role);
+        if (!roleExists)
+            return new BoolResult { Success = roleExists, StatusCode = 404, Error = "Role not found." };
+
+        var result = await _userManager.IsInRoleAsync(member.Result!, role);
+
+        return result
+            ? new BoolResult { Success = true, StatusCode = 200, Result = true }
+            : new BoolResult { Success = false, StatusCode = 500, Error = "Member not not in role." };
     }
 }

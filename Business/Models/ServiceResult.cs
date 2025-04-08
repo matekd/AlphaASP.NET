@@ -18,3 +18,4 @@ public class MemberResult : ServiceResult<Member> { }
 public class ProjectResult : ServiceResult<Project> { }
 public class StatusResult : ServiceResult<Status> { }
 public class RegisterResult : ServiceResult<string> { }
+public class BoolResult : ServiceResult<bool> { }
