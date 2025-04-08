@@ -15,13 +15,15 @@ public class AuthService(SignInManager<MemberEntity> signInManager, UserManager<
     private readonly IMemberRepository _memberRepository = memberRepository;
     private readonly RoleManager<IdentityRole> _roleManager = roleManager;
 
-    public async Task<bool> LoginAsync(LoginModel model)
+    public async Task<BoolResult> LoginAsync(LoginModel model)
     {
         var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-        return result.Succeeded;
+        return result.Succeeded
+            ? new BoolResult { Success = result.Succeeded, StatusCode = 200, Result = true }
+            : new BoolResult { Success = result.Succeeded, StatusCode = 401, Error = "Failed to login." };
     }
 
-    public async Task<RegisterResult> SignUpAsync(RegisterModel model)
+    public async Task<BoolResult> SignUpAsync(RegisterModel model)
     {
         var entity = MemberFactory.Create(model);
         var result = await _userManager.CreateAsync(entity, model.Password);
@@ -29,8 +31,8 @@ public class AuthService(SignInManager<MemberEntity> signInManager, UserManager<
         if(result.Succeeded) await _userManager.AddToRoleAsync(entity, "User");
 
         return result.Succeeded
-            ? new RegisterResult { Success = result.Succeeded, StatusCode = 200, Result = entity.Id }
-            : new RegisterResult { Success = result.Succeeded, StatusCode = 500, Error = "Failed to register." };
+            ? new BoolResult { Success = result.Succeeded, StatusCode = 200, Result = true }
+            : new BoolResult { Success = result.Succeeded, StatusCode = 500, Error = "Failed to register." };
     }
 
     public async Task LogoutAsync()
@@ -50,7 +52,6 @@ public class AuthService(SignInManager<MemberEntity> signInManager, UserManager<
     public async Task<BoolResult> UserHasRoleAsync(string email, string role)
     {
         var member = await _memberRepository.GetAsync(x => x.Email == email);
-
         if (!member.Success)
             return new BoolResult { Success = member.Success, StatusCode = 404, Error = "Member not found." };
 
@@ -59,9 +60,8 @@ public class AuthService(SignInManager<MemberEntity> signInManager, UserManager<
             return new BoolResult { Success = roleExists, StatusCode = 404, Error = "Role not found." };
 
         var result = await _userManager.IsInRoleAsync(member.Result!, role);
-
         return result
             ? new BoolResult { Success = true, StatusCode = 200, Result = true }
-            : new BoolResult { Success = false, StatusCode = 500, Error = "Member not not in role." };
+            : new BoolResult { Success = false, StatusCode = 500, Error = $"Member does not have role: {role}." };
     }
 }

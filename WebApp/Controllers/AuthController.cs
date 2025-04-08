@@ -35,7 +35,7 @@ public class AuthController(IAuthService authService) : Controller
         }
 
         var result = await _authService.LoginAsync(model);
-        if (result)
+        if (result.Success)
         {
             ViewBag.ReturnUrl = returnUrl;
             return LocalRedirect(returnUrl);
@@ -68,12 +68,21 @@ public class AuthController(IAuthService authService) : Controller
             return View(model);
         }
         
-        var result = await _authService.SignUpAsync(model);
-        if (result.Success)
+        var register = await _authService.SignUpAsync(model);
+        if (!register.Success)
+        {
+            ViewBag.ErrorMessage = "Failed to register";
+            return View(model);
+        }
+        var login = await _authService.LoginAsync(new LoginModel
+        {
+            Email = model.Email,
+            Password = model.Password,
+        });
+        if (login.Success)
             return LocalRedirect("~/");
 
-        ViewBag.ErrorMessage = "Failed to register";
-        return View(model);
+        return LocalRedirect("/auth/login");
     }
 
     [Route("logout")]

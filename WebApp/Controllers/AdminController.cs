@@ -56,7 +56,7 @@ public class AdminController(IAuthService authService) : Controller
         }
 
         var result = await _authService.LoginAsync(model);
-        if (result)
+        if (result.Success)
         {
             ViewBag.ReturnUrl = returnUrl;
             return LocalRedirect(returnUrl);
