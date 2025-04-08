@@ -1,7 +1,4 @@
-﻿@using Data.Entities
-@using Microsoft.AspNetCore.Identity
-
-@{
+﻿@{
     var res = await _memberService.GetUserAsync(x => x.UserName == User.Identity!.Name);
     var user = res.Result;
 }

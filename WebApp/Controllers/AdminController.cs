@@ -31,6 +31,7 @@ public class AdminController(IAuthService authService) : Controller
         return View();
     }
 
+    [ValidateAntiForgeryToken]
     [AllowAnonymous]
     [Route("login")]
     [HttpPost]

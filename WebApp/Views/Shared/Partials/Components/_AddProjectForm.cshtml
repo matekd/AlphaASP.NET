@@ -2,9 +2,13 @@
 
 @{
 	var res = await _statusService.GetAllAsync();
-	var statuses = res.Results;
+	IEnumerable<Status> statuses = [];
+	IEnumerable<Client> clients = [];
+	if (res.Success)
+		statuses = res.Results!;
 	// res = await _clientService.GetAllAsync();
-	// var clients = res.Results;
+	// if (res.Success)
+	// 	clients = res.Results!;
 }
 
 <div id="addProjectModal" class="modal">
@@ -29,24 +33,25 @@
 				</div>
 				<div class="input-group">
 					<label asp-for="ClientId"></label>
-					<select asp-for="ClientId">
-						<option hidden value="">-- Select client --</option>
-						@*@foreach (var client in clients)
+					<select class="input" asp-for="ClientId">
+						<option disabled selected value="" class="placeholder">-- Select client --</option>
+						@foreach (var client in clients)
 						{
 							<option value="@client.Id">@client.Name</option>
-						}*@
+						}
 					</select>
 					<span asp-validation-for="ClientId"></span>
 				</div>
 				<div class="input-group">
 					<label asp-for="StatusId"></label>
-					<select asp-for="StatusId">
-						<option hidden value="">-- Select status --</option>
+					<select class="input" asp-for="StatusId">
+						<option disabled selected value="" class="placeholder">-- Select status --</option>
 						@foreach(var status in statuses)
 						{
 							<option value="@status.Id">@status.StatusName @status.Id</option>
 						}
 					</select>
+					@*@Html.DropDownListFor(c => c.StatusId, new SelectList(statuses, "Id", "StatusName"))*@
 					<span asp-validation-for="StatusId"></span>
 				</div>
 				<div class="input-group">

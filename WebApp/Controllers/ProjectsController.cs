@@ -23,6 +23,7 @@ public class ProjectsController : Controller
         return View(ProjectList);
     }
 
+    [ValidateAntiForgeryToken]
     [Route("Add")]
     [HttpPost]
     public IActionResult Add(AddProjectModel project)
@@ -44,8 +45,9 @@ public class ProjectsController : Controller
         return RedirectToAction("Projects", "Projects");
     }
 
+    [ValidateAntiForgeryToken]
     [Route("Edit")]
-    [HttpPost]
+    [HttpPatch]
     public IActionResult Edit(EditProjectModel project)
     {
         if (!ModelState.IsValid)
@@ -67,6 +69,7 @@ public class ProjectsController : Controller
         return RedirectToAction("Projects", "Projects");
     }
 
+    [ValidateAntiForgeryToken]
     [Route("Delete")]
     [HttpDelete]
     public IActionResult Delete()

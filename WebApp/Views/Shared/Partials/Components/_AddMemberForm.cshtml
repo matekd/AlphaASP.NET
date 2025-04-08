@@ -48,7 +48,7 @@
 				<div class="input-group">
 					<label asp-for="JobTitleId"></label>
 					<select class="input" asp-for="JobTitleId">
-						<option hidden value="">-- Select Title --</option>
+						<option disabled selected value="" class="placeholder">-- Select Title --</option>
 						@foreach(var title in titles)
 						{
 							@* title service? *@
@@ -60,6 +60,11 @@
 					<span asp-validation-for="JobTitleId"></span>
 				</div>
 				@* address (parts seperated) *@
+				@* <div class="input-group"> *@
+				@* 	<label asp-for="Address"></label> *@
+				@* 	<input class="input" asp-for="Address"> *@
+				@* 	<span asp-validation-for="Address"></span> *@
+				@* </div> *@
 
 				@* date of birth (3 fields, validate for valid date) *@
 

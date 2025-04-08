@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain.ValidationAttributes;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models;
@@ -27,7 +28,7 @@ public class AddMemberModel
     public string? PhoneNumber { get; set; }
 
     [Display(Name = "Job Title", Prompt = "Your job title")]
-    [Required(ErrorMessage = "Member requires a title")]
+    [NotDefaultOption(ErrorMessage = "Member requires a title")]
     public int JobTitleId { get; set; }
 
     // is split

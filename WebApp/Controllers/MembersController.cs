@@ -22,6 +22,7 @@ public class MembersController(IMemberService memberService, IWebHostEnvironment
         return View(MemberList);
     }
 
+    [ValidateAntiForgeryToken]
     [Route("Add")]
     [HttpPost]
     public async Task<IActionResult> Add(AddMemberModel model)
@@ -56,7 +57,7 @@ public class MembersController(IMemberService memberService, IWebHostEnvironment
             // relative path
             filePath = "uploads/" + fileName;
         }
-        
+
         // Send data to service
         var result = await _memberService.CreateUserAsync(model, filePath);
         if (result.Success)
@@ -72,6 +73,7 @@ public class MembersController(IMemberService memberService, IWebHostEnvironment
         return Ok(new { success = true });
     }
 
+    [ValidateAntiForgeryToken]
     [Route("Edit")]
     [HttpPost]
     public IActionResult Edit(EditMemberModel model)

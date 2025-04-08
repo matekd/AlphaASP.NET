@@ -17,6 +17,7 @@ public class AuthController(IAuthService authService) : Controller
         return View();
     }
 
+    [ValidateAntiForgeryToken]
     [Route("login")]
     [HttpPost]
     public async Task<IActionResult> Login(LoginModel model, string returnUrl = "~/")
@@ -50,6 +51,7 @@ public class AuthController(IAuthService authService) : Controller
         return View();
     }
 
+    [ValidateAntiForgeryToken]
     [Route("register")]
     [HttpPost]
     public async Task<IActionResult> Register(RegisterModel model)
