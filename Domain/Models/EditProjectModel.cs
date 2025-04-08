@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain.ValidationAttributes;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models;
@@ -29,11 +30,13 @@ public class EditProjectModel
 
     [Display(Name = "Start Date")]
     [Required(ErrorMessage = "Start date is required")]
+    [NotDefaultDate(ErrorMessage = "Select a date")]
     [DataType(DataType.Date)]
     public DateOnly StartDate { get; set; }
 
     [Display(Name = "End Date")]
     [Required(ErrorMessage = "End date is required")]
+    [NotDefaultDate(ErrorMessage = "Select a date")]
     [DataType(DataType.Date)]
     public DateOnly EndDate { get; set; }
 
