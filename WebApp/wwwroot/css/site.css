@@ -350,6 +350,19 @@ form .name-group {
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
+form .address-group {
+    display: grid;
+    > .input-group {
+        display: grid;
+        padding: 5px;
+        gap: 5px;
+        border-radius: 14px;
+        border: 1px solid var(--input-border-color);
+        .input {
+            margin: 0;
+        }
+    }
+}
 form label {
     font-weight: var(--font-semibold);
     color: var(--heading-color);

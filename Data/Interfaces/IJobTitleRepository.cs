@@ -2,4 +2,4 @@
 
 namespace Data.Interfaces;
 
-public interface IJobTitleRepository : IBaseRepository<MemberEntity> { }
+public interface IJobTitleRepository : IBaseRepository<JobTitleEntity> { }

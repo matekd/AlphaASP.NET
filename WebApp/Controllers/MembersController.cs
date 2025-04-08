@@ -1,4 +1,6 @@
-﻿using Business.Interfaces;
+﻿using Business.Factories;
+using Business.Interfaces;
+using Business.Services;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +9,10 @@ namespace WebApp.Controllers;
 
 [Route("members")]
 [Authorize(Roles = "Administrator")]
-public class MembersController(IMemberService memberService, IWebHostEnvironment env) : Controller
+public class MembersController(IMemberService memberService, IAddressService addressService, IWebHostEnvironment env) : Controller
 {
     private readonly IMemberService _memberService = memberService;
+    private readonly IAddressService _addressService = addressService;
     private readonly IWebHostEnvironment _env = env;
     public IEnumerable<Member> MemberList { get; set; } = [];
 
@@ -57,18 +60,18 @@ public class MembersController(IMemberService memberService, IWebHostEnvironment
             // relative path
             filePath = "uploads/" + fileName;
         }
-
-        // Send data to service
+        
         var result = await _memberService.CreateUserAsync(model, filePath);
-        if (result.Success)
-        {
-            // create address (with member id)
-            // if success...
-        }
-        else
+        if (!result.Success)
         {
             ViewBag.ErrorMessage = result.Error;
             return BadRequest(new { success = false });
+        }
+        if (model.Address != null)
+        {
+            var dto = AddressFactory.Create(model.Address.StreetName!, model.Address.PostalCode!, model.Address.City!, result.Result!);
+            if (dto != null)
+                await _addressService.CreateAsync(dto);
         }
         return Ok(new { success = true });
     }

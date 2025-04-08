@@ -1,9 +1,10 @@
 ﻿@model AddMemberModel
 
-@* @inject  *@
 @{
-	var titles = new [] { "Developer", "Manager", "CEO" };
-	// titles = _jobTitleService.getAllAsync();
+	IEnumerable<JobTitle> titles = [];
+	var res = await _jobTitleService.GetAllAsync();
+	if (res.Success)
+		titles = res.Results!;
 }
 
 <div id="addMemberModal" class="modal">
@@ -25,15 +26,17 @@
 						<input asp-for="MemberImage" accept="image/*" />
 					</label>
 				</div>
-				<div class="input-group">
-					<label asp-for="FirstName"></label>
-					<input class="input" asp-for="FirstName" />
-					<span asp-validation-for="FirstName"></span>
-				</div>
-				<div class="input-group">
-					<label asp-for="LastName"></label>
-					<input class="input" asp-for="LastName" />
-					<span asp-validation-for="LastName"></span>
+				<div class="name-group">
+					<div class="input-group">
+						<label asp-for="FirstName"></label>
+						<input class="input" asp-for="FirstName">
+						<span asp-validation-for="FirstName"></span>
+					</div>
+					<div class="input-group">
+						<label asp-for="LastName"></label>
+						<input class="input" asp-for="LastName">
+						<span asp-validation-for="LastName"></span>
+					</div>
 				</div>
 				<div class="input-group">
 					<label asp-for="Email"></label>
@@ -51,23 +54,23 @@
 						<option disabled selected value="" class="placeholder">-- Select Title --</option>
 						@foreach(var title in titles)
 						{
-							@* title service? *@
-							@* <option value=@title>@title</option> *@
-							<option value="1">Test</option>
-							@* <option value=@title.Id>@title</option> *@
+							<option value=@title.Id>@title.Title</option>
 						}
 					</select>
 					<span asp-validation-for="JobTitleId"></span>
 				</div>
-				@* address (parts seperated) *@
-				@* <div class="input-group"> *@
-				@* 	<label asp-for="Address"></label> *@
-				@* 	<input class="input" asp-for="Address"> *@
-				@* 	<span asp-validation-for="Address"></span> *@
-				@* </div> *@
-
-				@* date of birth (3 fields, validate for valid date) *@
-
+				<div class="address-group">
+					<label asp-for="Address"></label>
+					<div class="input-group">
+						<input class="input" asp-for="Address.StreetName">
+						<input class="input" asp-for="Address.PostalCode">
+						<input class="input" asp-for="Address.City">
+					</div>
+				</div>
+				<div class="input-group">
+					<label asp-for="BirthDate"></label>
+					<input class="input" asp-for="BirthDate">
+				</div>
 				<button type="submit" class="btn blue">Add Member</button>
 			</div>
 		</form>

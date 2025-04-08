@@ -26,14 +26,15 @@ public class AddMemberModel
     [Display(Name = "Phone", Prompt = "Your phone number")]
     [DataType(DataType.PhoneNumber, ErrorMessage = "Must be a valid phone number")]
     public string? PhoneNumber { get; set; }
-
+    
     [Display(Name = "Job Title", Prompt = "Your job title")]
     [NotDefaultOption(ErrorMessage = "Member requires a title")]
     public int JobTitleId { get; set; }
 
-    // is split
+    [Display(Name = "Address")]
     public MemberAddress? Address { get; set; }
 
-    // split into day, month, year? try to combine in service, send date or return submission error
+    [Display(Name = "Date of Birth")]
+    [DataType(DataType.Date)]
     public DateOnly? BirthDate { get; set; }
 }
