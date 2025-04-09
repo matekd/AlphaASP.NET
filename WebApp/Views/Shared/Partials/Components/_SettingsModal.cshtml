@@ -1,11 +1,10 @@
-﻿@* @model Member *@
-@* Member for name and profile image*@
+﻿@model Member
 
 <div id="settingsModal" class="modal">
 	<div class="modal-content surface">
 		<div class="settings-top">
-			<img src="" alt="profile picture"/>
-			<span>Profile nameProfile nameProfile name</span>
+			<img src="@(Model.ImageUrl != null ? Model.ImageUrl : "")" alt="member image" />
+			<span>@(Model.FirstName != null && Model.LastName != null ? $"{Model.FirstName} {Model.LastName}" : "")</span>
 			<button type="button" class="btn-close" data-close="true"></button>
 		</div>
 		<div class="settings-middle">

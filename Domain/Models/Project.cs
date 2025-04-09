@@ -2,7 +2,7 @@
 
 public class Project
 {
-    public string Id { get; set; } = null!;
+    public int Id { get; set; }
 
     public string? ImageUrl { get; set; }
 

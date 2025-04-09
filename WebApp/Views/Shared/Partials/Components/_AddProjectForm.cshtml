@@ -20,6 +20,10 @@
 
 		<form method="post" asp-controller="Projects" asp-action="Add" enctype="multipart/form-data" novalidate>
 			<div class="form-group">
+				@if (ViewBag.ErrorMessage != null)
+				{
+					<span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
+				}
 				<div class="file-group">
 					<label class="image-previewer square" asp-for="ProjectImage">
 						<img src="" class="image-preview"/>

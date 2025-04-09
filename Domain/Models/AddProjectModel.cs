@@ -37,8 +37,8 @@ public class AddProjectModel
     [DataType(DataType.Date)]
     public DateOnly EndDate { get; set; }
 
-    [Display(Name = "Members", Prompt = "Select member")]
-    public ICollection<string>? Members { get; set; }
+    //[Display(Name = "Members", Prompt = "Select member")]
+    //public ICollection<string>? Members { get; set; }
 
     [Display(Name = "Budget", Prompt = "0")]
     [Required(ErrorMessage = "Budget is required")]

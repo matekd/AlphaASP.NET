@@ -26,7 +26,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
 
         try
         {
-            var result = _dbSet.Add(entity);
+            var result = await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
             return new RepositoryResult<TEntity> { Success = true, StatusCode = 201, Result = result.Entity };
         }

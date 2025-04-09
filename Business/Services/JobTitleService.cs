@@ -1,6 +1,7 @@
 ﻿using Business.Factories;
 using Business.Interfaces;
 using Business.Models;
+using Data.Entities;
 using Data.Interfaces;
 using Domain.Models;
 
@@ -10,12 +11,25 @@ public class JobTitleService(IJobTitleRepository jobTitleRepository) : IJobTitle
 {
     private readonly IJobTitleRepository _jobTitleRepository = jobTitleRepository;
 
-    public async Task<bool> Create(AddJobTitleModel model)
+    public async Task<RegisterResult> CreateAsync(AddJobTitleModel model)
     {
+        if (model == null)
+            return new RegisterResult { Success = false, StatusCode = 400, Error = "Invalid request." };
 
-        // to repo
-        //RepositoryResult result = 
-        return true;
+        var existsResult = await _jobTitleRepository.AnyAsync(x => x.Title == model.Title);
+        if (existsResult.Success)
+            return new RegisterResult { Success = false, StatusCode = 409, Error = "Project already exists." };
+
+        var entity = new JobTitleEntity
+        {
+            Title = model.Title,
+        };
+
+        var result = await _jobTitleRepository.AddAsync(entity);
+
+        return result.Success
+            ? new RegisterResult { Success = result.Success, StatusCode = 200, Result = result.Result!.Title }
+            : new RegisterResult { Success = result.Success, StatusCode = 500, Error = "Failed to register." };
     }
 
     public async Task<JobTitleResult> GetAllAsync()

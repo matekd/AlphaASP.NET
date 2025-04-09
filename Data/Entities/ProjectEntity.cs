@@ -1,12 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities;
 
+[Index(nameof(ProjectName), IsUnique = true)]
 public class ProjectEntity
 {
     [Key]
-    public string Id { get; set; } = null!;
+    public int Id { get; set; }
 
     public string? ImageUrl { get; set; }
 
@@ -23,8 +25,6 @@ public class ProjectEntity
     [Required]
     public int Budget { get; set; }
 
-    //public ICollection<MemberEntity>? Members { get; set; }
-
     [ForeignKey(nameof(Client))]
     public int ClientId { get; set; }
     public ClientEntity Client { get; set; } = null!;
@@ -32,4 +32,6 @@ public class ProjectEntity
     [ForeignKey(nameof(Status))]
     public int StatusId { get; set; }
     public StatusEntity Status { get; set; } = null!;
+
+    public ICollection<MemberEntity>? Members { get; set; }
 }

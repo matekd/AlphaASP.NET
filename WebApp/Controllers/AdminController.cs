@@ -14,13 +14,7 @@ public class AdminController(IAuthService authService) : Controller
     public IActionResult Index()
     {
         //return View();
-        return LocalRedirect("/titles");
-    }
-
-    [Route("titles")]
-    public IActionResult JobTitles()
-    {
-        return View();
+        return LocalRedirect("/login");
     }
 
     [AllowAnonymous]

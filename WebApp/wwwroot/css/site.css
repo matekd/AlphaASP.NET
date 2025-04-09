@@ -366,6 +366,7 @@ form .address-group {
 form label {
     font-weight: var(--font-semibold);
     color: var(--heading-color);
+    width: fit-content;
 }
 form .submit-error {
     display: block;
@@ -634,7 +635,8 @@ hr {
     min-width: 550px;
 }
 
-#addProjectModal, #editProjectModal {
+#addProjectModal, #editProjectModal,
+#addMemberModal, #editMemberModal {
     z-index: 2;
 }
 
@@ -716,11 +718,21 @@ hr {
 .member-card, .project-card {
     position: relative;
 }
+b {
+    width: 350px;
+    min-height: 276px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 1rem;
+    padding: 1rem;
+}
 .member-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     padding: 1.5rem;
     width: 300px;
     height: 460px;
@@ -747,13 +759,17 @@ hr {
         display: block;
     }
 }
+#memberOptionsModal {
+    left: 56px;
+    top: 60px;
+}
 #projectOptionsModal {
-    background-color: transparent;
-    position: absolute;
-    right: initial;
     left: 100px;
     top: 60px;
-    bottom: initial;
+}
+#projectOptionsModal, #memberOptionsModal {
+    background-color: transparent;
+    position: absolute;
     .modal-content {
         display: grid;
         position: absolute;
@@ -790,10 +806,10 @@ hr {
             font-family: var(--font-fa-pro);
             font-weight: var(--font-bold);
         }
-        .delete-project {
+        .delete {
             color: var(--red);
         }
-        .delete-project::before {
+        .delete::before {
             content: '\f1f8';
             font-family: var(--font-fa-pro);
             font-weight: var(--font-bold);

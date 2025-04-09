@@ -6,7 +6,7 @@ namespace Domain.Models;
 
 public class EditProjectModel
 {
-    public string Id { get; set; } = null!;
+    public int Id { get; set; }
 
     [DataType(DataType.Upload)]
     public IFormFile? ProjectImage { get; set; }
@@ -40,8 +40,8 @@ public class EditProjectModel
     [DataType(DataType.Date)]
     public DateOnly EndDate { get; set; }
 
-    [Display(Name = "Members", Prompt = "Enter title")]
-    public ICollection<int>? Members { get; set; }
+    //[Display(Name = "Members", Prompt = "Enter title")]
+    //public ICollection<int>? Members { get; set; }
 
     [Display(Name = "Budget", Prompt = "0")]
     [Required(ErrorMessage = "Budget is required")]

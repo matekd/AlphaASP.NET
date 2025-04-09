@@ -1,14 +1,14 @@
 ﻿@model Project
 
 <div class="project-card surface">
-	@await Html.PartialAsync("Partials/Components/_projectOptionsModal", Model)
+	@await Html.PartialAsync("Partials/Components/_ProjectOptionsModal", Model)
 	<button class="edit-btn" data-modal="true" data-toggle="true" data-close="false" data-target="#projectOptionsModal"></button>
 	<div class="card-header">
-		<img src="" alt="project image"/>
-		<h6 class="project-name">My project</h6>
-		<span class="project-client">My client</span>
+		<img src="@(Model.ImageUrl != null ? Model.ImageUrl : "")" alt="project image"/>
+		<h6 class="project-name">@Model.ProjectName</h6>
+		<span class="project-client">@Model.Client.Name</span>
 	</div>
-	<p class="card-description">My description</p>
+	<p class="card-description">@(Model.Description != null ? Model.Description : "My description")</p>
 	<div class="card-footer">
 		<span class="deadline soon">soon&trade;</span>
 		<div class="member-group">

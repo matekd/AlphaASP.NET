@@ -15,7 +15,14 @@ public class MemberService(UserManager<MemberEntity> userManager, IMemberReposit
 
     public async Task<RegisterResult> CreateUserAsync(AddMemberModel model, string ImageUrl = "")
     {
+        var existsResult = await _memberRepository.AnyAsync(x => x.Email == model.Email);
+        if (existsResult.Success)
+            return new RegisterResult { Success = false, StatusCode = 409, Error = "Member already exists." };
+
         var entity = MemberFactory.Create(model, ImageUrl);
+        if (entity == null)
+            return new RegisterResult { Success = false, StatusCode = 400, Error = "Invalid request." };
+
         var result = await _userManager.CreateAsync(entity, "BytMig123!");
 
         if (result.Succeeded) await _userManager.AddToRoleAsync(entity, "User");

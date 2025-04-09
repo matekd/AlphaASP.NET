@@ -1,9 +1,8 @@
 ﻿@model Member
 
-@await Html.PartialAsync("Partials/Components/_EditMemberForm", MemberFactory.Create(Model))
-
 <div class="member-card surface">
-	<button class="edit-btn" data-modal="true" data-target="#editMemberModal"></button>
+	@await Html.PartialAsync("Partials/Components/_MemberOptionsModal", Model)
+	<button class="edit-btn" data-modal="true" data-toggle="true" data-close="false" data-target="#memberOptionsModal"></button>
 
 	<img src="@(Model.ImageUrl != null ? Model.ImageUrl : "")" alt="member image" />
 

@@ -5,6 +5,6 @@ namespace Business.Interfaces;
 
 public interface IJobTitleService
 {
-    Task<bool> Create(AddJobTitleModel model);
+    Task<RegisterResult> CreateAsync(AddJobTitleModel model);
     Task<JobTitleResult> GetAllAsync();
 }

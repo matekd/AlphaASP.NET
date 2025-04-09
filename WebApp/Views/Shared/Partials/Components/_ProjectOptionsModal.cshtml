@@ -1,13 +1,12 @@
 ﻿@model Project
 
-@await Html.PartialAsync("Partials/Components/_EditProjectForm", ProjectFactory.Create(Model))
-
 <div id="projectOptionsModal" class="modal">
 	<div class="modal-content">
 		<button class="btn modal-edit" data-modal="true" data-target="#editProjectModal">Edit</button>
 		<button class="btn add-member">Add Member</button>
 		<hr />
 		@* Form with id to submit *@
-		<a class="btn delete-project" asp-controller="Projects" asp-action="Delete">Delete Project</a>
+		<a class="btn delete" asp-controller="Projects" asp-action="Delete">Delete Project</a>
 	</div>
 </div>
+@await Html.PartialAsync("Partials/Components/_EditProjectForm", ProjectFactory.Create(Model))

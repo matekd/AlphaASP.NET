@@ -20,4 +20,6 @@ public class MemberEntity : IdentityUser
     public virtual JobTitleEntity? JobTitle { get; set; }
 
     public virtual MemberAddressEntity? Address { get; set; }
+
+    public virtual ICollection<ProjectEntity>? Projects { get; set; }
 }
