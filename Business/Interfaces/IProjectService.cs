@@ -7,4 +7,5 @@ public interface IProjectService
 {
     Task<RegisterResult> CreateAsync(AddProjectModel model, string ImageUrl = "");
     Task<ProjectResult> GetAllAsync();
+    Task<BoolResult> UpdateAsync(EditProjectModel model);
 }

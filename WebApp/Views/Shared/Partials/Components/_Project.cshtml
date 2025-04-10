@@ -8,16 +8,18 @@
 		<h6 class="project-name">@Model.ProjectName</h6>
 		<span class="project-client">@Model.Client.Name</span>
 	</div>
-	<p class="card-description">@(Model.Description != null ? Model.Description : "My description")</p>
+	<p class="card-description">@(Model.Description != null ? Model.Description : "No description")</p>
 	<div class="card-footer">
 		<span class="deadline soon">soon&trade;</span>
 		<div class="member-group">
-			@* @foreach(var member in Model.Members) *@
-			@* { *@
-			@* 	<img src="@(member.ImageUrl != null ? member.ImageUrl : "")" alt="member profile image" /> *@
-			@* } *@
-			<img src="" alt="member profile image" />
-			<img src="" alt="member profile image" />
+			@if (Model.Members != null && Model.Members.Count != 0)
+			{
+				foreach(var member in Model.Members)
+				{
+					<img src="@(member.ImageUrl != null ? member.ImageUrl : "")" alt="member profile image" />
+				}
+			}
+			<img src="" alt="Temp" />
 		</div>
 	</div>
 </div>

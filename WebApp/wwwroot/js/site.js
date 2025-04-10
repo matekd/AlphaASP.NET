@@ -64,9 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.image-previewer').forEach(previewer => {
         const fileInput = previewer.querySelector('input[type=file]')
         const imagePreview = previewer.querySelector('.image-preview')
-        //using label instead
-        //previewer.addEventListener('click', () => fileInput.click())
 
+        previewer.addEventListener('click', () => fileInput.click())
+        
         fileInput.addEventListener('change', ({ target: { files } }) => {
             const file = files[0]
             if (file)
@@ -83,10 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault()
                 clearErrorMessages(form)
                 const formData = new FormData(form)
-                
+                let method = form.getAttribute("submitMethod")
+                if (method === null) method = "post"
                 try {
                     const res = await fetch(form.action, {
-                        method: 'post',
+                        method: method,
                         body: formData,
                     })
 
@@ -124,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 catch {
-                    console.log('error submitting the form')
+                    console.error('error submitting the form')
                 }
             })
         }
@@ -159,13 +160,12 @@ function clearErrorMessages(form) {
 }
 
 async function loadImage(file) {
-    return new Promise((resolve, rejcet) => {
+    return new Promise((resolve, reject) => {
         const reader = new FileReader()
-
-        reader.onerror = () => rejcet(new Error("Failed to load file."))
+        reader.onerror = () => reject(new Error("Failed to load file."))
         reader.onload = (e) => {
             const img = new Image()
-            img.onerror = () => rejcet(new Error("Failed to load image."))
+            img.onerror = () => reject(new Error("Failed to load image."))
             img.onload = () => resolve(img)
             img.src = e.target.result
         }
@@ -173,19 +173,18 @@ async function loadImage(file) {
     })
 }
 
-async function processImage(file, imagePreviewer, previewer, previewSize = 150) {
+async function processImage(file, imagePreview, previewer, previewSize = 150) {
     try {
         const img = await loadImage(file)
         const canvas = document.createElement('canvas')
         canvas.width = previewSize
         canvas.height = previewSize
-
         const ctx = canvas.getContext('2d')
         ctx.drawImage(img, 0, 0, previewSize, previewSize)
-        imagePreviewer.src = canvas.toDataURL('image/jpeg')
+        imagePreview.src = canvas.toDataURL('image/jpeg')
         previewer.classList.add('selected')
     }
-    catch (errpr) {
+    catch (error) {
         console.error("Failed on image processing: ", error)
     }
 }

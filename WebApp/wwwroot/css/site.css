@@ -422,6 +422,7 @@ input[type="password"] {
 .image-previewer::after {
     content: '\f030';
     font-family: var(--font-fa-pro);
+    font-weight: var(--font-semibold);
     padding: 1rem;
     border-radius: 50%;
     background-color: var(--camera-icon-bg);
@@ -629,13 +630,13 @@ hr {
 }
 
 #addProjectModal > .modal-content, 
-#editProjectModal > .modal-content,
+.modal.editProjectModal > .modal-content,
 #addMemberModal > .modal-content, 
 #editMemberModal > .modal-content {
     min-width: 550px;
 }
 
-#addProjectModal, #editProjectModal,
+#addProjectModal, .modal.editProjectModal,
 #addMemberModal, #editMemberModal {
     z-index: 2;
 }
@@ -771,6 +772,7 @@ b {
     background-color: transparent;
     position: absolute;
     .modal-content {
+        border: 1px solid var(--input-border-color);
         display: grid;
         position: absolute;
         top: 0;
@@ -856,7 +858,8 @@ b {
         margin-top: auto;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: end;
+        gap: 1rem;
         .deadline {
             background-color: var(--member-title);
             border-radius: 10px;
@@ -875,8 +878,8 @@ b {
         .member-group {
             display: flex;
             gap: .25rem;
-            /* justify-content: center; */
-            /* align-items: center; */
+            flex-wrap: wrap;
+            justify-content: end;
         }
         .member-group img {
             display: inline-block;

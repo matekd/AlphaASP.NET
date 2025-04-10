@@ -1,6 +1,4 @@
 ﻿@model IEnumerable<Project>
-@* list of projects *@
-@* status service *@
 
 @{
     var started = Model.Where(p => p.Status.StatusName == "Sarted");
@@ -28,8 +26,4 @@
         {
             @await Html.PartialAsync("Partials/Components/_Project", p)
         }
-    @*
-    @await Html.PartialAsync("Partials/Components/_Project", new Project())
-    @await Html.PartialAsync("Partials/Components/_Project", new Project())
-    *@
 </div>

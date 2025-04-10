@@ -33,7 +33,7 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
     [ValidateAntiForgeryToken]
     [Route("Add")]
     [HttpPost]
-    public async Task<IActionResult> AddAsync(AddProjectModel model)
+    public async Task<IActionResult> Add(AddProjectModel model)
     {
         if (!ModelState.IsValid)
         {
@@ -64,7 +64,7 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
 
             filePath = "uploads/" + fileName;
         }
-
+        //var file = File()
         var result = await _projectService.CreateAsync(model, filePath);
         if (!result.Success)
         {
@@ -77,8 +77,8 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
 
     [ValidateAntiForgeryToken]
     [Route("Edit")]
-    [HttpPatch]
-    public IActionResult Edit(EditProjectModel project)
+    [HttpPut]
+    public async Task<IActionResult> Edit(EditProjectModel model)
     {
         if (!ModelState.IsValid)
         {
@@ -92,17 +92,44 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
             return BadRequest(new { success = false, errors });
         }
 
-        // check if ImageUrl has value but not imageFile. if so, use ImageUrl
+        var filePath = "";
+        // check if a new image wasn't selected, if so use previous ImageUrl
+        if ((model.ProjectImage == null || model.ProjectImage.Length == 0) && !string.IsNullOrEmpty(model.ImageUrl))
+        {
+            filePath = model.ImageUrl;
+        }
+        else if (model.ProjectImage != null && model.ProjectImage.Length != 0)
+        {
+            var uploadFolder = Path.Combine(_env.WebRootPath, "uploads");
+            Directory.CreateDirectory(uploadFolder);
 
-        // Send data to service
+            var fileName = Guid.NewGuid().ToString() + '_' + Path.GetFileName(model.ProjectImage.FileName);
 
-        return RedirectToAction("Projects", "Projects");
+            filePath = Path.Combine(uploadFolder, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await model.ProjectImage.CopyToAsync(stream);
+            }
+
+            filePath = "uploads/" + fileName;
+        }
+        
+        model.ImageUrl = filePath;
+        var result = await _projectService.UpdateAsync(model);
+        if (!result.Success)
+        {
+            ViewBag.ErrorMessage = result.Error;
+            return BadRequest(new { success = false });
+        }
+
+        return Ok(new { success = true });
     }
 
     [ValidateAntiForgeryToken]
     [Route("Delete")]
     [HttpDelete]
-    public IActionResult Delete()
+    public async Task<IActionResult> Delete()
     {
         return RedirectToAction("Projects", "Projects");
     }

@@ -1,19 +1,32 @@
 ﻿@model EditProjectModel
 
-<div id="editProjectModal" class="modal">
+@{
+	IEnumerable<Status> statuses = [];
+	IEnumerable<Client> clients = [];
+	var statusResult = await _statusService.GetAllAsync();
+	if (statusResult.Success)
+		statuses = statusResult.Results!;
+	var clientResult = await _clientService.GetAllAsync();
+	if (clientResult.Success)
+		clients = clientResult.Results!;
+}
+
+<div id="@("editForm-" + Model.Id)" class="modal editProjectModal">
 	<div class="modal-content surface">
 		<div class="modal-header">
 			<h3>Edit Project</h3>
 			<button type="button" class="btn-close" data-close="true"></button>
 		</div>
 
-		<form method="post" asp-controller="Projects" asp-action="Edit">
+		<form method="post" asp-controller="Projects" asp-action="Edit" submitMethod="put">
+			<input asp-for="Id" type="hidden" />
+			<input asp-for="ImageUrl" type="hidden" />
 			<div class="form-group">
 				<div class="file-group">
-					<label class="image-previewer square" asp-for="ProjectImage">
+					<div class="image-previewer square@(Model.ImageUrl != null ? " selected" : "")">
 						<img src="@(Model.ImageUrl ?? "")" class="image-preview" />
 						<input asp-for="ProjectImage" accept="image/*" />
-					</label>
+					</div>
 				</div>
 				<div class="input-group">
 					<label asp-for="ProjectName"></label>
@@ -22,12 +35,24 @@
 				</div>
 				<div class="input-group">
 					<label asp-for="ClientId"></label>
-					<input class="input" asp-for="ClientId" />
+					<select class="input" asp-for="ClientId">
+						<option disabled selected value="" class="placeholder">-- Select client --</option>
+						@foreach (var client in clients)
+						{
+							<option value="@client.Id">@client.Name</option>
+						}
+					</select>
 					<span asp-validation-for="ClientId"></span>
 				</div>
 				<div class="input-group">
 					<label asp-for="StatusId"></label>
-					<input class="input" asp-for="StatusId" />
+					<select class="input" asp-for="StatusId">
+						<option disabled selected value="" class="placeholder">-- Select status --</option>
+						@foreach (var status in statuses)
+						{
+							<option value="@status.Id">@status.StatusName</option>
+						}
+					</select>
 					<span asp-validation-for="StatusId"></span>
 				</div>
 				<div class="input-group">

@@ -2,7 +2,6 @@
 using Business.Interfaces;
 using Business.Models;
 using Data.Interfaces;
-using Data.Repositories;
 using Domain.Models;
 
 namespace Business.Services;
@@ -47,5 +46,15 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
         return projects != null
             ? new ProjectResult { Success = res.Success, StatusCode = res.StatusCode, Results = projects! }
             : new ProjectResult { Success = false, StatusCode = 404, Error = "No projects found." };
+    }
+
+    public async Task<BoolResult> UpdateAsync(EditProjectModel model)
+    {
+        if (model == null)
+            return new BoolResult { Success = false, StatusCode = 400, Error = "Model can't be null."};
+        var result = await _projectRepository.UpdateAsync(ProjectFactory.Create(model)!);
+        return result.Success
+            ? new BoolResult { Success = result.Success, StatusCode = result.StatusCode, Result = result.Result }
+            : new BoolResult { Success = result.Success, StatusCode = result.StatusCode, Error = result.Error };
     }
 }

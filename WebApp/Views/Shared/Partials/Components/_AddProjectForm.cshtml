@@ -25,10 +25,10 @@
 					<span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
 				}
 				<div class="file-group">
-					<label class="image-previewer square" asp-for="ProjectImage">
+					<div class="image-previewer square">
 						<img src="" class="image-preview"/>
 						<input asp-for="ProjectImage" accept="image/*" />
-					</label>
+					</div>
 				</div>
 				<div class="input-group">
 					<label asp-for="ProjectName"></label>
