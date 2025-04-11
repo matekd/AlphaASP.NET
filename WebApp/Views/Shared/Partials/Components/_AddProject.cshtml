@@ -8,7 +8,8 @@
 		</div>
 
 		<form method="post" asp-controller="Projects" asp-action="Add" submitMethod="post" enctype="multipart/form-data" novalidate>
-			@await Html.PartialAsync("Partials/Components/_ProjectForm")
+			@await Html.PartialAsync("Partials/Components/_ProjectForm", new ProjectModel())
+			<button type="submit" class="btn blue">Create</button>
 		</form>
 	</div>
 </div>

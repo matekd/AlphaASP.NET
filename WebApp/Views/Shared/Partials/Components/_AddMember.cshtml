@@ -1,0 +1,22 @@
+﻿@model MemberModel
+
+@{
+	IEnumerable<JobTitle> titles = [];
+	var res = await _jobTitleService.GetAllAsync();
+	if (res.Success)
+		titles = res.Results!;
+}
+
+<div id="addMemberModal" class="modal">
+	<div class="modal-content surface">
+		<div class="modal-header">
+			<h3>New Member</h3>
+			<button type="button" class="btn-close" data-close="true"></button>
+		</div>
+
+		<form method="post" asp-controller="Members" asp-action="Add" submitMethod="post" enctype="multipart/form-data" novalidate>
+			@await Html.PartialAsync("Partials/Components/_MemberForm", Model)
+			<button type="submit" class="btn blue">Add Member</button>
+		</form>
+	</div>
+</div>

@@ -332,6 +332,7 @@ a:hover, a:focus {
 form .form-group {
     display: grid;
     row-gap: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 form .input-group {
     display: grid;
@@ -427,13 +428,11 @@ input[type="password"] {
     border-radius: 50%;
     background-color: var(--camera-icon-bg);
     color: var(--camera-icon);
-    position: relative;
-    bottom: 0;
+    position: absolute;
 }
 .image-previewer.selected::after {
     content: '\f044';
     color: var(--white-300);
-    position: absolute;
     bottom: .5rem;
 }
 .image-previewer.square {
@@ -634,12 +633,12 @@ hr {
 #addProjectModal > .modal-content, 
 .modal.editProjectModal > .modal-content,
 #addMemberModal > .modal-content, 
-#editMemberModal > .modal-content {
+.editMemberModal > .modal-content {
     min-width: 550px;
 }
 
 #addProjectModal, .modal.editProjectModal,
-#addMemberModal, #editMemberModal {
+#addMemberModal, .modal.editMemberModal {
     z-index: 2;
 }
 

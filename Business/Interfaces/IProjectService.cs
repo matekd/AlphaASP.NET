@@ -5,7 +5,7 @@ namespace Business.Interfaces;
 
 public interface IProjectService
 {
-    Task<RegisterResult> CreateAsync(ProjectModel model, string ImageUrl = "");
+    Task<RegisterResult> CreateAsync(ProjectModel model);
     Task<ProjectResult> GetAllAsync();
     Task<BoolResult> UpdateAsync(ProjectModel model);
 }

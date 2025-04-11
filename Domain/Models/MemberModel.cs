@@ -4,10 +4,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models;
 
-public class AddMemberModel
+public class MemberModel
 {
+    public string? Id { get; set; }
+
     [DataType(DataType.Upload)]
     public IFormFile? MemberImage { get; set; }
+    public string? ImageUrl { get; set; }
 
     [Display(Name = "First name", Prompt = "Your first name")]
     [Required(ErrorMessage = "First name is required")]

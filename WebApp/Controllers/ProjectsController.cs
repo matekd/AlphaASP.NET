@@ -1,6 +1,4 @@
-﻿using Business.Factories;
-using Business.Interfaces;
-using Business.Services;
+﻿using Business.Interfaces;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -64,7 +62,8 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
             filePath = "uploads/" + fileName;
         }
 
-        var result = await _projectService.CreateAsync(model, filePath);
+        model.ImageUrl = filePath;
+        var result = await _projectService.CreateAsync(model);
         if (!result.Success)
         {
             ViewBag.ErrorMessage = result.Error;

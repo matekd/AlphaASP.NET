@@ -1,0 +1,70 @@
+﻿@model MemberModel
+
+@{
+	IEnumerable<JobTitle> titles = [];
+	var res = await _jobTitleService.GetAllAsync();
+	if (res.Success)
+		titles = res.Results!;
+}
+
+<div class="form-group">
+	@if (ViewBag.ErrorMessage != null)
+	{
+		<span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
+	}
+	<input type="hidden" asp-for="Id" />
+	<input asp-for="ImageUrl" type="hidden" />
+	<div class="file-group">
+		<div class="image-previewer circle@(Model.ImageUrl != null ? " selected" : "")">
+			<img src="@(Model.ImageUrl ?? "")" class="image-preview" />
+			<input asp-for="MemberImage" accept="image/*" />
+		</div>
+	</div>
+	<div class="name-group">
+		<div class="input-group">
+			<label asp-for="FirstName"></label>
+			<input class="input" asp-for="FirstName">
+			<span asp-validation-for="FirstName"></span>
+		</div>
+		<div class="input-group">
+			<label asp-for="LastName"></label>
+			<input class="input" asp-for="LastName">
+			<span asp-validation-for="LastName"></span>
+		</div>
+	</div>
+	<div class="input-group">
+		<label asp-for="Email"></label>
+		<input class="input" asp-for="Email">
+		<span asp-validation-for="Email"></span>
+	</div>
+	<div class="input-group">
+		<label asp-for="PhoneNumber"></label>
+		<input class="input" asp-for="PhoneNumber">
+		<span asp-validation-for="PhoneNumber"></span>
+	</div>
+	<div class="input-group">
+		<label asp-for="JobTitleId"></label>
+		<select class="input" asp-for="JobTitleId">
+			<option disabled selected value="" class="placeholder">-- Select Title --</option>
+			@foreach (var title in titles)
+			{
+				<option value=@title.Id>@title.Title</option>
+			}
+		</select>
+		<span asp-validation-for="JobTitleId"></span>
+	</div>
+	<div class="address-group">
+		<label asp-for="Address"></label>
+		<div class="input-group">
+			<input class="input" asp-for="Address.StreetName">
+			<input class="input" asp-for="Address.PostalCode">
+			<input class="input" asp-for="Address.City">
+		</div>
+	</div>
+	<div class="input-group">
+		<label asp-for="BirthDate"></label>
+		<input class="input" asp-for="BirthDate">
+	</div>
+</div>
+
+@await Html.PartialAsync("_ValidationScript")

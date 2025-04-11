@@ -3,6 +3,7 @@ using Business.Interfaces;
 using Business.Models;
 using Data.Entities;
 using Data.Interfaces;
+using Data.Repositories;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Linq.Expressions;
@@ -13,13 +14,13 @@ public class MemberService(UserManager<MemberEntity> userManager, IMemberReposit
     private readonly UserManager<MemberEntity> _userManager = userManager;
     private readonly IMemberRepository _memberRepository = memberRepository;
 
-    public async Task<RegisterResult> CreateUserAsync(AddMemberModel model, string ImageUrl = "")
+    public async Task<RegisterResult> CreateUserAsync(MemberModel model)
     {
         var existsResult = await _memberRepository.AnyAsync(x => x.Email == model.Email);
         if (existsResult.Success)
             return new RegisterResult { Success = false, StatusCode = 409, Error = "Member already exists." };
 
-        var entity = MemberFactory.Create(model, ImageUrl);
+        var entity = MemberFactory.Create(model);
         if (entity == null)
             return new RegisterResult { Success = false, StatusCode = 400, Error = "Invalid request." };
 
@@ -64,5 +65,29 @@ public class MemberService(UserManager<MemberEntity> userManager, IMemberReposit
 
         var member = MemberFactory.Create(res.Result!);
         return new MemberResult { Success = res.Success, StatusCode = res.StatusCode, Result = member };
+    }
+
+    public async Task<BoolResult> UpdateAsync(MemberModel model)
+    {
+        if (model == null)
+            return new BoolResult { Success = false, StatusCode = 400, Error = "Model can't be null." };
+
+        var entity = await _userManager.FindByIdAsync(model.Id!);
+        if (entity == null)
+            return new BoolResult { Success = false, StatusCode = 404, Error = "Member does not exist."};
+
+        entity.FirstName = model.FirstName;
+        entity.LastName = model.LastName;
+        entity.Email = model.Email;
+        entity.UserName = model.Email;
+        entity.PhoneNumber = model.PhoneNumber;
+        entity.BirthDate = model.BirthDate;
+        entity.ImageUrl = model.ImageUrl;
+        entity.JobTitleId = model.JobTitleId;
+        
+        var result = await _userManager.UpdateAsync(entity);
+        return result.Succeeded
+            ? new BoolResult { Success = result.Succeeded, StatusCode = 201, Result = true }
+            : new BoolResult { Success = result.Succeeded, StatusCode = 500, Error = result.Errors.ToString() };
     }
 }

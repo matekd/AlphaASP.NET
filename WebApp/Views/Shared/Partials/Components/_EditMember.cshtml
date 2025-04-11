@@ -1,0 +1,17 @@
+﻿@model MemberModel
+
+<div id="@("editForm-" + Model.Id)" class="modal editMemberModal">
+	<div class="modal-content surface">
+		<div class="modal-header">
+			<h3>Edit Member</h3>
+			<button type="button" class="btn-close" data-close="true"></button>
+		</div>
+
+		<form method="post" asp-controller="Members" asp-action="Edit" submitMethod="put" novalidate>
+			@await Html.PartialAsync("Partials/Components/_MemberForm", Model)
+			<button type="submit" class="btn blue">Save</button>
+		</form>
+	</div>
+</div>
+
+@await Html.PartialAsync("_ValidationScript")

@@ -28,7 +28,7 @@ public class MembersController(IMemberService memberService, IAddressService add
     [ValidateAntiForgeryToken]
     [Route("Add")]
     [HttpPost]
-    public async Task<IActionResult> Add(AddMemberModel model)
+    public async Task<IActionResult> Add(MemberModel model)
     {
         if (!ModelState.IsValid)
         {
@@ -60,8 +60,9 @@ public class MembersController(IMemberService memberService, IAddressService add
             // relative path
             filePath = "uploads/" + fileName;
         }
-        
-        var result = await _memberService.CreateUserAsync(model, filePath);
+
+        model.ImageUrl = filePath;
+        var result = await _memberService.CreateUserAsync(model);
         if (!result.Success)
         {
             ViewBag.ErrorMessage = result.Error;
@@ -78,8 +79,8 @@ public class MembersController(IMemberService memberService, IAddressService add
 
     [ValidateAntiForgeryToken]
     [Route("Edit")]
-    [HttpPost]
-    public IActionResult Edit(EditMemberModel model)
+    [HttpPut]
+    public async Task<IActionResult> EditAsync(MemberModel model)
     {
         if (!ModelState.IsValid)
         {
@@ -93,7 +94,37 @@ public class MembersController(IMemberService memberService, IAddressService add
             return BadRequest(new { success = false, errors });
         }
 
-        // Send data to service
+        var filePath = "";
+        if ((model.MemberImage == null || model.MemberImage.Length == 0) && !string.IsNullOrEmpty(model.ImageUrl))
+        {
+            filePath = model.ImageUrl;
+        }
+        else if (model.MemberImage != null && model.MemberImage.Length != 0)
+        {
+            var uploadFolder = Path.Combine(_env.WebRootPath, "uploads");
+            Directory.CreateDirectory(uploadFolder);
+
+            var fileName = Guid.NewGuid().ToString() + '_' + Path.GetFileName(model.MemberImage.FileName);
+
+            // full path
+            filePath = Path.Combine(uploadFolder, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await model.MemberImage.CopyToAsync(stream);
+            }
+
+            // relative path
+            filePath = "uploads/" + fileName;
+        }
+
+        model.ImageUrl = filePath;
+        var result = await _memberService.UpdateAsync(model);
+        if (!result.Success)
+        {
+            ViewBag.ErrorMessage = result.Error;
+            return BadRequest(new { success = false });
+        }
 
         return Ok(new { success = true });
     }

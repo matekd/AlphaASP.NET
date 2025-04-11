@@ -10,13 +10,13 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
 {
     private readonly IProjectRepository _projectRepository = projectRepository;
 
-    public async Task<RegisterResult> CreateAsync(ProjectModel model, string ImageUrl = "")
+    public async Task<RegisterResult> CreateAsync(ProjectModel model)
     {
         var existsResult = await _projectRepository.AnyAsync(x => x.ProjectName == model.ProjectName);
         if (existsResult.Success)
             return new RegisterResult { Success = false, StatusCode = 409, Error = "Project already exists." };
 
-        var entity = ProjectFactory.Create(model, ImageUrl);
+        var entity = ProjectFactory.Create(model);
         if (entity == null)
             return new RegisterResult { Success = false, StatusCode = 400, Error = "Invalid request." };
 

@@ -46,27 +46,6 @@ public static class ProjectFactory
         return project;
     }
 
-    // add/edit
-    public static ProjectEntity? Create(ProjectModel model, string ImageUrl = "")
-    {
-        if (model == null) return null!;
-
-        var entity = new ProjectEntity
-        {
-            ProjectName = model.ProjectName,
-            StartDate = model.StartDate,
-            EndDate = model.EndDate,
-            Budget = model.Budget,
-            StatusId = model.StatusId,
-            ClientId = model.ClientId,
-        };
-        if (model.Description != null) entity.Description = model.Description;
-        if (!string.IsNullOrEmpty(ImageUrl)) entity.ImageUrl = ImageUrl;
-
-        return entity;
-    }
-
-    // register
     public static ProjectEntity? Create(ProjectModel model)
     {
         if (model == null) return null!;

@@ -7,8 +7,9 @@
 			<button type="button" class="btn-close" data-close="true"></button>
 		</div>
 
-		<form method="post" asp-controller="Projects" asp-action="Edit" submitMethod="put">
+		<form method="post" asp-controller="Projects" asp-action="Edit" submitMethod="put" novalidate>
 			@await Html.PartialAsync("Partials/Components/_ProjectForm")
+			<button type="submit" class="btn blue">Save</button>
 		</form>
 	</div>
 </div>

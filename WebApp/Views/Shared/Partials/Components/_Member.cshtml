@@ -8,7 +8,7 @@
 
 	<h4>@(Model.FirstName != null ? Model.FirstName : Html.Raw("&nbsp;")) @(Model.LastName != null ? Model.LastName : Html.Raw("&nbsp;"))</h4>
 
-	<span class="job-title">@(Model.JobTitle != null ? Model.JobTitle : "No title")</span>
+	<span class="job-title">@(Model.JobTitle != null ? Model.JobTitle.Title : "No title")</span>
 
 	<span>@Model!.Email</span>
 
