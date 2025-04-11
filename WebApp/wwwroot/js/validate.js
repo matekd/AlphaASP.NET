@@ -2,14 +2,20 @@
     const form = document.querySelector("form")
     if (!form) return
 
-    const fields = form.querySelectorAll("input[data-val='true']")
-    if (!fields) return
-
-    fields.forEach(field => {
-        field.addEventListener("input", () => {
-            validateField(field)
+    const inputs = form.querySelectorAll("input[data-val='true']")
+    if (inputs)
+        inputs.forEach(input => {
+            input.addEventListener("input", () => {
+                validateField(input)
+            })
         })
-    })
+    const selects = form.querySelectorAll("select[data-val='true']")
+    if (selects)
+        selects.forEach(select => {
+            select.addEventListener("input", () => {
+                validateField(select)
+            })
+        })
 })
 
 function validateField(field) {
