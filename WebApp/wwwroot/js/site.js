@@ -83,8 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault()
                 clearErrorMessages(form)
                 const formData = new FormData(form)
-                let method = form.getAttribute("submitMethod")
-                if (method === null) method = "post"
+                const method = form.getAttribute("submitMethod") ?? "post"
                 try {
                     const res = await fetch(form.action, {
                         method: method,

@@ -1,0 +1,14 @@
+﻿@model ProjectModel
+
+<div id="@("editForm-" + Model.Id)" class="modal editProjectModal">
+	<div class="modal-content surface">
+		<div class="modal-header">
+			<h3>Edit Project</h3>
+			<button type="button" class="btn-close" data-close="true"></button>
+		</div>
+
+		<form method="post" asp-controller="Projects" asp-action="Edit" submitMethod="put">
+			@await Html.PartialAsync("Partials/Components/_ProjectForm")
+		</form>
+	</div>
+</div>

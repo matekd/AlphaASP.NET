@@ -20,7 +20,6 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
         return RedirectToAction("Projects");
     }
 
-    // "/projects?status=test"
     [Route("projects")]
     public async Task<IActionResult> ProjectsAsync()
     {
@@ -33,7 +32,7 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
     [ValidateAntiForgeryToken]
     [Route("Add")]
     [HttpPost]
-    public async Task<IActionResult> Add(AddProjectModel model)
+    public async Task<IActionResult> Add(ProjectModel model)
     {
         if (!ModelState.IsValid)
         {
@@ -64,7 +63,7 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
 
             filePath = "uploads/" + fileName;
         }
-        //var file = File()
+
         var result = await _projectService.CreateAsync(model, filePath);
         if (!result.Success)
         {
@@ -78,7 +77,7 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
     [ValidateAntiForgeryToken]
     [Route("Edit")]
     [HttpPut]
-    public async Task<IActionResult> Edit(EditProjectModel model)
+    public async Task<IActionResult> Edit(ProjectModel model)
     {
         if (!ModelState.IsValid)
         {

@@ -1,29 +1,35 @@
 ﻿@model IEnumerable<Project>
 
 @{
-    var started = Model.Where(p => p.Status.StatusName == "Sarted");
-    var completed = Model.Where(p => p.Status.StatusName == "Completed");
-    // var sCount = completed.Count(); // count directly in navbar
-    // var cCount = completed.Count();
+    IEnumerable<Status> statuses = [];
+    var statusResult = await _statusService.GetAllAsync();
+    if (statusResult.Success)
+        statuses = statusResult.Results!;
     ViewData["Title"] = "Projects";
 }
-@await Html.PartialAsync("Partials/Components/_AddProjectForm", new AddProjectModel())
+@await Html.PartialAsync("Partials/Components/_AddProject", new ProjectModel())
 
 <div class="main-header">
     <h2>@ViewData["Title"]</h2>
     <button class="btn blue add" data-modal="true" data-target="#addProjectModal">Add Project</button>
 </div>
 
-@* Hardcoded two statuses, for dynamic: iterate over all statuses, filter Model for each status *@
 <div class="navbar">
-    <a href="" class="tab-link active">ALL [9]</a>
-    <a href="" class="tab-link">STARTED [9]</a>
-    <a href="" class="tab-link">COMPLETED [0]</a>
+    <button id="All" class="tab-link active" onclick=filterProjects("All")>ALL [@Model.Count()]</button>
+    @foreach(var status in statuses)
+    {
+        <button id="@status.StatusName" class="tab-link" onclick=filterProjects("@status.StatusName")>@status.StatusName.ToUpper() [@Model.Count(s => s.Status.StatusName == status.StatusName)]</button>
+    }
 </div>
-<div class="project-list">
-    @if (Model != null)
-        foreach (var p in Model)
+
+@if (Model != null)
+{
+    <div id="all" class="project-list">
+        @foreach (var p in Model)
         {
             @await Html.PartialAsync("Partials/Components/_Project", p)
         }
-</div>
+    </div>
+}
+
+@await Html.PartialAsync("_FilterScripts")

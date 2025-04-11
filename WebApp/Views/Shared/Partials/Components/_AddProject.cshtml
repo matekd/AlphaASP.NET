@@ -1,0 +1,14 @@
+﻿@model ProjectModel
+
+<div id="addProjectModal" class="modal">
+	<div class="modal-content surface">
+		<div class="modal-header">
+			<h3>Add Project</h3>
+			<button type="button" class="btn-close" data-close="true"></button>
+		</div>
+
+		<form method="post" asp-controller="Projects" asp-action="Add" submitMethod="post" enctype="multipart/form-data" novalidate>
+			@await Html.PartialAsync("Partials/Components/_ProjectForm")
+		</form>
+	</div>
+</div>

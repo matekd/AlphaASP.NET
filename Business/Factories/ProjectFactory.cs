@@ -6,10 +6,10 @@ namespace Business.Factories;
 
 public static class ProjectFactory
 {
-    public static EditProjectModel? Create(Project project)
+    public static ProjectModel? Create(Project project)
     {
         if (project == null) return null;
-        var projectModel = new EditProjectModel
+        var projectModel = new ProjectModel
         {
             Id = project.Id,
             ProjectName = project.ProjectName,
@@ -46,7 +46,8 @@ public static class ProjectFactory
         return project;
     }
 
-    public static ProjectEntity? Create(AddProjectModel model, string ImageUrl = "")
+    // add/edit
+    public static ProjectEntity? Create(ProjectModel model, string ImageUrl = "")
     {
         if (model == null) return null!;
 
@@ -65,7 +66,8 @@ public static class ProjectFactory
         return entity;
     }
 
-    public static ProjectEntity? Create(EditProjectModel model)
+    // register
+    public static ProjectEntity? Create(ProjectModel model)
     {
         if (model == null) return null!;
 

@@ -9,4 +9,5 @@
 		<a class="btn delete" asp-controller="Projects" asp-action="Delete">Delete Project</a>
 	</div>
 </div>
-@await Html.PartialAsync("Partials/Components/_EditProjectForm", ProjectFactory.Create(Model))
+
+@await Html.PartialAsync("Partials/Components/_EditProject", ProjectFactory.Create(Model))

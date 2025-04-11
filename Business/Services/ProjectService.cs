@@ -10,7 +10,7 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
 {
     private readonly IProjectRepository _projectRepository = projectRepository;
 
-    public async Task<RegisterResult> CreateAsync(AddProjectModel model, string ImageUrl = "")
+    public async Task<RegisterResult> CreateAsync(ProjectModel model, string ImageUrl = "")
     {
         var existsResult = await _projectRepository.AnyAsync(x => x.ProjectName == model.ProjectName);
         if (existsResult.Success)
@@ -21,7 +21,6 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
             return new RegisterResult { Success = false, StatusCode = 400, Error = "Invalid request." };
 
         var result = await _projectRepository.AddAsync(entity);
-
         return result.Success
             ? new RegisterResult { Success = result.Success, StatusCode = result.StatusCode }
             : new RegisterResult { Success = result.Success, StatusCode = result.StatusCode, Error = result.Error};
@@ -48,7 +47,7 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
             : new ProjectResult { Success = false, StatusCode = 404, Error = "No projects found." };
     }
 
-    public async Task<BoolResult> UpdateAsync(EditProjectModel model)
+    public async Task<BoolResult> UpdateAsync(ProjectModel model)
     {
         if (model == null)
             return new BoolResult { Success = false, StatusCode = 400, Error = "Model can't be null."};

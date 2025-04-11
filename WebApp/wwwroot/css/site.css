@@ -614,6 +614,8 @@ hr {
     border-bottom: 1px solid var(--border-color);
 }
 .navbar > .tab-link {
+    cursor: pointer;
+    border: none;
     padding-block: 1rem;
     font-family: var(--font-standard);
     font-weight: var(--font-bold);
@@ -716,6 +718,9 @@ hr {
     flex-wrap: wrap;
     gap: 2rem;
 }
+.project-list {
+    padding-top: 2rem;
+}
 .member-card, .project-card {
     position: relative;
 }
@@ -737,7 +742,6 @@ b {
     padding: 1.5rem;
     width: 300px;
     height: 460px;
-    
     img {
         width: 150px;
         height: 150px;
@@ -818,6 +822,9 @@ b {
         }
     }
 }
+.project-card.hide {
+    display: none;
+}
 .project-card {
     width: 350px;
     min-height: 276px;
@@ -874,6 +881,13 @@ b {
         .deadline.soon {
             color: var(--dark-red);
             background-color: var(--red-opacity);
+        }
+        .deadline.complete {
+            color: var(--text-color);
+        }
+        .deadline.complete::before {
+            content: '';
+            padding: 0;
         }
         .member-group {
             display: flex;
