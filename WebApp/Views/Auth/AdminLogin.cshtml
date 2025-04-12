@@ -5,7 +5,7 @@
 	ViewData["Title"] = "";
 }
 
-<form method="post" id="admin-form" class="auth-form" asp-controller="Admin" asp-action="Login" novalidate>
+<form method="post" id="admin-form" class="auth-form" asp-controller="Auth" asp-action="AdminLogin" novalidate>
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
     <h1>Login</h1>
