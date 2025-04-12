@@ -66,8 +66,8 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
         var result = await _projectService.CreateAsync(model);
         if (!result.Success)
         {
-            ViewBag.ErrorMessage = result.Error;
-            return BadRequest(new { success = false });
+            //ViewBag.ErrorMessage = result.Error;
+            return BadRequest(new { success = false, submitError = result.Error });
         }
         
         return Ok(new { success = true });
@@ -117,8 +117,8 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
         var result = await _projectService.UpdateAsync(model);
         if (!result.Success)
         {
-            ViewBag.ErrorMessage = result.Error;
-            return BadRequest(new { success = false });
+            //ViewBag.ErrorMessage = result.Error;
+            return BadRequest(new { success = false, submitError = result.Error });
         }
 
         return Ok(new { success = true });

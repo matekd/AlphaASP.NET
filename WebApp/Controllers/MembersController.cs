@@ -65,8 +65,8 @@ public class MembersController(IMemberService memberService, IAddressService add
         var result = await _memberService.CreateUserAsync(model);
         if (!result.Success)
         {
-            ViewBag.ErrorMessage = result.Error;
-            return BadRequest(new { success = false });
+            //ViewBag.ErrorMessage = result.Error;
+            return BadRequest(new { success = false, submitError = result.Error, result.StatusCode });
         }
         if (model.Address != null)
         {
@@ -122,8 +122,8 @@ public class MembersController(IMemberService memberService, IAddressService add
         var result = await _memberService.UpdateAsync(model);
         if (!result.Success)
         {
-            ViewBag.ErrorMessage = result.Error;
-            return BadRequest(new { success = false });
+            //ViewBag.ErrorMessage = result.Error;
+            return BadRequest(new { success = false, submitError = result.Error });
         }
 
         return Ok(new { success = true });

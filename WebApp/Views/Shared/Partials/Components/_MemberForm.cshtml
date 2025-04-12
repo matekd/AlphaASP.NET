@@ -8,10 +8,9 @@
 }
 
 <div class="form-group">
-	@if (ViewBag.ErrorMessage != null)
-	{
-		<span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
-	}
+	
+	<span class="submit-error"></span>
+	
 	<input type="hidden" asp-for="Id" />
 	<input asp-for="ImageUrl" type="hidden" />
 	<div class="file-group">

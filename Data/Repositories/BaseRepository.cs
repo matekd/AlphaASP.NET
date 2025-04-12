@@ -33,7 +33,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-            return new RepositoryResult<TEntity> { Success = false, StatusCode = 500, Error = ex.Message };
+            return new RepositoryResult<TEntity> { Success = false, StatusCode = 500, Error = "An error occurred." };
         }
     }
 
@@ -88,7 +88,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-            return new RepositoryResult<bool> { Success = false, StatusCode = 500, Error = ex.Message };
+            return new RepositoryResult<bool> { Success = false, StatusCode = 500, Error = "An error occurred." };
         }
     }
 
@@ -106,7 +106,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
-            return new RepositoryResult<bool> { Success = false, StatusCode = 500, Error = ex.Message };
+            return new RepositoryResult<bool> { Success = false, StatusCode = 500, Error = "An error occurred." };
         }
     }
 

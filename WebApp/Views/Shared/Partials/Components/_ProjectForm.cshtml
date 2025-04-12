@@ -10,10 +10,12 @@
 	if (clientResult.Success)
 		clients = clientResult.Results!;
 }
-
-<input asp-for="Id" type="hidden" />
-<input asp-for="ImageUrl" type="hidden" />
 <div class="form-group">
+
+	<span class="submit-error"></span>
+
+	<input asp-for="Id" type="hidden" />
+	<input asp-for="ImageUrl" type="hidden" />
 	<div class="file-group">
 		<div class="image-previewer square@(Model.ImageUrl != null ? " selected" : "")">
 			<img src="@(Model.ImageUrl ?? "")" class="image-preview" />

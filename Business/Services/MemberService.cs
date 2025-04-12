@@ -3,7 +3,6 @@ using Business.Interfaces;
 using Business.Models;
 using Data.Entities;
 using Data.Interfaces;
-using Data.Repositories;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Linq.Expressions;
@@ -88,6 +87,6 @@ public class MemberService(UserManager<MemberEntity> userManager, IMemberReposit
         var result = await _userManager.UpdateAsync(entity);
         return result.Succeeded
             ? new BoolResult { Success = result.Succeeded, StatusCode = 201, Result = true }
-            : new BoolResult { Success = result.Succeeded, StatusCode = 500, Error = result.Errors.ToString() };
+            : new BoolResult { Success = result.Succeeded, StatusCode = 500, Error = result.Errors.FirstOrDefault()!.Description };
     }
 }
