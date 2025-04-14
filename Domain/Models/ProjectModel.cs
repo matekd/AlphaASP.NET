@@ -40,11 +40,12 @@ public class ProjectModel
     [DataType(DataType.Date)]
     public DateOnly EndDate { get; set; }
 
-    //[Display(Name = "Members", Prompt = "Enter title")]
-    //public ICollection<int>? Members { get; set; }
-
     [Display(Name = "Budget", Prompt = "0")]
     [Required(ErrorMessage = "Budget is required")]
     [DataType(DataType.Currency)]
     public int Budget { get; set; }
+
+    public IEnumerable<Member>? Members { get; set; }
+
+    public IEnumerable<string>? MemberIds { get; set; }
 }

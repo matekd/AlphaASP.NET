@@ -387,6 +387,53 @@ form .field-validation-error {
         padding-right: .25rem;
     }
 }
+form .multi-select {
+    display: grid;
+    width: fit-content;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    padding-bottom: 2rem;
+    /* height: 3rem;
+    overflow: auto; */
+    .option-group {
+        padding: .25rem .5rem;
+        border-radius: 8px;
+    }
+    .option-group.hide {
+        display: none;
+    }
+    .option-group:hover, .option-group:focus {
+        background-color: var(--accent-opacity);
+        label {
+            color: var(--accent);
+        }
+    }
+    input {
+        display: none;
+    }
+    label {
+        display: flex;
+        align-items: center;
+    }
+    label::before {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        content: '\f00c';
+        font-family: var(--font-fa-pro);
+        color: var(--white-100);
+        width: 16px;
+        height: 16px;
+        background-color: var(--white-100);
+        border: var(--dark-100) 1px solid;
+        border-radius: 5px;
+        font-size: .6rem;
+        margin-right: .5rem;
+    }
+    label:has(> input:checked)::before {
+        background-color: var(--accent);
+    }
+}
 select {
     appearance: none;
 }
@@ -598,7 +645,9 @@ hr {
         color: var(--text-light);
     }
 }
-
+.placeholder {
+    /* color: var(--text-light); */
+}
 .main-header {
     display: flex;
     justify-content: space-between;
@@ -633,12 +682,14 @@ hr {
 #addProjectModal > .modal-content, 
 .modal.editProjectModal > .modal-content,
 #addMemberModal > .modal-content, 
-.editMemberModal > .modal-content {
+.editMemberModal > .modal-content,
+.projectMemberModal > .modal-content {
     min-width: 550px;
 }
 
 #addProjectModal, .modal.editProjectModal,
-#addMemberModal, .modal.editMemberModal {
+#addMemberModal, .modal.editMemberModal,
+.modal.projectMemberModal {
     z-index: 2;
 }
 
@@ -885,8 +936,7 @@ b {
             color: var(--text-color);
         }
         .deadline.complete::before {
-            content: '';
-            padding: 0;
+            content: '\f00c';
         }
         .member-group {
             display: flex;

@@ -2,6 +2,7 @@
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace WebApp.Controllers;
 
@@ -130,5 +131,22 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
     public async Task<IActionResult> Delete()
     {
         return RedirectToAction("Projects", "Projects");
+    }
+
+    [ValidateAntiForgeryToken]
+    [Route("AddMember")]
+    [HttpPatch]
+    public async Task<IActionResult> AddMember(int Id, string[] MemberIds)
+    {
+        if (Id <= 0 || MemberIds.IsNullOrEmpty())
+        {
+            return BadRequest(new { success = false });
+        }
+
+        var result = await _projectService.AddMemberAsync(Id, MemberIds);
+
+        return result.Success
+            ? Ok(new { success = true })
+            : BadRequest(new { success = false, submitError = result.Error });
     }
 }

@@ -19,7 +19,7 @@ public static class ProjectFactory
             ClientId = project.Client.Id,
             StatusId = project.Status.Id
         };
-        //Members = project.Members,
+        if (!project.Members.IsNullOrEmpty()) projectModel.Members = [.. project.Members!];
         if (project.Description != null) projectModel.Description = project.Description;
         if (project.ImageUrl != null) projectModel.ImageUrl = project.ImageUrl;
         return projectModel;
@@ -41,7 +41,7 @@ public static class ProjectFactory
         };
         if (entity.Description != null) project.Description = entity.Description;
         if (entity.ImageUrl != null) project.ImageUrl = entity.ImageUrl;
-        if (!entity.Members.IsNullOrEmpty()) project.Members = [.. entity.Members!.Select(MemberFactory.Create)];
+        if (entity.Members != null && entity.Members.Any()) project.Members = [.. entity.Members!.Select(MemberFactory.Create)];
 
         return project;
     }

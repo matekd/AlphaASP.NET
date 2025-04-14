@@ -1,8 +1,11 @@
 ﻿using Business.Factories;
 using Business.Interfaces;
 using Business.Models;
+using Data.Entities;
 using Data.Interfaces;
 using Domain.Models;
+using Microsoft.IdentityModel.Tokens;
+using System.Linq.Expressions;
 
 namespace Business.Services;
 
@@ -55,5 +58,21 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
         return result.Success
             ? new BoolResult { Success = result.Success, StatusCode = result.StatusCode, Result = result.Result }
             : new BoolResult { Success = result.Success, StatusCode = result.StatusCode, Error = result.Error };
+    }
+
+    public async Task<BoolResult> AddMemberAsync(int projectId, string[] memberIds)
+    {
+        var projectExists = await _projectRepository.AnyAsync(p => p.Id == projectId);
+        if (!projectExists.Success)
+            return new BoolResult { Success = false, StatusCode = 404, Error = "No projects found." };
+        if (memberIds.IsNullOrEmpty())
+            return new BoolResult { Success = false, StatusCode = 400, Error = "Member list can't be empty." };
+
+        foreach (var memberId in memberIds)
+        {
+            await _projectRepository.AddMemberAsync(projectId, memberId);
+        }
+
+        return new BoolResult { Success = true, StatusCode = 200 };
     }
 }

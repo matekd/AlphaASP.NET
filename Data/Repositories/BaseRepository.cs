@@ -46,13 +46,13 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
 
         if (includes != null && includes.Length != 0)
             foreach (var include in includes)
-                query.Include(include);
+                query = query.Include(include);
 
         if (sortBy != null)
             query = orderDescending
                 ? query.OrderByDescending(sortBy)
                 : query.OrderBy(sortBy);
-
+        
         var entities = await query.ToListAsync();
         return entities.IsNullOrEmpty()
             ? new RepositoryResult<IEnumerable<TEntity>> { Success = false, StatusCode = 404, Error = "No entities found." }

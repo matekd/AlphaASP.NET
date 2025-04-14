@@ -10,6 +10,6 @@ public class Project
     public DateOnly EndDate { get; set; }
     public Status Status { get; set; } = null!;
     public Client Client { get; set; } = null!;
-    public ICollection<Member>? Members { get; set; }
+    public IEnumerable<Member>? Members { get; set; }
     public int Budget { get; set; }
 }

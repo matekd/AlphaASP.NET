@@ -1,0 +1,40 @@
+﻿@model ProjectModel
+
+@{
+	IEnumerable<Member> allMembers = [];
+	var memberResult = await _memberService.GetAllUsersAsync();
+	if (memberResult.Success)
+		allMembers = memberResult.Results!;
+
+	IEnumerable<Member> projectMembers = [];
+	if (Model.Members != null && Model.Members.Any())
+		projectMembers = Model.Members;
+	
+	List<CheckBoxModel> memberList = [];
+	foreach (var member in allMembers)
+		memberList.Add(new CheckBoxModel { Value = member.Id.ToString(), Text = member.Email });
+}
+
+<div id=@("addProjectMemberModal-" + Model.Id) class="modal projectMemberModal">
+	<div class="modal-content surface">
+		<div class="modal-header">
+			<h3>Add Members</h3>
+			<button type="button" class="btn-close" data-close="true"></button>
+		</div>
+		<form method="post" asp-controller="Projects" asp-action="AddMember" submitMethod="patch" novalidate>
+			<input type="hidden" asp-for="Id"/>
+			<div class="multi-select">
+				@foreach (var item in memberList)
+				{
+					<div class="option-group @(projectMembers.FirstOrDefault(x => x.Id == @item.Value) != null ? "hide" : "")">
+						<label>
+							<input type="checkbox" id=@item.Value value=@item.Value @(projectMembers.FirstOrDefault(x => x.Id == @item.Value) != null ? "checked" : "") name="MemberIds" />
+							@item.Text
+					</label>
+				</div>
+				}
+			</div>
+			<button type="submit" class="btn blue">Save</button>
+		</form>
+	</div>
+</div>

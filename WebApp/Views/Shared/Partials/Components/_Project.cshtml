@@ -7,26 +7,29 @@
 
 <div class="project-card surface" status="@Model.Status.StatusName">
 	@await Html.PartialAsync("Partials/Components/_ProjectOptionsModal", Model)
+
 	<button class="edit-btn" data-modal="true" data-toggle="true" data-close="false" data-target="#projectOptionsModal"></button>
+
 	<div class="card-header">
 		<img src="@(Model.ImageUrl != null ? Model.ImageUrl : "")" alt=""/>
 		<h6 class="project-name">@Model.ProjectName</h6>
 		<span class="project-client">@Model.Client.Name</span>
 	</div>
+
 	<p class="card-description">@(Model.Description != null ? Model.Description : "No description")</p>
+
 	<div class="card-footer">
 		@if (Model.Status.StatusName == "Completed") { <span class="deadline complete">Completed</span> }
 		else { <span class="deadline soon">soon&trade;</span> }
 
 		<div class="member-group">
-			@if (Model.Members != null && Model.Members.Count != 0)
+			@if (Model.Members != null && Model.Members.Any())
 			{
 				foreach(var member in Model.Members)
 				{
 					<img src="@(member.ImageUrl != null ? member.ImageUrl : "")" alt="" />
 				}
 			}
-			<img src="" alt="" />
 		</div>
 	</div>
 </div>
