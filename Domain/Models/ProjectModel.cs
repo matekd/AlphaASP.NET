@@ -47,5 +47,6 @@ public class ProjectModel
 
     public IEnumerable<Member>? Members { get; set; }
 
+    [Display(Name = "Members")]
     public IEnumerable<string>? MemberIds { get; set; }
 }

@@ -28,10 +28,10 @@
 				{
 					<div class="option-group @(projectMembers.FirstOrDefault(x => x.Id == @item.Value) != null ? "hide" : "")">
 						<label>
-							<input type="checkbox" id=@item.Value value=@item.Value @(projectMembers.FirstOrDefault(x => x.Id == @item.Value) != null ? "checked" : "") name="MemberIds" />
+							<input type="checkbox" id=@item.Value value=@item.Value name="MemberIds" />
 							@item.Text
-					</label>
-				</div>
+						</label>
+					</div>
 				}
 			</div>
 			<button type="submit" class="btn blue">Save</button>

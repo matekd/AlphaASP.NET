@@ -67,7 +67,6 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
         var result = await _projectService.CreateAsync(model);
         if (!result.Success)
         {
-            //ViewBag.ErrorMessage = result.Error;
             return BadRequest(new { success = false, submitError = result.Error });
         }
         
@@ -118,8 +117,12 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
         var result = await _projectService.UpdateAsync(model);
         if (!result.Success)
         {
-            //ViewBag.ErrorMessage = result.Error;
             return BadRequest(new { success = false, submitError = result.Error });
+        }
+
+        if (!model.MemberIds.IsNullOrEmpty())
+        {
+            await _projectService.RemoveMemberAsync(model.Id, [.. model.MemberIds!]);
         }
 
         return Ok(new { success = true });

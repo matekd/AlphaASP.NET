@@ -3,12 +3,15 @@
 @{
 	IEnumerable<Status> statuses = [];
 	IEnumerable<Client> clients = [];
+	IEnumerable<Member> projectMembers = [];
 	var statusResult = await _statusService.GetAllAsync();
 	if (statusResult.Success)
 		statuses = statusResult.Results!;
 	var clientResult = await _clientService.GetAllAsync();
 	if (clientResult.Success)
 		clients = clientResult.Results!;
+	if (Model.Members != null && Model.Members.Any())
+		projectMembers = Model.Members;
 }
 <div class="form-group">
 
@@ -65,13 +68,20 @@
 			<span asp-validation-for="EndDate"></span>
 		</div>
 	</div>
-	@*<div class="input-group">
-		<label asp-for="Members"></label>
-		<select asp-for="Members">
-			<option></option>
-		</select>
-		<span asp-validation-for="Members"></span>
-	</div>*@
+	<div class="member-group">
+		<label asp-for="MemberIds"></label>
+		<div class="member-input input">
+			@foreach (var item in projectMembers)
+			{
+				<label>
+					<img src=""/>
+					<input type="checkbox" id=@item.Id value=@item.Id name="MemberIds" />
+					@item.Email
+				</label>
+				//@(projectMembers.FirstOrDefault(x => x.Id == @item.Value) != null ? "checked" : "")
+			}
+		</div>
+	</div>
 	<div class="input-group">
 		<label asp-for="Budget"></label>
 		<span class="currency-icon">

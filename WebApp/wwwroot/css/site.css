@@ -364,6 +364,9 @@ form .address-group {
         }
     }
 }
+form .member-group {
+    max-width: 486px;
+}
 form label {
     font-weight: var(--font-semibold);
     color: var(--heading-color);
@@ -419,16 +422,16 @@ form .multi-select {
         display: flex;
         justify-content: center;
         align-items: center;
-        content: '\f00c';
-        font-family: var(--font-fa-pro);
-        color: var(--white-100);
         width: 16px;
         height: 16px;
+        border-radius: 5px;
+        margin-right: .5rem;
         background-color: var(--white-100);
         border: var(--dark-100) 1px solid;
-        border-radius: 5px;
+        font-family: var(--font-fa-pro);
         font-size: .6rem;
-        margin-right: .5rem;
+        color: var(--white-100);
+        content: '\f00c';
     }
     label:has(> input:checked)::before {
         background-color: var(--accent);
@@ -445,6 +448,43 @@ select {
     width: 100%;
     background-color: var(--surface-color);
     color: var(--text-color);
+}
+.member-input {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem;
+    /* flex-direction: column; */
+    /* max-width: 400px; */
+    label {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        padding: 7px;
+        background-color: var(--gray-btn-color);
+        border-radius: 8px;
+        color: var(--text-color);
+        img {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: var(--red);
+        }
+    }
+    label:hover, label:focus {
+        background-color: var(--accent-opacity);
+        color: var(--accent);
+    }
+    label::after {
+        content: '\f00d';
+        font-family: var(--font-fa-pro);
+    }
+    label:has(> input:checked) {
+        display: none;
+    }
+    input {
+        display: none;
+    }
 }
 input[type="password"] {
     /* add eye, maybe absolute img + js for toggle */
@@ -487,6 +527,10 @@ input[type="password"] {
 }
 .image-previewer.circle {
     border-radius: 50%;
+}
+.image-preview { /* img */
+    width: 100%;
+    height: 100%;
 }
 
 .currency-icon {
