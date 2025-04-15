@@ -27,7 +27,7 @@
 			{
 				foreach(var member in Model.Members)
 				{
-					<img src="@(member.ImageUrl != null ? member.ImageUrl : "")" alt="" />
+					<img src=@(!string.IsNullOrEmpty(member.ImageUrl) ? member.ImageUrl : "/images/DefaultProfile.png") alt="@member.FirstName @member.LastName" />
 				}
 			}
 		</div>

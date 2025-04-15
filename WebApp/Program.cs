@@ -64,7 +64,7 @@ using (var scope = app.Services.CreateScope())
     }
 
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<MemberEntity>>();
-    var user = new MemberEntity { UserName = "admin@domain.com", Email = "admin@domain.com" };
+    var user = new MemberEntity { UserName = "admin@domain.com", Email = "admin@domain.com", FirstName = "Super", LastName = "User" };
 
     var memberExist = await userManager.Users.AnyAsync(x => x.Email == user.Email);
     if (!memberExist)

@@ -77,7 +77,6 @@
     --darkmode-circle: var(--white-100);
     --member-title: var(--white-400);
     --img-background-color: var(--accent);
-    --img-missing-color: var(--dark-red);
 }
 
 [data-theme="dark"] {
@@ -468,7 +467,7 @@ select {
             height: 22px;
             border-radius: 50%;
             overflow: hidden;
-            background-color: var(--red);
+            background-color: var(--img-background-color);
         }
     }
     label:hover, label:focus {
@@ -494,6 +493,7 @@ input[type="password"] {
 }
 .image-previewer {
     cursor: pointer;
+    box-sizing: content-box;
     border: 1px dashed var(--gray-500);
     width: 150px;
     height: 150px;
@@ -528,9 +528,13 @@ input[type="password"] {
 .image-previewer.circle {
     border-radius: 50%;
 }
-.image-preview { /* img */
+.image-preview {
     width: 100%;
     height: 100%;
+}
+img[src=""] {
+    width: 0;
+    height: 0;
 }
 
 .currency-icon {
@@ -619,16 +623,12 @@ hr {
     .icons {
         gap: .5rem;
     }
-    
     img {
         width: 40px;
         height: 40px;
         border-radius: 50%;
         overflow: hidden;
         background-color: var(--img-background-color);
-    }
-    img[src=""] {
-        background-color: var(--img-missing-color);
     }
     hr {
         border-right: 1px solid var(--border-color);
@@ -714,6 +714,7 @@ hr {
     font-size: 16px;
     color: var(--tab-link-color);
     transition: all .1s .1s;
+    background-color: transparent;
     &.active {
         color: var(--accent);
         border-bottom: var(--accent) solid 3px;
@@ -845,7 +846,7 @@ b {
         background-color: var(--img-background-color);
     }
     img[src=""] {
-        background-color: var(--img-missing-color);
+        background-color: transparent;
     }
     .job-title {
         background-color: var(--member-title);
@@ -943,9 +944,6 @@ b {
             grid-area: p-image;
             background-color: var(--img-background-color);
         }
-        img[src=""] {
-            background-color: var(--img-missing-color);
-        }
     }
     .project-name {
         grid-area: p-name;
@@ -995,9 +993,6 @@ b {
             border-radius: 50%;
             overflow: hidden;
             background-color: var(--img-background-color);
-        }
-        img[src=""] {
-            background-color: var(--img-missing-color);
         }
     }
 }

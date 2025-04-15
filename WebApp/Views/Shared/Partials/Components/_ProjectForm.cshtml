@@ -71,14 +71,13 @@
 	<div class="member-group">
 		<label asp-for="MemberIds"></label>
 		<div class="member-input input">
-			@foreach (var item in projectMembers)
+			@foreach (var member in projectMembers)
 			{
 				<label>
-					<img src=""/>
-					<input type="checkbox" id=@item.Id value=@item.Id name="MemberIds" />
-					@item.Email
+					<img src=@(!string.IsNullOrEmpty(member.ImageUrl) ? member.ImageUrl : "/images/DefaultProfile.png") />
+					<input type="checkbox" id=@member.Id value=@member.Id name="MemberIds" />
+					@member.FirstName @member.LastName
 				</label>
-				//@(projectMembers.FirstOrDefault(x => x.Id == @item.Value) != null ? "checked" : "")
 			}
 		</div>
 	</div>

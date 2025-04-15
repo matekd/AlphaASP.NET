@@ -4,7 +4,7 @@
 	@await Html.PartialAsync("Partials/Components/_MemberOptionsModal", Model)
 	<button class="edit-btn" data-modal="true" data-toggle="true" data-close="false" data-target="#memberOptionsModal"></button>
 
-	<img src="@(Model.ImageUrl != null ? Model.ImageUrl : "")" alt="" />
+	<img src="@(!string.IsNullOrEmpty(Model.ImageUrl) ? Model.ImageUrl : "/images/DefaultProfile.png")" alt="" />
 
 	<h4>@(Model.FirstName != null ? Model.FirstName : Html.Raw("&nbsp;")) @(Model.LastName != null ? Model.LastName : Html.Raw("&nbsp;"))</h4>
 

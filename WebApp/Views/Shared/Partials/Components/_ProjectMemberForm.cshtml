@@ -12,7 +12,7 @@
 	
 	List<CheckBoxModel> memberList = [];
 	foreach (var member in allMembers)
-		memberList.Add(new CheckBoxModel { Value = member.Id.ToString(), Text = member.Email });
+		memberList.Add(new CheckBoxModel { Value = member.Id.ToString(), Text = $"{member.FirstName} {member.LastName}" });
 }
 
 <div id=@("addProjectMemberModal-" + Model.Id) class="modal projectMemberModal">

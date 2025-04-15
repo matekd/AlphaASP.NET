@@ -15,7 +15,7 @@
     <div class="profile">
         @if (user != null)
         {
-            <img src="@(user.ImageUrl ?? "")" alt="" />
+            <img src=@(!string.IsNullOrEmpty(user.ImageUrl) ? user.ImageUrl : "/images/DefaultProfile.png") alt="" />
         }
     </div>
 </section>

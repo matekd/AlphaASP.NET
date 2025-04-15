@@ -14,7 +14,7 @@
 	<input type="hidden" asp-for="Id" />
 	<input asp-for="ImageUrl" type="hidden" />
 	<div class="file-group">
-		<div class="image-previewer circle@(Model.ImageUrl != null ? " selected" : "")">
+		<div class="image-previewer circle@(!string.IsNullOrEmpty(Model.ImageUrl) ? " selected" : "")">
 			<img src="@(Model.ImageUrl ?? "")" class="image-preview" />
 			<input asp-for="MemberImage" accept="image/*" />
 		</div>

@@ -3,7 +3,7 @@
 <div id="settingsModal" class="modal">
 	<div class="modal-content surface">
 		<div class="settings-top">
-			<img src="@(Model.ImageUrl != null ? Model.ImageUrl : "")" alt="member image" />
+			<img src=@(!string.IsNullOrEmpty(Model.ImageUrl) ? Model.ImageUrl : "/images/DefaultProfile.png") alt="" />
 			<span>@(Model.FirstName != null && Model.LastName != null ? $"{Model.FirstName} {Model.LastName}" : "")</span>
 			<button type="button" class="btn-close" data-close="true"></button>
 		</div>
