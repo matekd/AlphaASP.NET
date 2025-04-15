@@ -8,6 +8,7 @@ public interface IProjectService
     Task<RegisterResult> CreateAsync(ProjectModel model);
     Task<BoolResult> UpdateAsync(ProjectModel model);
     Task<ProjectResult> GetAllAsync();
+    Task<BoolResult> DeleteAsync(int id);
     Task<BoolResult> AddMemberAsync(int projectId, string[] memberIds);
     Task<BoolResult> RemoveMemberAsync(int projectId, string[] memberIds);
 }

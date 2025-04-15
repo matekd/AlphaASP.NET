@@ -101,7 +101,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         {
             _dbSet.Remove(entity);
             await _context.SaveChangesAsync();
-            return new RepositoryResult<bool> { Success = true, StatusCode = 201 };
+            return new RepositoryResult<bool> { Success = true, StatusCode = 200 };
         }
         catch (Exception ex)
         {

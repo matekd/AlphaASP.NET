@@ -3,6 +3,7 @@ using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Threading.Tasks;
 
 namespace WebApp.Controllers;
 
@@ -128,12 +129,12 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
         return Ok(new { success = true });
     }
 
-    [ValidateAntiForgeryToken]
     [Route("Delete")]
-    [HttpDelete]
-    public async Task<IActionResult> Delete()
+    public async Task<IActionResult> Delete(int id)
     {
-        return RedirectToAction("Projects", "Projects");
+        var result = await _projectService.DeleteAsync(id);
+
+        return RedirectToAction("Projects");
     }
 
     [ValidateAntiForgeryToken]
