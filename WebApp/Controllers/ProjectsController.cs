@@ -3,7 +3,6 @@ using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Threading.Tasks;
 
 namespace WebApp.Controllers;
 

@@ -8,6 +8,7 @@ namespace Business.Interfaces;
 public interface IMemberService
 {
     Task<RegisterResult> CreateUserAsync(MemberModel model);
+    Task<BoolResult> DeleteAsync(string id);
     Task<MemberResult> GetAllUsersAsync();
     Task<MemberResult> GetUserAsync(Expression<Func<MemberEntity, bool>> expression);
     Task<BoolResult> UpdateAsync(MemberModel model);

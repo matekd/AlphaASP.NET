@@ -128,4 +128,12 @@ public class MembersController(IMemberService memberService, IAddressService add
 
         return Ok(new { success = true });
     }
+
+    [Route("Delete")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        var result = await _memberService.DeleteAsync(id);
+
+        return RedirectToAction("Members");
+    }
 }

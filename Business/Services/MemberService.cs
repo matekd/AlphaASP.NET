@@ -89,4 +89,16 @@ public class MemberService(UserManager<MemberEntity> userManager, IMemberReposit
             ? new BoolResult { Success = result.Succeeded, StatusCode = 201, Result = true }
             : new BoolResult { Success = result.Succeeded, StatusCode = 500, Error = result.Errors.FirstOrDefault()!.Description };
     }
+
+    public async Task<BoolResult> DeleteAsync(string id)
+    {
+        var entityResult = await _memberRepository.GetAsync(x => x.Id == id);
+        if (!entityResult.Success)
+            return new BoolResult { Success = false, StatusCode = 404, Error = "Member does not exist." };
+
+        var result = await _userManager.DeleteAsync(entityResult.Result!);
+        return result.Succeeded
+            ? new BoolResult { Success = result.Succeeded, StatusCode = 200 }
+            : new BoolResult { Success = result.Succeeded, StatusCode = 500, Error = result.Errors.FirstOrDefault()!.Description };
+    }
 }
