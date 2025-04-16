@@ -3,49 +3,44 @@
     Layout = "_CleanLayout";
     ViewData["Title"] = "Login";
 }
-
-<form method="post" class="auth-form" asp-controller="Auth" asp-action="Login" novalidate>
-    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl"/>
-
+<div class="auth-group">
     <h1>Login</h1>
 
-    <button class="btn gray third-party">
-        <img src="~/images/google-icon.svg" alt="Login with Google">
-        Login with Google
-    </button>
+    @await Html.PartialAsync("Partials/Components/_ExternalLogin")
 
-    <div class="or-hr">
-        <span>OR</span>
-    </div>
+    <div class="or-hr"> <span>OR</span> </div>
 
-    @if(ViewBag.ErrorMessage != null)
-    {
-        <span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
-    }
+    <form class="auth-form" method="post" asp-controller="Auth" asp-action="Login" novalidate>
+        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl"/>
 
-    <div class="form-group">
-        <div class="input-group">
-            <label asp-for="Email"></label>
-            <input class="input" type="email" asp-for="Email">
-            <span asp-validation-for="Email"></span>
+        @if(ViewBag.ErrorMessage != null)
+        {
+            <span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
+        }
+
+        <div class="form-group">
+            <div class="input-group">
+                <label asp-for="Email"></label>
+                <input class="input" type="email" asp-for="Email">
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="input-group">
+                <label asp-for="Password"></label>
+                <input class="input" asp-for="Password">
+                <span asp-validation-for="Password"></span>
+            </div>
         </div>
-        <div class="input-group">
-            <label asp-for="Password"></label>
-            <input class="input" asp-for="Password">
-            <span asp-validation-for="Password"></span>
+
+        <div class="memory-group">
+            <div class="check-group">
+                <input class="input-check" type="checkbox" asp-for="RememberMe">
+                <label class="toggle" asp-for="RememberMe"><i class="fa-solid fa-check"></i></label>
+                <span>Remember Me</span>
+            </div>
+            <a href="#">Forgot Password?</a>
         </div>
-    </div>
 
-    <div class="memory-group">
-        <div class="check-group">
-            <input class="input-check" type="checkbox" asp-for="RememberMe">
-            <label class="toggle" asp-for="RememberMe"><i class="fa-solid fa-check"></i></label>
-            <span>Remember Me</span>
-        </div>
-        <a href="" style="color:red">Forgot Password?</a>
-    </div>
-
-    <button type="submit" class="btn blue">Log In</button>
-
+        <button type="submit" class="btn blue">Log In</button>
+    </form>
     <p>Don't have an account? <a asp-action="Register" asp-controller="Auth">Sign Up</a></p>
-</form>
+</div>

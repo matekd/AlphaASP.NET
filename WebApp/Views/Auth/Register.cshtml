@@ -4,63 +4,60 @@
 	ViewData["Title"] = "Register";
 }
 
-<form method="post" class="auth-form" asp-controller="Auth" asp-action="Register" novalidate>
+<div class="auth-group">
     <h1>Create Account</h1>
 
-    <button class="btn gray third-party">
-        <img src="~/images/google-icon.svg" alt="Sign Up with Google">
-        Sign Up with Google
-    </button>
+    @await Html.PartialAsync("Partials/Components/_ExternalLogin")
 
-    <div class="or-hr">
-        <span>OR</span>
-    </div>
+    <div class="or-hr"> <span>OR</span> </div>
 
-    @if (ViewBag.ErrorMessage != null)
-    {
-        <span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
-    }
+    <form class="auth-form" method="post" asp-controller="Auth" asp-action="Register" novalidate>
 
-    <div class="form-group">
-        <div class="name-group">
-            <div class="input-group">
-                <label asp-for="FirstName"></label>
-                <input class="input" asp-for="FirstName">
-                <span asp-validation-for="FirstName"></span>
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
+        }
+
+        <div class="form-group">
+            <div class="name-group">
+                <div class="input-group">
+                    <label asp-for="FirstName"></label>
+                    <input class="input" asp-for="FirstName">
+                    <span asp-validation-for="FirstName"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="LastName"></label>
+                    <input class="input" asp-for="LastName">
+                    <span asp-validation-for="LastName"></span>
+                </div>
             </div>
             <div class="input-group">
-                <label asp-for="LastName"></label>
-                <input class="input" asp-for="LastName">
-                <span asp-validation-for="LastName"></span>
+                <label asp-for="Email"></label>
+                <input class="input" asp-for="Email">
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="input-group">
+                <label asp-for="Password"></label>
+                <input class="input" asp-for="Password">
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="input-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input class="input" asp-for="ConfirmPassword">
+                <span asp-validation-for="ConfirmPassword"></span>
             </div>
         </div>
-        <div class="input-group">
-            <label asp-for="Email"></label>
-            <input class="input" asp-for="Email">
-            <span asp-validation-for="Email"></span>
-        </div>
-        <div class="input-group">
-            <label asp-for="Password"></label>
-            <input class="input" asp-for="Password">
-            <span asp-validation-for="Password"></span>
-        </div>
-        <div class="input-group">
-            <label asp-for="ConfirmPassword"></label>
-            <input class="input" asp-for="ConfirmPassword">
-            <span asp-validation-for="ConfirmPassword"></span>
-        </div>
-    </div>
 
-    <div class="check-group">
-        <input class="input-check" type="checkbox" asp-for="Terms">
-        <label class="toggle" asp-for="Terms"><i class="fa-solid fa-check"></i></label>
-        <span> I accept <a href="" style="color:red">Terms and Conditions</a></span>
-        <span class="terms" asp-validation-for="Terms"></span>
-    </div>
+        <div class="check-group">
+            <input class="input-check" type="checkbox" asp-for="Terms">
+            <label class="toggle" asp-for="Terms"><i class="fa-solid fa-check"></i></label>
+            <span> I accept <a href="#">Terms and Conditions</a></span>
+            <span class="terms" asp-validation-for="Terms"></span>
+        </div>
 
-    <button type="submit" class="btn blue">Create Account</button>
-
+        <button type="submit" class="btn blue">Create Account</button>
+    </form>
     <p>Already have an account? <a asp-action="Login" asp-controller="Auth">Login</a></p>
-</form>
+</div>
 
 @await Html.PartialAsync("_ValidationScript")

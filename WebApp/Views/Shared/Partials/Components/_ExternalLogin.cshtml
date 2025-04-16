@@ -1,0 +1,5 @@
+﻿<form class="third-party auth-form" method="post" asp-controller="Auth" asp-action="ExternalLogin" novalidate>
+	<input type="hidden" name="returnIrl" value="@ViewBag.ReturnUrl"/>
+
+    <button class="btn gray btn-google" type="submit" name="provider" value="Google">Sign In with Google</button>
+</form>

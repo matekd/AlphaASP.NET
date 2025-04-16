@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const forms = document.querySelectorAll('form')
     forms.forEach(form => {
         // Authenitaction forms return a view instead of request, this is needed for returnUrl and redirections to work
-        if (form.getAttribute('class') !== 'auth-form') {
+        if (!form.classList.contains('auth-form')) {
             form.addEventListener('submit', async (e) => {
                 e.preventDefault()
                 clearErrorMessages(form)

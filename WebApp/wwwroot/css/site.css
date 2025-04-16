@@ -998,18 +998,32 @@ b {
 }
 
 /* Forms */
-.auth-form {
+.auth-group {
     width: 600px;
     padding: 100px 100px 32px 100px;
     > h1, > p {
         text-align: center;
     }
-    h1, .third-party, .or-hr {
+    h1, .or-hr, .third-party {
         margin-bottom: 2rem;
     }
-    .third-party {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
+    .btn-google {
+        gap: .5rem;
+    }
+    .btn-google:hover, .btn-google:focus {
+        background-color: var(--accent);
+        color: var(--white-100);
+    }
+    .btn-google::before {
+        content: '';
+        background-image: url("/images/google-icon.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 1.25rem;
+        width: 1.25rem;
+        padding: .25rem;
+        background-color: var(--white-100);
+        border-radius: 50%;
     }
     .or-hr {
         text-align: center;
@@ -1036,7 +1050,7 @@ b {
     > p {
         font-weight: var(--font-semibold);
     }
-    > button[type="submit"] {
+    form button[type="submit"] {
         margin-bottom: 3.5rem;
     }
 }

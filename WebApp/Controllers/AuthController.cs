@@ -35,7 +35,6 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
                     kvp => kvp.Key,
                     kvp => kvp.Value?.Errors.Select(x => x.ErrorMessage).ToArray()
                 );
-            //return BadRequest(new { success = false, errors });
             return View(model);
         }
 
@@ -45,7 +44,6 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
             ViewBag.ReturnUrl = returnUrl;
             return LocalRedirect(returnUrl);
         }
-        //return BadRequest(new { success = false, submitError = "Email or password is incorrect" });
         ViewBag.ErrorMessage = "Email or password is incorrect";
         return View(model);
     }
@@ -96,7 +94,6 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
     {
         await _authService.LogoutAsync();
         return LocalRedirect("~/");
-        //return RedirectToAction("Login", "Auth");
     }
 
     [AllowAnonymous]
@@ -193,6 +190,7 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
             if (identityResult.Succeeded)
             {
                 await _userManager.AddLoginAsync(member, info);
+                await _userManager.AddToRoleAsync(member, "User");
                 await _signInManager.SignInAsync(member, isPersistent: false);
                 return LocalRedirect(returnUrl);
             }
