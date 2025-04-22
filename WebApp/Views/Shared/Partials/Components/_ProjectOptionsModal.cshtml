@@ -1,9 +1,9 @@
 ﻿@model Project
 
-<div id="projectOptionsModal" class="modal">
+<div id=@("projectOptionsModal-" + Model.Id) class="modal projectOptionsModal">
 	<div class="modal-content">
-		<button class="btn modal-edit" data-modal="true" data-target="@("#editForm-" + Model.Id)">Edit</button>
-		<button class="btn add-member" data-modal="true" data-target="@("#addProjectMemberModal-" + Model.Id)">Add Member</button>
+		<button class="btn modal-edit" data-modal="true" data-target=@("#editForm-" + Model.Id)>Edit</button>
+		<button class="btn add-member" data-modal="true" data-target=@("#addProjectMemberModal-" + Model.Id)>Add Member</button>
 		<hr />
 		<a class="btn delete" asp-controller="Projects" asp-action="Delete" asp-route-id="@Model.Id">Delete Project</a>
 	</div>

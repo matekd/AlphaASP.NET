@@ -5,57 +5,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // open modal
     const modalButtons = document.querySelectorAll('[data-modal="true"]')
     modalButtons.forEach(button => {
-        if (!button.hasAttribute("data-toggle"))
-            button.addEventListener('click', () => {
-                const modalTarget = button.getAttribute('data-target')
-                const modal = document.querySelector(modalTarget)
+        button.addEventListener('click', () => {
+            const modalTarget = button.getAttribute('data-target')
+            const modal = document.querySelector(modalTarget)
             
-                if (modal)
-                    modal.style.display = 'flex';
-            })
+            if (modal)
+                modal.style.display = 'flex';
+        })
     })
 
     // close modal
     const closeButtons = document.querySelectorAll('[data-close="true"]')
     closeButtons.forEach(button => {
-        if (!button.hasAttribute("data-toggle"))
-            button.addEventListener('click', () => {
-                const modal = button.closest('.modal')
+        button.addEventListener('click', () => {
+            const modal = button.closest('.modal')
 
-                if (modal) {
-                    modal.style.display = 'none'
+            if (modal) {
+                modal.style.display = 'none'
 
-                    modal.querySelectorAll('form').forEach(form => {
-                        form.reset()
-                        const imagePreview = document.querySelector('.image-preview')
-                        const imagePreviewer = imagePreview.closest('.image-previewer')
-                        if (imagePreview)
-                            imagePreview.src = ""
+                modal.querySelectorAll('form').forEach(form => {
+                    form.reset()
+                    const imagePreview = document.querySelector('.image-preview')
+                    const imagePreviewer = imagePreview.closest('.image-previewer')
+                    if (imagePreview)
+                        imagePreview.src = ""
 
-                        if (imagePreviewer)
-                            imagePreviewer.classList.remove('selected')
-                    })
-                }
-            })
+                    if (imagePreviewer)
+                        imagePreviewer.classList.remove('selected')
+                })
+            }
+        })
     })
 
     // toggle modal
     const toggleButtons = document.querySelectorAll('[data-toggle="true"]')
     toggleButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const modal = button.parentElement.children[0]
-            if (modal && button.hasAttribute("data-close") !== null) {
-                const dataClose = button.getAttribute("data-close") === "true"
-                if (dataClose) {
-                    button.classList.remove("active")
-                    button.setAttribute("data-close", "false")
-                    modal.style.display = 'none'
-                }
-                else if (!dataClose) {
-                    button.classList.add("active")
-                    button.setAttribute("data-close", "true")
-                    modal.style.display = 'flex';
-                }
+            const modalTarget = button.getAttribute('data-target')
+            const modal = document.querySelector(modalTarget)
+            if (modal) {
+                button.classList.toggle("active")
+                modal.classList.toggle("show")
             }
         })
     })

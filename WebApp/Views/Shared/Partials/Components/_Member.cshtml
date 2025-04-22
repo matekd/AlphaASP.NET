@@ -2,7 +2,7 @@
 
 <div class="member-card surface">
 	@await Html.PartialAsync("Partials/Components/_MemberOptionsModal", Model)
-	<button class="edit-btn" data-modal="true" data-toggle="true" data-close="false" data-target="#memberOptionsModal"></button>
+	<button class="edit-btn" data-toggle="true" data-target=@("#memberOptionsModal-" + Model.Id)></button>
 
 	<img src="@(!string.IsNullOrEmpty(Model.ImageUrl) ? Model.ImageUrl : "/images/DefaultProfile.png")" alt="" />
 

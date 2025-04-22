@@ -5,7 +5,6 @@
 		<div class="settings-top">
 			<img src=@(!string.IsNullOrEmpty(Model.ImageUrl) ? Model.ImageUrl : "/images/DefaultProfile.png") alt="" />
 			<span>@(Model.FirstName != null && Model.LastName != null ? $"{Model.FirstName} {Model.LastName}" : "")</span>
-			<button type="button" class="btn-close" data-close="true"></button>
 		</div>
 		<div class="settings-middle">
 			<span>Dark mode</span>

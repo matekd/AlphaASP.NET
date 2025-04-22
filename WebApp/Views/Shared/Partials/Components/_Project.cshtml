@@ -8,7 +8,7 @@
 <div class="project-card surface" status="@Model.Status.StatusName">
 	@await Html.PartialAsync("Partials/Components/_ProjectOptionsModal", Model)
 
-	<button class="edit-btn" data-modal="true" data-toggle="true" data-close="false" data-target="#projectOptionsModal"></button>
+	<button class="edit-btn" data-toggle="true" data-target=@("#projectOptionsModal-" + Model.Id)></button>
 
 	<div class="card-header">
 		<img src="@(Model.ImageUrl != null ? Model.ImageUrl : "")" alt=""/>

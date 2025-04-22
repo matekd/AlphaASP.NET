@@ -275,6 +275,9 @@ a:hover, a:focus {
             font-weight: var(--font-bold);
             color: var(--heading-color);
         }
+        &:hover, &.active {
+            background-color: var(--gray-btn-color);
+        }
     }
     &.settings::before {
         content: '\f013';
@@ -317,7 +320,7 @@ a:hover, a:focus {
         color: var(--text-light);
         font-size: 1rem;
     }
-    &:hover, &:focus, &.active {
+    &:hover, &.active {
         background-color: var(--gray-btn-color);
     }
     &.active::before {
@@ -725,7 +728,7 @@ hr {
 }
 
 #addProjectModal > .modal-content, 
-.modal.editProjectModal > .modal-content,
+.editProjectModal > .modal-content,
 #addMemberModal > .modal-content, 
 .editMemberModal > .modal-content,
 .projectMemberModal > .modal-content {
@@ -740,6 +743,13 @@ hr {
 
 #settingsModal {
     background-color: transparent;
+    position: absolute;
+    top: 75px;
+    right: 140px;
+    bottom: auto;
+    left: auto;
+    padding: 0;
+    z-index: 2;
     .settings-top, .settings-middle, .settings-bottom {
         display: flex;
         align-items: center;
@@ -774,9 +784,6 @@ hr {
     }
     .modal-content {
         display: grid;
-        position: absolute;
-        top: 75px;
-        right: 140px;
         gap: .5rem;
         min-width: 300px;
         width: fit-content;
@@ -859,29 +866,29 @@ b {
         display: block;
     }
 }
-#memberOptionsModal {
+.modal.memberOptionsModal {
     left: 56px;
     top: 60px;
 }
-#projectOptionsModal {
+.modal.projectOptionsModal {
     left: 100px;
     top: 60px;
 }
-#projectOptionsModal, #memberOptionsModal {
+.modal.projectOptionsModal, .modal.memberOptionsModal {
     background-color: transparent;
     position: absolute;
+    right: auto;
+    bottom: auto;
+    padding: 0;
+    border-radius: 14px;
+    box-shadow: var(--box-shadow-modal);
     .modal-content {
         border: 1px solid var(--input-border-color);
         display: grid;
-        position: absolute;
-        top: 0;
-        left: 0;
         gap: .5rem;
         min-width: 230px;
         padding: .5rem;
         background-color: var(--surface-color);
-        border-radius: 14px;
-        box-shadow: var(--box-shadow-modal);
         hr {
             border-bottom: 1px solid var(--input-border-color);
         }
@@ -1055,6 +1062,9 @@ b {
     }
 }
 
+.modal.show {
+    display: flex;
+}
 .modal {
     display: none;
     justify-content: center;
