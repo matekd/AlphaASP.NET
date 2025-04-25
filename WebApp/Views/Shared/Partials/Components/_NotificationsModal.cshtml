@@ -1,0 +1,44 @@
+﻿@{
+	var memberId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "anon";
+	var notifications = await _notificationService.GetNotificationsAsync(memberId);
+	notifications = notifications.OrderByDescending(x => x.Created);
+}
+
+<button id="notifications-btn" class="btn notifications-btn @(notifications.Any() ? "not-empty" : "")" data-toggle="true" data-target="#notificationsModal"></button>
+
+<div id="notificationsModal" class="modal">
+	<div class="modal-content surface">
+		<div class="modal-header">
+			<h5>Notifications</h5>
+			<span class="notification-counter">@notifications.Count()</span>
+		</div>
+
+		<hr />
+
+		<div class="notification-group">
+			@* <div class="notification-item"> *@
+			@* 	<img alt="" /> *@
+			@* 	<span class="message">Full Name</span> *@
+			@* 	<span class="time">time ago</span> *@
+			@* 	<button type="button" class="btn-close" onclick="dismissNotification()"></button> *@
+			@* </div> *@
+			@* <div class="notification-item"> *@
+			@* 	<img alt="" /> *@
+			@* 	<span class="message">Full Name</span> *@
+			@* 	<span class="time">time ago</span> *@
+			@* 	<button type="button" class="btn-close" onclick="dismissNotification()"></button> *@
+			@* </div> *@
+			@foreach (var n in notifications)
+			{
+				<div class="notification-item" data-id="@n.Id">
+					<img @(n.Icon != null ? $"src = {n.Icon}" : "") alt="" />
+					<span class="message">@n.Message</span>
+					<span class="time" data-created=@n.Created.ToString("s")>@n.Created</span>
+					<button type="button" class="btn-close" onclick="dismissNotification('@n.Id')"></button>
+				</div>
+			}
+		</div>
+	</div>
+</div>
+
+@await Html.PartialAsync("_NotificationScript")

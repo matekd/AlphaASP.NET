@@ -11,6 +11,8 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
     public virtual DbSet<StatusEntity> Status { get; set; }
     public virtual DbSet<ClientEntity> Clients { get; set; }
     public virtual DbSet<ProjectEntity> Projects { get; set; }
+    public virtual DbSet<NotificationEntity> Notifications { get; set; }
+    public virtual DbSet<NotificationDismissEntity> DismissedNotifications { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

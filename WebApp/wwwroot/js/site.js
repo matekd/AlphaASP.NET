@@ -1,5 +1,4 @@
-﻿
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     const previewSize = 150
 
     // open modal

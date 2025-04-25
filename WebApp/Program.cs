@@ -7,10 +7,11 @@ using Data.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WebApp.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("alpha")));
 
@@ -21,6 +22,7 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IStatusService, StatusService>();
 builder.Services.AddScoped<IJobTitleService, JobTitleService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
@@ -107,4 +109,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Projects}/{action=Index}")
     .WithStaticAssets();
+
+app.MapHub<NotificationHub>("/notificationHub");
+
 app.Run();

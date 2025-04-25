@@ -4,16 +4,20 @@ using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
+using WebApp.Hubs;
 
 namespace WebApp.Controllers;
 
 [Route("auth")]
-public class AuthController(IAuthService authService, SignInManager<MemberEntity> signInManager, UserManager<MemberEntity> userManager) : Controller
+public class AuthController(IAuthService authService, SignInManager<MemberEntity> signInManager, UserManager<MemberEntity> userManager, IHubContext<NotificationHub> notificationHub, INotificationService notificationService) : Controller
 {
     private readonly IAuthService _authService = authService;
     private readonly SignInManager<MemberEntity> _signInManager = signInManager;
     private readonly UserManager<MemberEntity> _userManager = userManager;
+    private readonly IHubContext<NotificationHub> _notificationHub = notificationHub;
+    private readonly INotificationService _notificationService = notificationService;
 
     [Route("login")]
     public IActionResult Login(string returnUrl = "~/")
@@ -41,6 +45,26 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
         var result = await _authService.LoginAsync(model);
         if (result.Success)
         {
+            var member = await _userManager.FindByEmailAsync(model.Email);
+            if (member != null)
+            {
+                var notification = new NotificationEntity {
+                    Message = $"{member.FirstName} {member.LastName} logged in.",
+                    NotificationType = "Member",
+                    TargetGroup = "Admin",
+                    Icon = member.ImageUrl
+                };
+
+                await _notificationService.AddNotificationAsync(notification.Message, notification.NotificationType, notification.TargetGroup, notification.Icon!);
+                var notifications = await _notificationService.GetNotificationsAsync("");
+                var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
+
+                if (newNotification != null)
+                {
+                    await _notificationHub.Clients.Group("Admin").SendAsync("ReceiveNotification", newNotification);
+                }
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             return LocalRedirect(returnUrl);
         }
@@ -70,7 +94,7 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
 
             return View(model);
         }
-        
+
         var register = await _authService.SignUpAsync(model);
         if (!register.Success)
         {
@@ -141,7 +165,8 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
     [HttpPost]
     public IActionResult ExternalLogin(string provider, string returnUrl = null!)
     {
-        if (string.IsNullOrEmpty(provider)) {
+        if (string.IsNullOrEmpty(provider))
+        {
             ModelState.AddModelError("", "Invalid provider");
             return View("Login");
         }
@@ -194,7 +219,7 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
                 await _signInManager.SignInAsync(member, isPersistent: false);
                 return LocalRedirect(returnUrl);
             }
-            
+
             foreach (var error in identityResult.Errors)
             {
                 ModelState.AddModelError("", error.Description);

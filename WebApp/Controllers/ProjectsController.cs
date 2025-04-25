@@ -1,16 +1,23 @@
 ﻿using Business.Interfaces;
+using Business.Services;
+using Data.Entities;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
+using WebApp.Hubs;
 
 namespace WebApp.Controllers;
 
 [Authorize]
-public class ProjectsController(IProjectService projectService, IWebHostEnvironment env) : Controller
+public class ProjectsController(IProjectService projectService, IWebHostEnvironment env, IHubContext<NotificationHub> notificationHub, INotificationService notificationService) : Controller
 {
     private readonly IProjectService _projectService = projectService;
     private readonly IWebHostEnvironment _env = env;
+    private readonly IHubContext<NotificationHub> _notificationHub = notificationHub;
+    private readonly INotificationService _notificationService = notificationService;
+
     public IEnumerable<Project> ProjectList { get; set; } = [];
 
     //Default routing
@@ -69,7 +76,23 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
         {
             return BadRequest(new { success = false, submitError = result.Error });
         }
-        
+
+        var notification = new NotificationEntity
+        {
+            Message = $"Project: {model.ProjectName} was created.",
+            NotificationType = "Project",
+            Icon = model.ImageUrl
+        };
+
+        await _notificationService.AddNotificationAsync(notification.Message, notification.NotificationType, icon: notification.Icon!);
+        var notifications = await _notificationService.GetNotificationsAsync("");
+        var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
+
+        if (newNotification != null)
+        {
+            await _notificationHub.Clients.Group("Admin").SendAsync("ReceiveNotification", newNotification);
+        }
+
         return Ok(new { success = true });
     }
 

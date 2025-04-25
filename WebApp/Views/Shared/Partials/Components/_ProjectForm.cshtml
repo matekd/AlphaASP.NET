@@ -68,6 +68,8 @@
 			<span asp-validation-for="EndDate"></span>
 		</div>
 	</div>
+	@if (projectMembers.Count() > 0)
+	{
 	<div class="member-group">
 		<label asp-for="MemberIds"></label>
 		<div class="member-input input">
@@ -81,6 +83,7 @@
 			}
 		</div>
 	</div>
+	}
 	<div class="input-group">
 		<label asp-for="Budget"></label>
 		<span class="currency-icon">
