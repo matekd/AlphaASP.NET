@@ -11,29 +11,33 @@ public class NotificationService(DataContext context, UserManager<MemberEntity> 
     private readonly DataContext _context = context;
     private readonly UserManager<MemberEntity> _userManager = userManager;
 
-    public async Task AddNotificationAsync(string message, string notificationType, string targetGroup = "Member", string icon = null!)
+    public async Task AddNotificationAsync(NotificationEntity entity)
     {
-        if (string.IsNullOrEmpty(icon))
+        // string message, string notificationType, string targetGroup = "Member", string icon = null!
+        if (string.IsNullOrEmpty(entity.Icon))
         {
-            switch (notificationType)
+            switch (entity.NotificationType)
             {
                 case "Member":
-                    icon = "/images/DefaultProfile.png";
+                    entity.Icon = "/images/DefaultProfile.png";
                     break;
                 case "Project":
-                    icon = "";
+                    entity.Icon = "";
+                    break;
+                default:
+                    entity.Icon = "";
                     break;
             }
         }
-        var notificationEntity = new NotificationEntity
-        {
-            Message = message,
-            NotificationType = notificationType,
-            TargetGroup = targetGroup,
-            Icon = icon
-        };
+        //var notificationEntity = new NotificationEntity
+        //{
+        //    Message = message,
+        //    NotificationType = notificationType,
+        //    TargetGroup = targetGroup,
+        //    Icon = icon
+        //};
 
-        _context.Add(notificationEntity);
+        _context.Add(entity);
         await _context.SaveChangesAsync();
     }
 

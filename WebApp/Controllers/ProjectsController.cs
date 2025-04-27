@@ -59,7 +59,6 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
             Directory.CreateDirectory(uploadFolder);
 
             var fileName = Guid.NewGuid().ToString() + '_' + Path.GetFileName(model.ProjectImage.FileName);
-
             filePath = Path.Combine(uploadFolder, fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -73,25 +72,21 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
         model.ImageUrl = filePath;
         var result = await _projectService.CreateAsync(model);
         if (!result.Success)
-        {
             return BadRequest(new { success = false, submitError = result.Error });
-        }
 
         var notification = new NotificationEntity
         {
             Message = $"Project: {model.ProjectName} was created.",
             NotificationType = "Project",
+            TargetGroup = "Member",
             Icon = model.ImageUrl
         };
-
-        await _notificationService.AddNotificationAsync(notification.Message, notification.NotificationType, icon: notification.Icon!);
+        await _notificationService.AddNotificationAsync(notification);
         var notifications = await _notificationService.GetNotificationsAsync("");
         var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
 
         if (newNotification != null)
-        {
-            await _notificationHub.Clients.Group("Admin").SendAsync("ReceiveNotification", newNotification);
-        }
+            await _notificationHub.Clients.All.SendAsync("ReceiveNotification", newNotification);
 
         return Ok(new { success = true });
     }
@@ -125,7 +120,6 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
             Directory.CreateDirectory(uploadFolder);
 
             var fileName = Guid.NewGuid().ToString() + '_' + Path.GetFileName(model.ProjectImage.FileName);
-
             filePath = Path.Combine(uploadFolder, fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -139,14 +133,24 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
         model.ImageUrl = filePath;
         var result = await _projectService.UpdateAsync(model);
         if (!result.Success)
-        {
             return BadRequest(new { success = false, submitError = result.Error });
-        }
 
         if (!model.MemberIds.IsNullOrEmpty())
-        {
             await _projectService.RemoveMemberAsync(model.Id, [.. model.MemberIds!]);
-        }
+
+        var notification = new NotificationEntity
+        {
+            Message = $"Project: {model.ProjectName} was updated.",
+            NotificationType = "Project",
+            TargetGroup = "Member",
+            Icon = model.ImageUrl
+        };
+        await _notificationService.AddNotificationAsync(notification);
+        var notifications = await _notificationService.GetNotificationsAsync("");
+        var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
+
+        if (newNotification != null)
+            await _notificationHub.Clients.All.SendAsync("ReceiveNotification", newNotification);
 
         return Ok(new { success = true });
     }

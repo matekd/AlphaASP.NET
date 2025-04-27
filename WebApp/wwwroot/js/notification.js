@@ -5,13 +5,13 @@
 
 	connection.on("ReceiveNotification", function (notification) {
 		const container = document.querySelector(".notification-group")
-
+		console.log("received")
 		const item = document.createElement('div')
 		item.className = "notification-item"
 		item.setAttribute("data-id", notification.id)
 		item.innerHTML =
-			`
-			<img src="${notification.icon}" alt="" />
+		`
+			<img ${notification.icon !== null ? "src=${notification.icon}" : ""} alt="" />
 			<span class="message">${notification.message}</span>
 			<span class="time" data-created="${new Date(notification.created).toISOString()}">${notification.created}</span>
 			<button type="button" class="btn-close" onclick="dismissNotification("${notification.id}")"></button>

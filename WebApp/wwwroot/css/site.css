@@ -651,6 +651,9 @@ hr {
         border-radius: 50%;
         overflow: hidden;
     }
+    img[src] {
+        background-color: var(--img-background-color);
+    }
     hr {
         border-right: 1px solid var(--border-color);
     }
@@ -813,6 +816,9 @@ hr {
         img {
             grid-area: img;
             border-radius: 14px;
+            background-color: var(--img-background-color);
+        }
+        img:not([src]) {
             background-color: var(--gray-500);
         }
         .message {

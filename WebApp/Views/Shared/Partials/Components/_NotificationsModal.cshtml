@@ -16,22 +16,10 @@
 		<hr />
 
 		<div class="notification-group">
-			@* <div class="notification-item"> *@
-			@* 	<img alt="" /> *@
-			@* 	<span class="message">Full Name</span> *@
-			@* 	<span class="time">time ago</span> *@
-			@* 	<button type="button" class="btn-close" onclick="dismissNotification()"></button> *@
-			@* </div> *@
-			@* <div class="notification-item"> *@
-			@* 	<img alt="" /> *@
-			@* 	<span class="message">Full Name</span> *@
-			@* 	<span class="time">time ago</span> *@
-			@* 	<button type="button" class="btn-close" onclick="dismissNotification()"></button> *@
-			@* </div> *@
 			@foreach (var n in notifications)
 			{
 				<div class="notification-item" data-id="@n.Id">
-					<img @(n.Icon != null ? $"src = {n.Icon}" : "") alt="" />
+					<img @(!string.IsNullOrEmpty(n.Icon) ? $"src={n.Icon}" : "") alt="" />
 					<span class="message">@n.Message</span>
 					<span class="time" data-created=@n.Created.ToString("s")>@n.Created</span>
 					<button type="button" class="btn-close" onclick="dismissNotification('@n.Id')"></button>

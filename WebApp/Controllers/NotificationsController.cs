@@ -17,7 +17,7 @@ public class NotificationsController(IHubContext<NotificationHub> notificationHu
     [HttpPost]
     public async Task<IActionResult> CreateNotification(NotificationEntity entity)
     {
-        await _notificationService.AddNotificationAsync(entity.Message, entity.NotificationType, entity.TargetGroup, entity.Icon!);
+        await _notificationService.AddNotificationAsync(entity);
         var notifications = await _notificationService.GetNotificationsAsync("");
         var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
 

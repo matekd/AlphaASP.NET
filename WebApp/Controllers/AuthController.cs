@@ -46,24 +46,21 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
         if (result.Success)
         {
             var member = await _userManager.FindByEmailAsync(model.Email);
-            if (member != null)
-            {
-                var notification = new NotificationEntity {
-                    Message = $"{member.FirstName} {member.LastName} logged in.",
-                    NotificationType = "Member",
-                    TargetGroup = "Admin",
-                    Icon = member.ImageUrl
-                };
+            //if (member != null)
+            //{
+            //    var notification = new NotificationEntity {
+            //        Message = $"{member.FirstName} {member.LastName} logged in.",
+            //        NotificationType = "Member",
+            //        TargetGroup = "Admin",
+            //        Icon = member.ImageUrl
+            //    };
+            //    await _notificationService.AddNotificationAsync(notification);
+            //    var notifications = await _notificationService.GetNotificationsAsync("");
+            //    var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
 
-                await _notificationService.AddNotificationAsync(notification.Message, notification.NotificationType, notification.TargetGroup, notification.Icon!);
-                var notifications = await _notificationService.GetNotificationsAsync("");
-                var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
-
-                if (newNotification != null)
-                {
-                    await _notificationHub.Clients.Group("Admin").SendAsync("ReceiveNotification", newNotification);
-                }
-            }
+            //    if (newNotification != null)
+            //        await _notificationHub.Clients.Group("Admin").SendAsync("ReceiveNotification", newNotification);
+            //}
 
             ViewBag.ReturnUrl = returnUrl;
             return LocalRedirect(returnUrl);
@@ -101,11 +98,21 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
             ViewBag.ErrorMessage = "Failed to register";
             return View(model);
         }
-        var login = await _authService.LoginAsync(new LoginModel
+
+        var notification = new NotificationEntity
         {
-            Email = model.Email,
-            Password = model.Password,
-        });
+            Message = $"{model.FirstName} {model.LastName} was registered.",
+            NotificationType = "Member",
+            TargetGroup = "Admin",
+        };
+        await _notificationService.AddNotificationAsync(notification);
+        var notifications = await _notificationService.GetNotificationsAsync("");
+        var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
+
+        if (newNotification != null)
+            await _notificationHub.Clients.Group("Admin").SendAsync("ReceiveNotification", newNotification);
+
+        var login = await _authService.LoginAsync(new LoginModel { Email = model.Email, Password = model.Password });
         if (login.Success)
             return LocalRedirect("~/");
 
@@ -199,7 +206,6 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
         {
             string firstName = string.Empty;
             string lastName = string.Empty;
-
             try
             {
                 firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName)!;
@@ -214,6 +220,19 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
             var identityResult = await _userManager.CreateAsync(member);
             if (identityResult.Succeeded)
             {
+                var notification = new NotificationEntity
+                {
+                    Message = $"External member {firstName} {lastName} was registered.",
+                    NotificationType = "Member",
+                    TargetGroup = "Admin",
+                };
+                await _notificationService.AddNotificationAsync(notification);
+                var notifications = await _notificationService.GetNotificationsAsync("");
+                var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
+
+                if (newNotification != null)
+                    await _notificationHub.Clients.Group("Admin").SendAsync("ReceiveNotification", newNotification);
+
                 await _userManager.AddLoginAsync(member, info);
                 await _userManager.AddToRoleAsync(member, "User");
                 await _signInManager.SignInAsync(member, isPersistent: false);

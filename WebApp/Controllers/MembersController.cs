@@ -1,19 +1,25 @@
 ﻿using Business.Factories;
 using Business.Interfaces;
 using Business.Services;
+using Data.Entities;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using WebApp.Hubs;
 
 namespace WebApp.Controllers;
 
 [Route("members")]
 [Authorize(Roles = "Administrator")]
-public class MembersController(IMemberService memberService, IAddressService addressService, IWebHostEnvironment env) : Controller
+public class MembersController(IMemberService memberService, IAddressService addressService, IWebHostEnvironment env, IHubContext<NotificationHub> notificationHub, INotificationService notificationService) : Controller
 {
     private readonly IMemberService _memberService = memberService;
     private readonly IAddressService _addressService = addressService;
     private readonly IWebHostEnvironment _env = env;
+    private readonly IHubContext<NotificationHub> _notificationHub = notificationHub;
+    private readonly INotificationService _notificationService = notificationService;
+
     public IEnumerable<Member> MemberList { get; set; } = [];
 
     [Route("")]
@@ -48,8 +54,6 @@ public class MembersController(IMemberService memberService, IAddressService add
             Directory.CreateDirectory(uploadFolder);
 
             var fileName = Guid.NewGuid().ToString() + '_' + Path.GetFileName(model.MemberImage.FileName);
-
-            // full path
             filePath = Path.Combine(uploadFolder, fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -57,17 +61,28 @@ public class MembersController(IMemberService memberService, IAddressService add
                 await model.MemberImage.CopyToAsync(stream);
             }
 
-            // relative path
             filePath = "uploads/" + fileName;
         }
 
         model.ImageUrl = filePath;
         var result = await _memberService.CreateUserAsync(model);
         if (!result.Success)
-        {
-            //ViewBag.ErrorMessage = result.Error;
             return BadRequest(new { success = false, submitError = result.Error, result.StatusCode });
-        }
+
+        var notification = new NotificationEntity
+        {
+            Message = $"{model.FirstName} {model.LastName} was created.",
+            NotificationType = "Member",
+            TargetGroup = "Admin",
+            Icon = model.ImageUrl
+        };
+        await _notificationService.AddNotificationAsync(notification);
+        var notifications = await _notificationService.GetNotificationsAsync("");
+        var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
+
+        if (newNotification != null)
+            await _notificationHub.Clients.Group("Admin").SendAsync("ReceiveNotification", newNotification);
+
         if (model.Address != null)
         {
             var dto = AddressFactory.Create(model.Address.StreetName!, model.Address.PostalCode!, model.Address.City!, result.Result!);
@@ -105,8 +120,6 @@ public class MembersController(IMemberService memberService, IAddressService add
             Directory.CreateDirectory(uploadFolder);
 
             var fileName = Guid.NewGuid().ToString() + '_' + Path.GetFileName(model.MemberImage.FileName);
-
-            // full path
             filePath = Path.Combine(uploadFolder, fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -114,7 +127,6 @@ public class MembersController(IMemberService memberService, IAddressService add
                 await model.MemberImage.CopyToAsync(stream);
             }
 
-            // relative path
             filePath = "uploads/" + fileName;
         }
 
@@ -124,6 +136,20 @@ public class MembersController(IMemberService memberService, IAddressService add
         {
             return BadRequest(new { success = false, submitError = result.Error });
         }
+
+        var notification = new NotificationEntity
+        {
+            Message = $"{model.FirstName} {model.LastName} was updated.",
+            NotificationType = "Member",
+            TargetGroup = "Admin",
+            Icon = model.ImageUrl
+        };
+        await _notificationService.AddNotificationAsync(notification);
+        var notifications = await _notificationService.GetNotificationsAsync("");
+        var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
+
+        if (newNotification != null)
+            await _notificationHub.Clients.Group("Admin").SendAsync("ReceiveNotification", newNotification);
 
         return Ok(new { success = true });
     }
