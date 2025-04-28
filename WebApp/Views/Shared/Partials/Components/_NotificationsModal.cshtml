@@ -18,7 +18,7 @@
 		<div class="notification-group">
 			@foreach (var n in notifications)
 			{
-				<div class="notification-item" data-id="@n.Id">
+				<div class="notification" data-id="@n.Id">
 					<img @(!string.IsNullOrEmpty(n.Icon) ? $"src={n.Icon}" : "") alt="" />
 					<span class="message">@n.Message</span>
 					<span class="time" data-created=@n.Created.ToString("s")>@n.Created</span>

@@ -19,8 +19,7 @@
 	<p class="card-description">@(Model.Description != null ? Model.Description : "No description")</p>
 
 	<div class="card-footer">
-		@if (Model.Status.StatusName == "Completed") { <span class="deadline complete">Completed</span> }
-		else { <span class="deadline soon">soon&trade;</span> }
+		<span class="deadline" data-deadline="@Model.EndDate" data-complete="@(Model.Status.StatusName == "Completed")"></span>
 
 		<div class="member-group">
 			@if (Model.Members != null && Model.Members.Any())
@@ -33,3 +32,48 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		updateRelativeDates()
+	})
+
+	function updateRelativeDates() {
+		const countDowns = document.querySelectorAll(".card-footer .deadline")
+		const dateOnly = new Date().toISOString().split('T')[0]
+		const now = new Date(dateOnly)
+
+		countDowns.forEach(span => {
+			const complete = span.getAttribute("data-complete")
+			if (complete === "True") {
+				span.textContent = "Completed"
+				span.classList.remove("soon")
+				return
+			}
+
+			const deadline = new Date(span.getAttribute("data-deadline"))
+			const Hours = Math.floor((deadline - now) / 3600000)
+			const Days = Math.floor(Hours / 24)
+			const Weeks = Math.floor(Days / 7)
+			let timeAgo = ""
+			if (Days < -6) {
+				timeAgo = Weeks * -1 + " weeks behind"
+				span.classList.add("soon")
+			}
+			else if (Days < 0) {
+				timeAgo = Days * -1 + " days behind"
+				span.classList.add("soon")
+			}
+			else if (Days < 7) {
+				timeAgo = Days + " days left"
+				span.classList.add("soon")
+			}
+			else {
+				timeAgo = Weeks + " weeks left"
+				span.classList.remove("soon")
+			}
+
+			span.textContent = timeAgo
+		})
+	}
+</script>

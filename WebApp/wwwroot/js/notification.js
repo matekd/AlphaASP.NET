@@ -7,7 +7,7 @@
 		const container = document.querySelector(".notification-group")
 		console.log("received")
 		const item = document.createElement('div')
-		item.className = "notification-item"
+		item.className = "notification"
 		item.setAttribute("data-id", notification.id)
 		item.innerHTML =
 		`
@@ -27,6 +27,9 @@
 	})
 
 	connection.start().catch(error => console.error(error))
+
+	updateRelativeTimes()
+	setInterval(updateRelativeTimes(), 60000)
 })
 
 async function dismissNotification(id) {
@@ -45,7 +48,7 @@ async function dismissNotification(id) {
 }
 
 function removeNotification(id) {
-	const element = document.querySelector(`.notification-item[data-id="${id}"]`)
+	const element = document.querySelector(`.notification[data-id="${id}"]`)
 	if (element) {
 		element.remove()
 		updateNotificationCount()
@@ -72,6 +75,29 @@ function updateNotificationCount() {
 }
 
 function updateRelativeTimes() {
-	console.log("implement me")
-	//2.02.00
+	const timeSpans = document.querySelectorAll(".notification .time")
+	const now = new Date()
+
+	timeSpans.forEach(span => {
+		const created = new Date(span.getAttribute("data-created"))
+		const Seconds = Math.floor((now - created) / 1000)
+		const Minutes = Math.floor(Seconds / 60)
+		const Hours = Math.floor(Minutes / 60)
+		const Days = Math.floor(Hours / 24)
+		const Weeks = Math.floor(Days / 24)
+
+		let timeAgo = ""
+		if (Minutes < 1)
+			timeAgo = "Just now"
+		else if (Minutes < 60)
+			timeAgo = Minutes + " min ago"
+		else if (Hours < 24)
+			timeAgo = Hours + " hours ago"
+		else if (Days < 7)
+			timeAgo = Days + " days ago"
+		else
+			timeAgo = Weeks + " weeks ago"
+
+		span.textContent = timeAgo
+	})
 }

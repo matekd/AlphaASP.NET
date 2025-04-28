@@ -819,7 +819,7 @@ hr {
             background-color: var(--red);
         }
     }
-    .notification-item {
+    .notification {
         display: grid;
         grid-template-columns: auto 1fr auto;
         grid-template-areas:
@@ -851,7 +851,7 @@ hr {
             height: 40px;
         }
     }
-    .notification-item:hover, .notification-item:focus {
+    .notification:hover, .notification:focus {
         background-color: var(--gray-btn-color);
     }
 }
