@@ -1,0 +1,15 @@
+﻿@model ClientModel
+
+<div id="addClientModal" class="modal ClientModal">
+	<div class="modal-content surface">
+		<div class="modal-header">
+			<h3>New Client</h3>
+			<button type="button" class="btn-close" data-close="true"></button>
+		</div>
+
+		<form method="post" asp-controller="Clients" asp-action="Add" submitMethod="post" enctype="multipart/form-data" novalidate>
+			@await Html.PartialAsync("Partials/Components/_ClientForm", Model)
+			<button type="submit" class="btn blue">Add Client</button>
+		</form>
+	</div>
+</div>

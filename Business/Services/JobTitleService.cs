@@ -3,7 +3,6 @@ using Business.Interfaces;
 using Business.Models;
 using Data.Entities;
 using Data.Interfaces;
-using Data.Repositories;
 using Domain.Models;
 
 namespace Business.Services;
@@ -26,7 +25,7 @@ public class JobTitleService(IJobTitleRepository jobTitleRepository) : IJobTitle
         var result = await _jobTitleRepository.AddAsync(entity);
         return result.Success
             ? new RegisterResult { Success = result.Success, StatusCode = 200, Result = result.Result!.Title }
-            : new RegisterResult { Success = result.Success, StatusCode = 500, Error = "Failed to create Job Title." };
+            : new RegisterResult { Success = result.Success, StatusCode = 500, Error = "Failed to create job title." };
     }
 
     public async Task<JobTitleResult> GetAllAsync()

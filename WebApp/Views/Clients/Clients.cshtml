@@ -5,17 +5,18 @@
 
 <div class="main-header">
     <h2>@ViewData["Title"]</h2>
-    @* @await Html.PartialAsync("Partials/Components/_AddJobTitleForm", new AddJobTitleModel()) *@
+    <button class="btn blue add" data-modal="true" data-target="#addClientModal">Add Client</button>
 </div>
 
-<div>
+<div class="table">
     @if (Model != null)
         foreach (var client in Model)
         {
-            <div class="title-card">
-                <span>@client.Name</span>
-                <button>Edit</button> @* Partial, form *@
-                <a>Remove</a>
+            <div class="table-row">
+                <h6>@client.Name</h6>
+                <button class="btn edit" data-modal="true" data-target=@("#editForm-" + client.Id)>Edit</button>
+                <a class="btn delete" asp-controller="Clients" asp-action="Delete" asp-route-id=@client.Id>Remove</a>
             </div>
+            @await Html.PartialAsync("Partials/Components/_EditClient", ClientFactory.Create(client))
         }
 </div>

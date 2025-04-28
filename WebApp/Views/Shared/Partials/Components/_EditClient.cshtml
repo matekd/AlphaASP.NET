@@ -1,0 +1,15 @@
+﻿@model ClientModel
+
+<div id="@("editForm-" + Model.Id)" class="modal ClientModal">
+	<div class="modal-content surface">
+		<div class="modal-header">
+			<h3>Edit Client</h3>
+			<button type="button" class="btn-close" data-close="true"></button>
+		</div>
+
+		<form method="post" asp-controller="Clients" asp-action="Edit" submitMethod="put" novalidate>
+			@await Html.PartialAsync("Partials/Components/_ClientForm", Model)
+			<button type="submit" class="btn blue">Save</button>
+		</form>
+	</div>
+</div>
