@@ -47,6 +47,11 @@ public class MembersController(IMemberService memberService, IAddressService add
             return BadRequest(new { success = false, errors });
         }
 
+        // if invalid but not empty, i.e. an incomplete address
+        if (model.Address != null)
+            if (!_addressService.IsValid(model.Address) && !_addressService.IsEmpty(model.Address))
+                return BadRequest(new { success = false, submitError = "Incomplete address." });
+
         var filePath = "";
         if (model.MemberImage != null && model.MemberImage.Length != 0)
         {
@@ -84,11 +89,12 @@ public class MembersController(IMemberService memberService, IAddressService add
             await _notificationHub.Clients.Group("Admin").SendAsync("ReceiveNotification", newNotification);
 
         if (model.Address != null)
-        {
-            var dto = AddressFactory.Create(model.Address.StreetName!, model.Address.PostalCode!, model.Address.City!, result.Result!);
-            if (dto != null)
+            if (_addressService.IsValid(model.Address))
+            {
+                var dto = AddressFactory.Create(model.Address!, result.Result!);
                 await _addressService.CreateAsync(dto);
-        }
+            }
+        
         return Ok(new { success = true });
     }
 
@@ -107,6 +113,27 @@ public class MembersController(IMemberService memberService, IAddressService add
                 );
 
             return BadRequest(new { success = false, errors });
+        }
+
+        if (model.Address != null && model.Id != null)
+        {
+            // Update / Add
+            if (_addressService.IsValid(model.Address))
+            {
+                if (await _addressService.Exists(model.Id))
+                    await _addressService.UpdateAsync(AddressFactory.Create(model.Address, model.Id));
+                else
+                    await _addressService.CreateAsync(AddressFactory.Create(model.Address, model.Id));
+            }
+            // Delete
+            else
+            {
+                if (!_addressService.IsEmpty(model.Address))
+                    return BadRequest(new { success = false, submitError = "Invalid address." });
+
+                if (await _addressService.Exists(model.Id))
+                    await _addressService.DeleteAsync(model.Id);
+            }
         }
 
         var filePath = "";

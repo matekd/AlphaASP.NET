@@ -1,6 +1,5 @@
 ﻿using Data.Entities;
 using Domain.Models;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Business.Factories;
 
@@ -33,17 +32,11 @@ public static class AddressFactory
         };
     }
 
-    public static MemberAddressDto? Create(string streetName, string postalCode, string city, string memberId)
+    public static MemberAddressDto Create(MemberAddress address, string memberId) => new()
     {
-        if (string.IsNullOrEmpty(streetName) || string.IsNullOrEmpty(postalCode) || string.IsNullOrEmpty(city) || string.IsNullOrEmpty(memberId))
-            return null;
-
-        return new MemberAddressDto
-        {
-            MemberId = memberId,
-            StreetName = streetName,
-            PostalCode = postalCode,
-            City = city,
-        };
-    }
+        MemberId = memberId,
+        StreetName = address.StreetName,
+        PostalCode = address.PostalCode,
+        City = address.City
+    };
 }
