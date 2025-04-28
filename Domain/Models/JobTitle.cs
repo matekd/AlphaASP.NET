@@ -8,16 +8,8 @@ public class JobTitle
     public string Title { get; set; } = null!;
 }
 
-public class AddJobTitleModel
+public class JobTitleModel
 {
-    [Display(Name = "New Job Title", Prompt = "Enter title")]
-    [Required(ErrorMessage = "Title is required")]
-    public string Title { get; set; } = null!;
-}
-
-public class EditJobTitleModel
-{
-    [Required]
     public int Id { get; set; }
 
     [Display(Name = "New Job Title", Prompt = "Enter title")]

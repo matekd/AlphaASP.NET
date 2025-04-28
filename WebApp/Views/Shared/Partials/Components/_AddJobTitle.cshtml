@@ -1,0 +1,15 @@
+﻿@model JobTitleModel
+
+<div id="addJobTitleModal" class="modal JobTitleModal">
+	<div class="modal-content surface">
+		<div class="modal-header">
+			<h3>New Job Title</h3>
+			<button type="button" class="btn-close" data-close="true"></button>
+		</div>
+
+		<form method="post" asp-controller="JobTitles" asp-action="Add" submitMethod="post" enctype="multipart/form-data" novalidate>
+			@await Html.PartialAsync("Partials/Components/_JobTitleForm", Model)
+			<button type="submit" class="btn blue">Add Job Title</button>
+		</form>
+	</div>
+</div>

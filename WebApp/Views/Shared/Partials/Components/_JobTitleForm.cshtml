@@ -1,0 +1,14 @@
+﻿@model JobTitleModel
+
+<div class="form-group">
+	<span class="submit-error"></span>
+
+	<input type="hidden" asp-for="Id" />
+	<div class="input-group">
+		<label asp-for="Title"></label>
+		<input class="input" asp-for="Title" />
+		<span asp-validation-for="Title"></span>
+	</div>
+</div>
+
+@await Html.PartialAsync("_ValidationScript")

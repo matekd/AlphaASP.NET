@@ -13,5 +13,9 @@
             <i class="fa-solid fa-user-tie"></i>
             Job Titles
         </a>
+        <a class="nav-link @(Context.Request.Path == "/clients" ? "active" : "")" asp-action="Clients" asp-controller="Clients">
+            <i class="fa-solid fa-building"></i>
+            Clients
+        </a>
     }
 </nav>

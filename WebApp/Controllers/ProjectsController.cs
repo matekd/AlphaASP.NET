@@ -1,5 +1,4 @@
 ﻿using Business.Interfaces;
-using Business.Services;
 using Data.Entities;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -36,7 +35,7 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
     }
 
     [ValidateAntiForgeryToken]
-    [Route("Add")]
+    [Route("add")]
     [HttpPost]
     public async Task<IActionResult> Add(ProjectModel model)
     {
@@ -92,7 +91,7 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
     }
 
     [ValidateAntiForgeryToken]
-    [Route("Edit")]
+    [Route("edit")]
     [HttpPut]
     public async Task<IActionResult> Edit(ProjectModel model)
     {
@@ -155,7 +154,7 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
         return Ok(new { success = true });
     }
 
-    [Route("Delete")]
+    [Route("delete")]
     public async Task<IActionResult> Delete(int id)
     {
         var result = await _projectService.DeleteAsync(id);
@@ -164,7 +163,7 @@ public class ProjectsController(IProjectService projectService, IWebHostEnvironm
     }
 
     [ValidateAntiForgeryToken]
-    [Route("AddMember")]
+    [Route("addMember")]
     [HttpPatch]
     public async Task<IActionResult> AddMember(int Id, string[] MemberIds)
     {

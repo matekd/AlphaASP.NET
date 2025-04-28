@@ -32,7 +32,7 @@ public class MembersController(IMemberService memberService, IAddressService add
     }
 
     [ValidateAntiForgeryToken]
-    [Route("Add")]
+    [Route("add")]
     [HttpPost]
     public async Task<IActionResult> Add(MemberModel model)
     {
@@ -99,9 +99,9 @@ public class MembersController(IMemberService memberService, IAddressService add
     }
 
     [ValidateAntiForgeryToken]
-    [Route("Edit")]
+    [Route("edit")]
     [HttpPut]
-    public async Task<IActionResult> EditAsync(MemberModel model)
+    public async Task<IActionResult> Edit(MemberModel model)
     {
         if (!ModelState.IsValid)
         {
@@ -181,10 +181,10 @@ public class MembersController(IMemberService memberService, IAddressService add
         return Ok(new { success = true });
     }
 
-    [Route("Delete")]
+    [Route("delete")]
     public async Task<IActionResult> Delete(string id)
     {
-        var result = await _memberService.DeleteAsync(id);
+        //var result = await _memberService.DeleteAsync(id);
 
         return RedirectToAction("Members");
     }

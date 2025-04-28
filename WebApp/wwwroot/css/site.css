@@ -344,6 +344,18 @@ a:hover, a:focus {
         content: '\f00d';
     }
 }
+.btn.delete {
+    color: var(--red);
+}
+.btn.delete::before {
+    content: '\f1f8';
+    font-family: var(--font-fa-pro);
+    font-weight: var(--font-bold);
+}
+.btn.delete:hover, a.btn.delete:focus {
+    color: var(--dark-red);
+    background-color: var(--red-opacity);
+}
 
 form .form-group {
     display: grid;
@@ -752,6 +764,10 @@ hr {
 .projectMemberModal > .modal-content {
     min-width: 550px;
 }
+.JobTitleModal > .modal-content,
+.ClientModal > .modal-content {
+    min-width: 360px;
+}
 
 #addProjectModal, .modal.editProjectModal,
 #addMemberModal, .modal.editMemberModal,
@@ -969,39 +985,33 @@ b {
         min-width: 230px;
         padding: .5rem;
         background-color: var(--surface-color);
-        hr {
-            border-bottom: 1px solid var(--input-border-color);
-        }
-        button, a {
-            border: none;
-            background-color: transparent;
-            width: 100%;
-            font-family: var(--font-standard);
-            font-size: var(--font-regular);
-            color: var(--heading-color);
-            justify-content: left;
-        }
-        button:hover, button:focus, a:hover, a:focus {
+    }
+    hr {
+        border-bottom: 1px solid var(--input-border-color);
+    }
+    button, a {
+        border: none;
+        background-color: transparent;
+        width: 100%;
+        font-family: var(--font-standard);
+        font-size: var(--font-regular);
+        justify-content: left;
+    }
+    .modal-edit, .add-member {
+        color: var(--heading-color);
+        &:hover, &:focus {
             background-color: var(--gray-btn-color);
         }
-        .modal-edit::before {
-            content: '\f044';
-            font-family: var(--font-fa-pro);
-            font-weight: var(--font-bold);
-        }
-        .add-member::before {
-            content: '\f234';
-            font-family: var(--font-fa-pro);
-            font-weight: var(--font-bold);
-        }
-        .delete {
-            color: var(--red);
-        }
-        .delete::before {
-            content: '\f1f8';
-            font-family: var(--font-fa-pro);
-            font-weight: var(--font-bold);
-        }
+    }
+    .modal-edit::before {
+        content: '\f044';
+        font-family: var(--font-fa-pro);
+        font-weight: var(--font-bold);
+    }
+    .add-member::before {
+        content: '\f234';
+        font-family: var(--font-fa-pro);
+        font-weight: var(--font-bold);
     }
 }
 .project-card.hide {
@@ -1081,6 +1091,32 @@ b {
             overflow: hidden;
             background-color: var(--img-background-color);
         }
+    }
+}
+
+.table {
+    display: grid;
+    gap: 1rem;
+}
+.table-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    width: 100%;
+    column-gap: 1rem;
+    padding: .5rem 1rem;
+    background-color: var(--surface-color);
+    border-radius: 14px;
+    .edit {
+        background-color: transparent;
+        color: var(--heading-color);
+        &:hover, &:focus {
+            background-color: var(--gray-btn-color);
+        }
+    }
+    .edit::before {
+        content: '\f0ad';
+        font-family: var(--font-fa-pro);
     }
 }
 

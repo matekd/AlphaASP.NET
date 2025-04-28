@@ -24,13 +24,16 @@
 
                 modal.querySelectorAll('form').forEach(form => {
                     form.reset()
-                    const imagePreview = document.querySelector('.image-preview')
-                    const imagePreviewer = imagePreview.closest('.image-previewer')
-                    if (imagePreview)
-                        imagePreview.src = ""
+                    try {
+                        const imagePreview = form.querySelector('.image-preview')
+                        const imagePreviewer = imagePreview.closest('.image-previewer')
+                        if (imagePreview)
+                            imagePreview.src = ""
 
-                    if (imagePreviewer)
-                        imagePreviewer.classList.remove('selected')
+                        if (imagePreviewer)
+                            imagePreviewer.classList.remove('selected')
+                    }
+                    catch { }
                 })
             }
         })

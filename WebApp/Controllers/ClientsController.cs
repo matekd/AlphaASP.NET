@@ -1,21 +1,24 @@
 ﻿using Business.Services;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers;
 
+[Route("clients")]
 public class ClientsController(IClientService clientService) : Controller
 {
     private readonly IClientService _clientService = clientService;
+    public IEnumerable<Client> ClientList { get; set; } = [];
 
-    public IActionResult Index()
+    [Route("")]
+    public async Task<IActionResult> Clients()
     {
-        return LocalRedirect("~/");
+        var result = await _clientService.GetAllAsync();
+        if (result.Success)
+            ClientList = result.Results!;
+
+        return View(ClientList);
     }
-
-    //public IActionResult Clients()
-    //{
-
-    //}
 
     //[HttpPost]
     //public IActionResult Add()
@@ -29,7 +32,6 @@ public class ClientsController(IClientService clientService) : Controller
 
     //}
 
-    //[HttpDelete]
     //public IActionResult Delete()
     //{
 
