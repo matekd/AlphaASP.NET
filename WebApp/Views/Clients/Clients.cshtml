@@ -3,6 +3,8 @@
     ViewData["Title"] = "Clients";
 }
 
+@await Html.PartialAsync("Partials/Components/_AddClient", new ClientModel())
+
 <div class="main-header">
     <h2>@ViewData["Title"]</h2>
     <button class="btn blue add" data-modal="true" data-target="#addClientModal">Add Client</button>

@@ -4,47 +4,49 @@
 	Layout = "_SplitLayout";
 	ViewData["Title"] = "Admin Login";
 }
-
-<form method="post" id="admin-form" class="auth-form" asp-controller="Auth" asp-action="AdminLogin" novalidate>
-    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
-
+<div class="auth-group">
     <h1>Login</h1>
 
-    <button class="btn gray third-party">
-        <img src="~/images/google-icon.svg" alt="Login with Google">
-        Login with Google
-    </button>
+    <form method="post" id="admin-form" class="auth-form" asp-controller="Auth" asp-action="AdminLogin" novalidate>
+        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
-    <div class="or-hr">
-        <span>OR</span>
-    </div>
 
-    @if (ViewBag.ErrorMessage != null)
-    {
-        <span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
-    }
+        <button class="btn gray third-party">
+            <img src="~/images/google-icon.svg" alt="Login with Google">
+            Login with Google
+        </button>
 
-    <div class="form-group">
-        <div class="input-group">
-            <label asp-for="Email"></label>
-            <input class="input" type="email" asp-for="Email">
-            <span asp-validation-for="Email"></span>
+        <div class="or-hr">
+            <span>OR</span>
         </div>
-        <div class="input-group">
-            <label asp-for="Password"></label>
-            <input class="input" asp-for="Password">
-            <span asp-validation-for="Password"></span>
-        </div>
-    </div>
 
-    <div class="memory-group">
-        <div class="check-group">
-            <input class="input-check" type="checkbox" asp-for="RememberMe">
-            <label class="toggle" asp-for="RememberMe"><i class="fa-solid fa-check"></i></label>
-            <span>Remember Me</span>
-        </div>
-        <a href="" style="color:red">Forgot Password?</a>
-    </div>
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
+        }
 
-    <button type="submit" class="btn blue">Log In</button>
-</form>
+        <div class="form-group">
+            <div class="input-group">
+                <label asp-for="Email"></label>
+                <input class="input" type="email" asp-for="Email">
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="input-group">
+                <label asp-for="Password"></label>
+                <input class="input" asp-for="Password">
+                <span asp-validation-for="Password"></span>
+            </div>
+        </div>
+
+        <div class="memory-group">
+            <div class="check-group">
+                <input class="input-check" type="checkbox" asp-for="RememberMe">
+                <label class="toggle" asp-for="RememberMe"><i class="fa-solid fa-check"></i></label>
+                <span>Remember Me</span>
+            </div>
+            <a href="#">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="btn blue">Log In</button>
+    </form>
+</div>

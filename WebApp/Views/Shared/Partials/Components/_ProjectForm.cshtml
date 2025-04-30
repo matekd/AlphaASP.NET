@@ -14,7 +14,6 @@
 		projectMembers = Model.Members;
 }
 <div class="form-group">
-
 	<span class="submit-error"></span>
 
 	<input asp-for="Id" type="hidden" />
@@ -113,5 +112,5 @@
 	</div>
 </div>
 
-@await Html.PartialAsync("_ValidationScript")
-@await Html.PartialAsync("_Wysiwyg")
+@await Html.PartialAsync("Partials/_ValidationScript")
+@await Html.PartialAsync("Partials/_Wysiwyg")

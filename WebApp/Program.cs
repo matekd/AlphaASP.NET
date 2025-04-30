@@ -51,6 +51,11 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SameSite = SameSiteMode.None;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => !context.Request.Cookies.ContainsKey("cookieConsent");
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+});
 
 builder.Services.AddAuthentication(options =>
 {
@@ -102,8 +107,11 @@ using (var scope = app.Services.CreateScope())
 app.UseHsts();
 app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseCookiePolicy();
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapStaticAssets();
 app.MapControllerRoute(
     name: "default",

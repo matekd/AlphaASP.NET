@@ -1,0 +1,38 @@
+﻿<div id="cookieModal" class="modal">
+    <div class="modal-content surface">
+        <div class="modal-header">
+            <h3>Cookies</h3>
+            @* <button type="button" class="btn-close" data-close="true"></button> *@
+        </div>
+        <form id="cookieConsentForm">
+            <div class="form-group">
+                <div class="cookie-group">
+                    <span>Essential</span>
+                    <label for="cookieEssential" class="checkbox-slider">
+                        <input type="checkbox" id="cookieEssential" name="essential" checked disabled />
+                    </label>
+                </div>
+                <div class="cookie-group">
+                    <span>Functional</span>
+                    <label for="cookieFunctional" class="checkbox-slider">
+                        <input type="checkbox" id="cookieFunctional" name="functional" />
+                    </label>
+                </div>
+                <div class="cookie-group disabled">
+                    <span>Analytics</span>
+                    <label for="cookieAnalytics" class="checkbox-slider">
+                        <input type="checkbox" id="cookieAnalytics" name="analytics" disabled />
+                    </label>
+                </div>
+                <div class="cookie-group disabled">
+                    <span>Marketing</span>
+                    <label for="cookieMarketing" class="checkbox-slider">
+                        <input type="checkbox" id="cookieMarketing" name="marketing" disabled />
+                    </label>
+                </div>
+            </div>
+            <button class="btn blue" type="button" onclick="acceptAll()">Accept All</button>
+            <button class="btn blue-opacity" type="button" onclick="acceptSelected()">Save Selected Options</button>
+        </form>
+    </div>
+</div>

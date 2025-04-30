@@ -73,11 +73,13 @@
     --x-color: var(--dark-1000);
     --error-text: var(--dark-red);
     --image-box-bg: var(--white-100);
-    --darkmode-switch: var(--gray-300);
-    --darkmode-circle: var(--white-100);
+    --checkbox-slider-bg: var(--gray-300);
+    --checkbox-slider-bg-checked: var(--gray-600);
+    --checkbox-slider-circle: var(--white-100);
     --member-title: var(--white-400);
     --placeholder-color: var(--gray-700);
     --img-background-color: var(--accent);
+    --darkmode-icon: '\f185';
 }
 
 [data-theme="dark"] {
@@ -96,10 +98,12 @@
     --x-color: var(--gray-300);
     --error-text: var(--red);
     --image-box-bg: var(--dark-700);
-    --darkmode-switch: var(--dark-300);
-    --darkmode-circle: var(--gray-100);
+    --checkbox-slider-bg: var(--dark-100);
+    --checkbox-slider-bg-checked: var(--dark-400);
+    --checkbox-slider-circle: var(--gray-500);
     --member-title: var(--dark-100);
     --placeholder-color: var(--gray-600);
+    --darkmode-icon: '\f186';
     input[type="date"]::-webkit-calendar-picker-indicator {
         filter: invert(100%);
     }
@@ -232,6 +236,7 @@ a:hover, a:focus {
 .btn {
     border-radius: 14px;
     border: 1px solid var(--btn-border-color);
+    background-color: transparent;
     font-family: var(--font-standard);
     font-weight: var(--font-medium);
     font-size: var(--text-size);
@@ -247,6 +252,17 @@ a:hover, a:focus {
         color: var(--white-100);
         background-color: var(--accent);
     }
+    &.blue:hover, &.blue:focus {
+        background-color: var(--accent-dark);
+    }
+    &.blue-opacity {
+        color: var(--heading-color);
+        background-color: var(--accent-opacity);
+        box-sizing: border-box;
+    }
+    &.blue-opacity:hover, &.blue-opacity:focus {
+        border: 2px solid var(--accent);
+    }
     &.gray {
         color: var(--heading-color);
         background-color: var(--gray-btn-color);
@@ -258,10 +274,7 @@ a:hover, a:focus {
         content: '\2b';
         font-family: var(--font-fa-pro);
     }
-    &.blue:hover, &.blue:focus {
-        background-color: var(--accent-dark);
-    }
-    &.logout {
+    &.logout, &.cookies {
         color: var(--text-color);
         justify-content: left;
     }
@@ -270,12 +283,16 @@ a:hover, a:focus {
         font-family: var(--font-fa-pro);
         color: var(--heading-color);
     }
+    &.cookies::before {
+        content: '\f564';
+        font-family: var(--font-fa-pro);
+    }
     &.settings-btn, &.notifications-btn {
         position: relative;
         width: 40px;
         height: 40px;
         border: none;
-        background-color: transparent;
+        /* background-color: transparent; */
         &::before {
             font-family: var(--font-fa-pro);
             font-weight: var(--font-bold);
@@ -302,9 +319,43 @@ a:hover, a:focus {
         background-color: var(--dark-red);
         border: 2px solid var(--white-300);
     }
+    &.modal-edit, &.add-member {
+        color: var(--heading-color);
+        &:hover, &:focus {
+            background-color: var(--gray-btn-color);
+        }
+    }
+    &.modal-edit::before {
+        content: '\f044';
+        font-family: var(--font-fa-pro);
+        font-weight: var(--font-bold);
+    }
+    &.add-member::before {
+        content: '\f234';
+        font-family: var(--font-fa-pro);
+        font-weight: var(--font-bold);
+    }
+    &.delete {
+        color: var(--red);
+    }
+    &.delete::before {
+        content: '\f1f8';
+        font-family: var(--font-fa-pro);
+        font-weight: var(--font-bold);
+    }
+    &.delete:hover, &.delete:focus {
+        color: var(--dark-red);
+        background-color: var(--red-opacity);
+    }
+}
+.btn-close, .edit-btn {
+    background-color: transparent;
+    border-radius: 12px;
+    &:hover, &.active {
+        background-color: var(--gray-btn-color);
+    }
 }
 .btn-close {
-    background-color: transparent;
     cursor: pointer;
     border: none;
     width: 40px;
@@ -328,17 +379,12 @@ a:hover, a:focus {
     width: 40px;
     height: 40px;
     cursor: pointer;
-    border-radius: 12px;
     border: none;
-    background-color: transparent;
     &::before {
         content: '\f141';
         font-family: var(--font-fa-pro);
         color: var(--text-light);
         font-size: 1rem;
-    }
-    &:hover, &.active {
-        background-color: var(--gray-btn-color);
     }
     &.active::before {
         content: '';
@@ -347,19 +393,34 @@ a:hover, a:focus {
         content: '\f00d';
     }
 }
-.btn.delete {
-    color: var(--red);
+.checkbox-slider {
+    position: relative;
+    cursor: pointer;
+    width: 48px;
+    height: 24px;
+    border-radius: 12px;
+    background-color: var(--checkbox-slider-bg);
+    > input {
+        display: none;
+    }
 }
-.btn.delete::before {
-    content: '\f1f8';
-    font-family: var(--font-fa-pro);
-    font-weight: var(--font-bold);
+.checkbox-slider::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--checkbox-slider-circle);
+    border-radius: 50%;
+    transition: all .25s ease-out;
 }
-.btn.delete:hover, a.btn.delete:focus {
-    color: var(--dark-red);
-    background-color: var(--red-opacity);
+.checkbox-slider:has(> input:checked) {
+    background-color: var(--checkbox-slider-bg-checked)
 }
-
+.checkbox-slider:has(> input:checked)::before {
+    left: 28px;
+}
 form .form-group {
     display: grid;
     row-gap: 1.5rem;
@@ -866,16 +927,15 @@ hr {
 }
 #settingsModal {
     z-index: 3;
-    .settings-top, .settings-middle, .settings-bottom {
+    .setting {
         display: flex;
         align-items: center;
         border-radius: 14px;
     }
-    .settings-top:hover, .settings-middle:hover, .settings-bottom:hover,
-    .settings-top:focus, .settings-middle:focus, .settings-bottom:focus {
+    .setting:hover, .setting:focus {
         background-color: var(--gray-btn-color);
     }
-    .settings-top {
+    .setting.profile {
         padding: 1rem;
         display: grid;
         grid-template-columns: auto 1fr;
@@ -887,38 +947,18 @@ hr {
             overflow: hidden;
         }
     }
-    .settings-middle {
+    .setting.darkmode {
         padding: 12px 20px;
         justify-content: space-between;
-        span::before {
-            content: '\f013';
+        .darkmode-text::before {
+            display: inline-block;
+            content: var(--darkmode-icon);
             font-family: var(--font-fa-pro);
-            font-weight: var(--font-bold);
-            color: var(--heading-color);
+            width: 28px;
             padding-right: 12px;
+            text-align: center;
         }
     }
-}
-.darkmode-switch {
-    position: relative;
-    cursor: pointer;
-    width: 46px;
-    height: 24px;
-    border-radius: 12px;
-    background-color: var(--darkmode-switch);
-    input {
-        display: none;
-    }
-}
-.darkmode-switch::before {
-    content: '';
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 1rem;
-    height: 1rem;
-    background-color: var(--darkmode-circle);
-    border-radius: 50%;
 }
 .member-list, .project-list {
     display: flex;
@@ -972,12 +1012,12 @@ b {
     }
 }
 .modal.memberOptionsModal {
-    left: 56px;
-    top: 60px;
+    left: 54px;
+    top: 64px;
 }
 .modal.projectOptionsModal {
-    left: 100px;
-    top: 60px;
+    left: 104px;
+    top: 64px;
 }
 .modal.projectOptionsModal, .modal.memberOptionsModal {
     background-color: transparent;
@@ -1006,21 +1046,11 @@ b {
         font-size: var(--font-regular);
         justify-content: left;
     }
-    .modal-edit, .add-member {
-        color: var(--heading-color);
-        &:hover, &:focus {
-            background-color: var(--gray-btn-color);
-        }
-    }
-    .modal-edit::before {
-        content: '\f044';
-        font-family: var(--font-fa-pro);
-        font-weight: var(--font-bold);
-    }
-    .add-member::before {
-        content: '\f234';
-        font-family: var(--font-fa-pro);
-        font-weight: var(--font-bold);
+}
+#cookieModal {
+    z-index: 4;
+    .modal-content {
+        min-width: 300px;
     }
 }
 .project-card.hide {
@@ -1174,6 +1204,17 @@ b {
         font-family: var(--font-fa-pro);
     }
 }
+.cookie-button {
+    position: fixed;
+    bottom: 8px;
+    left: 8px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--gray-btn-color);
+    font-size: 2rem;
+    color: var(--heading-color);
+}
 
 /* Forms */
 .auth-group {
@@ -1230,6 +1271,24 @@ b {
     }
     form button[type="submit"] {
         margin-bottom: 3.5rem;
+    }
+}
+#cookieConsentForm {
+    display: grid;
+    gap: 1rem;
+    .cookie-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        &.disabled {
+            .checkbox-slider {
+                background-color: var(--red-opacity);
+            }
+            .checkbox-slider::before {
+                background-color: var(--red-opacity);
+            }
+        }
     }
 }
 

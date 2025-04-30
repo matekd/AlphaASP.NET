@@ -15,6 +15,11 @@
             </div>
         </div>
     </div>
+
+    @await Html.PartialAsync("Partials/_CookieConsent")
+    <button class="btn cookie-button" onclick="showCookieModal()"><i class="fa-regular fa-cookie-bite"></i></button>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/cookieConsent.js" asp-append-version="true"></script>
 </body>
 </html>

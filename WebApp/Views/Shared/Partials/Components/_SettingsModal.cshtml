@@ -4,18 +4,21 @@
 
 <div id="settingsModal" class="modal">
 	<div class="modal-content surface">
-		<div class="settings-top">
+		<div class="setting profile">
 			<img src=@(!string.IsNullOrEmpty(Model.ImageUrl) ? Model.ImageUrl : "/images/DefaultProfile.png") alt="" />
 			<span>@(Model.FirstName != null && Model.LastName != null ? $"{Model.FirstName} {Model.LastName}" : "")</span>
 		</div>
-		<div class="settings-middle">
-			<span>Dark mode</span>
-			<label for="darkmode" class="darkmode-switch">
+		<div class="setting darkmode">
+			<span class="darkmode-text">Dark mode</span>
+			<label for="darkmode" class="checkbox-slider">
 				<input type="checkbox" id="darkmode" />
 			</label>
 		</div>
+		<div class="setting">
+			<button class="btn cookies" onclick="showCookieModal()">Cookies</button>
+		</div>
 		<hr />
-		<div class="settings-bottom">
+		<div class="setting logout">
 			<a class="btn logout" asp-controller="Auth" asp-action="Logout">Log out</a>
 		</div>
 	</div>
