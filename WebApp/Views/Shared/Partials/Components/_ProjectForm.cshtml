@@ -54,7 +54,27 @@
 	</div>
 	<div class="input-group">
 		<label asp-for="Description"></label>
-		<textarea class="input" rows="3" asp-for="Description"></textarea>
+		<div class="wysiwyg-editor" data-id="@Model.Id">
+			<textarea class="hidden" asp-for="Description"></textarea>
+			<div id=@("project-wysiwyg-editor-" + Model.Id)></div>
+			<div id=@("project-wysiwyg-toolbar-" + Model.Id)>
+				<span class="ql-formats">
+					<button class="ql-bold"></button>
+					<button class="ql-italic"></button>
+					<button class="ql-underline"></button>
+				</span>
+				<span class="ql-formats">
+					<button class="ql-align" value=""></button>
+					<button class="ql-align" value="center"></button>
+					<button class="ql-align" value="right"></button>
+				</span>
+				<span class="ql-formats">
+					<button class="ql-list" value="ordered"></button>
+					<button class="ql-list" value="bullet"></button>
+					<button class="ql-link"></button>
+				</span>
+			</div>
+		</div>
 	</div>
 	<div class="date-group">
 		<div class="input-group">
@@ -94,3 +114,4 @@
 </div>
 
 @await Html.PartialAsync("_ValidationScript")
+@await Html.PartialAsync("_Wysiwyg")

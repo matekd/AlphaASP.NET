@@ -1,10 +1,5 @@
 ﻿@model Project
 
-@{
-	// compare end date to current date, try get difference in weeks or days + 1 with module operator
-	// adjust deadline span depending on difference, i.e. class "soon" if less than a week
-}
-
 <div class="project-card surface" status="@Model.Status.StatusName">
 	@await Html.PartialAsync("Partials/Components/_ProjectOptionsModal", Model)
 
@@ -16,7 +11,9 @@
 		<span class="project-client">@Model.Client.Name</span>
 	</div>
 
-	<p class="card-description">@(Model.Description != null ? Model.Description : "No description")</p>
+	<div class="card-description">
+		@(string.IsNullOrEmpty(Model.Description) || Model.Description == "<p><br></p>" ? Html.Raw("<p>No description</p>") : Html.Raw(Model.Description))
+	</div>
 
 	<div class="card-footer">
 		<span class="deadline" data-deadline="@Model.EndDate" data-complete="@(Model.Status.StatusName == "Completed")"></span>

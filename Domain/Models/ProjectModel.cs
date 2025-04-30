@@ -25,7 +25,6 @@ public class ProjectModel
     public int StatusId { get; set; }
 
     [Display(Name = "Description", Prompt = "Type something")]
-    [DataType(DataType.MultilineText)]
     public string? Description { get; set; }
 
     [Display(Name = "Start Date")]

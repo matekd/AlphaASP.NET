@@ -13,7 +13,7 @@
     <form class="auth-form" method="post" asp-controller="Auth" asp-action="Login" novalidate>
         <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl"/>
 
-        @if(ViewBag.ErrorMessage != null)
+        @if (ViewBag.ErrorMessage != null)
         {
             <span class="submit-error field-validation-error">@ViewBag.ErrorMessage</span>
         }
