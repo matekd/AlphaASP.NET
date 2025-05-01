@@ -35,7 +35,6 @@ function getCookie(name) {
     for (let cookie of cookies) {
         cookie = cookie.trim()
         if (cookie.indexOf(nameEQ) === 0) {
-            console.log("found cookie")
             return decodeURIComponent(cookie.substring(nameEQ.length))
         }
     }
@@ -47,7 +46,7 @@ function setCookie(name, value, days) {
     if (days) {
         const date = new Date()
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
-        expires = "; expires" + date.toUTCString()
+        expires = "; expires=" + date.toUTCString()
     }
 
     const encodedValue = encodeURIComponent(value || "")
@@ -85,7 +84,7 @@ async function acceptSelected() {
 
 async function setConsent(consent) {
     try {
-        const res = await fetch("cookies/setcookies", {
+        const res = await fetch("/cookies/setcookies", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
