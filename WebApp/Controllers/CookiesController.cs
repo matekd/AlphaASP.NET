@@ -29,10 +29,10 @@ public class CookiesController : Controller
         //    Response.Cookies.Delete("DarkmodeCookie");
         //}
 
-        //if (!consent.Functional)
-        //{
-        //    Response.Cookies.Delete("ThemeCookie");
-        //}
+        if (!consent.Functional)
+        {
+            Response.Cookies.Delete("ThemeCookie");
+        }
 
         Response.Cookies.Append("consentCookie", JsonSerializer.Serialize(consent), new CookieOptions
         {

@@ -1,8 +1,40 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
-    if (!getCookie("consentCookie")) {
+    const consentCookie = getCookie("consentCookie")
+
+    if (!consentCookie) {
         showCookieModal()
     }
+    else if (JSON.parse(consentCookie).functional) {
+        const themeCookie = getCookie("ThemeCookie")
+        if (themeCookie) {
+            setTheme(JSON.parse(themeCookie).theme)
+        }
+        else {
+            setCookie("ThemeCookie", JSON.stringify({ theme: 'light' }), 365)
+        }
+    }
+    
+    const darkmodeSwitch = document.querySelector('#darkmode')
+    if (darkmodeSwitch) {
+        darkmodeSwitch.checked = document.documentElement.getAttribute("data-theme") === "dark"
+        darkmodeSwitch.addEventListener('input', () => {
+            if (JSON.parse(getCookie("consentCookie")).functional) {
+                setCookie("ThemeCookie", JSON.stringify({ theme: darkmodeSwitch.checked ? 'dark' : 'light' }), 365)
+                setTheme(darkmodeSwitch.checked ? 'dark' : 'light')
+            }
+            else {
+                setTheme("light")
+                darkmodeSwitch.checked = false
+            }
+        })
+    }
 })
+
+function setTheme(theme) {
+    if (theme !== "dark" && theme !== "light")
+        theme = "light"
+    document.documentElement.setAttribute('data-theme', theme)
+}
 
 function showCookieModal() {
     const modal = document.getElementById("cookieModal")
@@ -76,10 +108,12 @@ async function acceptSelected() {
         //analytics: formData.get("analytics") === "on",
         //marketing: formData.get("marketing") === "on"
     }
-
     setCookie("consentCookie", JSON.stringify(consent), 365)
     await setConsent(consent)
     hideCookieModal()
+
+    if (!consent.functional)
+        setTheme("light")
 }
 
 async function setConsent(consent) {

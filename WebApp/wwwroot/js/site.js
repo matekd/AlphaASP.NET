@@ -128,14 +128,6 @@
             }
         })
     })
-
-    // dark mode
-    // expand on later
-    const btn = document.querySelector('#darkmode')
-    if (btn)
-        btn.addEventListener('click', () => {
-            document.documentElement.setAttribute('data-theme', 'dark')
-        })
 })
 
 function clearErrorMessages(form) {
