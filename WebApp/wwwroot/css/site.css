@@ -484,15 +484,21 @@ form {
     }
     .multi-select {
         display: grid;
-        width: fit-content;
         grid-template-columns: 1fr 1fr;
         width: 100%;
         padding-bottom: 2rem;
         /* height: 3rem;
         overflow: auto; */
         .option-group {
-            padding: .25rem .5rem;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: .5rem;
+            padding: .25rem;
             border-radius: 8px;
+            img {
+                width: 40px;
+                height: 40px;
+            }
         }
         .option-group.hide {
             display: none;
@@ -509,6 +515,11 @@ form {
         label {
             display: flex;
             align-items: center;
+            width: 100%;
+            /* height: 100%; */
+            &:hover, &:focus {
+                cursor: pointer;
+            }
         }
         label::before {
             display: flex;
@@ -563,9 +574,6 @@ select {
         img {
             width: 22px;
             height: 22px;
-            border-radius: 50%;
-            overflow: hidden;
-            background-color: var(--img-background-color);
         }
     }
     label:hover, label:focus {
@@ -700,6 +708,16 @@ hr {
 .hidden {
     display: none;
 }
+.member-img {
+    border-radius: 50%;
+    background-color: var(--img-background-color);
+    overflow: hidden;
+}
+.project-img {
+    border-radius: 14px;
+    background-color: var(--gray-500);
+    overflow: hidden;
+}
 
 /* Sections */
 .portal > .side {
@@ -731,8 +749,6 @@ hr {
     img {
         width: 40px;
         height: 40px;
-        border-radius: 50%;
-        overflow: hidden;
     }
     img[src] {
         background-color: var(--img-background-color);
@@ -951,8 +967,6 @@ hr {
         img {
             width: 40px;
             height: 40px;
-            border-radius: 50%;
-            overflow: hidden;
         }
     }
     .setting.darkmode {
@@ -967,11 +981,6 @@ hr {
             text-align: center;
         }
     }
-}
-.wrap-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
 }
 .member-card, .project-card {
     position: relative;
@@ -997,10 +1006,7 @@ b {
     img {
         width: 150px;
         height: 150px;
-        border-radius: 50%;
-        overflow: hidden;
         display: block;
-        background-color: var(--img-background-color);
     }
     img[src=""] {
         background-color: transparent;
@@ -1080,10 +1086,7 @@ b {
         img {
             width: 56px;
             height: 56px;
-            border-radius: 14px;
-            overflow: hidden;
             grid-area: p-image;
-            background-color: var(--gray-500);
         }
     }
     .card-description {
@@ -1148,9 +1151,6 @@ b {
             display: inline-block;
             width: 30px;
             height: 30px;
-            border-radius: 50%;
-            overflow: hidden;
-            background-color: var(--img-background-color);
         }
     }
 }
@@ -1182,11 +1182,17 @@ b {
         stroke: var(--text-color);
     }
 }
-
-/* Job titles and clients */
-.nowrap-list {
+.main > .item-list {
     display: grid;
     gap: 1rem;
+    > .search-hide {
+        display: none;
+    }
+}
+.main > .item-list.wrap-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
 }
 .list-item {
     display: grid;

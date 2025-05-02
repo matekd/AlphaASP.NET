@@ -12,7 +12,7 @@
 	
 	List<CheckBoxModel> memberList = [];
 	foreach (var member in allMembers)
-		memberList.Add(new CheckBoxModel { Value = member.Id.ToString(), Text = $"{member.FirstName} {member.LastName}" });
+		memberList.Add(new CheckBoxModel { Value = member.Id.ToString(), Text = $"{member.FirstName} {member.LastName}", Image = member.ImageUrl });
 }
 
 <div id=@("addProjectMemberModal-" + Model.Id) class="modal projectMemberModal">
@@ -27,6 +27,7 @@
 				@foreach (var item in memberList)
 				{
 					<div class="option-group @(projectMembers.FirstOrDefault(x => x.Id == @item.Value) != null ? "hide" : "")">
+						<img class="member-img" src="@(!string.IsNullOrEmpty(item.Image) ? item.Image : "/images/DefaultProfile.png")" alt="" />
 						<label>
 							<input type="checkbox" id=@item.Value value=@item.Value name="MemberIds" />
 							@item.Text

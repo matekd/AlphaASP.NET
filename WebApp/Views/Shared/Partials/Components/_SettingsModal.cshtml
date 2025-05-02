@@ -5,7 +5,7 @@
 <div id="settingsModal" class="modal">
 	<div class="modal-content surface">
 		<div class="setting profile">
-			<img src=@(!string.IsNullOrEmpty(Model.ImageUrl) ? Model.ImageUrl : "/images/DefaultProfile.png") alt="" />
+			<img class="member-img" src=@(!string.IsNullOrEmpty(Model.ImageUrl) ? Model.ImageUrl : "/images/DefaultProfile.png") alt="" />
 			<span>@(Model.FirstName != null && Model.LastName != null ? $"{Model.FirstName} {Model.LastName}" : "")</span>
 		</div>
 		<div class="setting darkmode">

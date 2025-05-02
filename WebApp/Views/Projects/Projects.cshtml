@@ -24,7 +24,7 @@
 
 @if (Model != null)
 {
-    <div id="all" class="project-list">
+    <div id="all" class="item-list wrap-list">
         @foreach (var p in Model)
         {
             @await Html.PartialAsync("Partials/Components/_Project", p)
@@ -33,3 +33,48 @@
 }
 
 @await Html.PartialAsync("Partials/_FilterScripts")
+
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		updateRelativeDates()
+	})
+
+	function updateRelativeDates() {
+		const countDowns = document.querySelectorAll(".card-footer .deadline")
+		const dateOnly = new Date().toISOString().split('T')[0]
+		const now = new Date(dateOnly)
+
+		countDowns.forEach(span => {
+			const complete = span.getAttribute("data-complete")
+			if (complete === "True") {
+				span.textContent = "Completed"
+				span.classList.remove("soon")
+				return
+			}
+
+			const deadline = new Date(span.getAttribute("data-deadline"))
+			const Hours = Math.floor((deadline - now) / 3600000)
+			const Days = Math.floor(Hours / 24)
+			const Weeks = Math.floor(Days / 7)
+			let timeAgo = ""
+			if (Days < -6) {
+				timeAgo = Weeks * -1 + " weeks behind"
+				span.classList.add("soon")
+			}
+			else if (Days < 0) {
+				timeAgo = Days * -1 + " days behind"
+				span.classList.add("soon")
+			}
+			else if (Days < 7) {
+				timeAgo = Days + " days left"
+				span.classList.add("soon")
+			}
+			else {
+				timeAgo = Weeks + " weeks left"
+				span.classList.remove("soon")
+			}
+
+			span.textContent = timeAgo
+		})
+	}
+</script>

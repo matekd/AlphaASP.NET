@@ -10,15 +10,15 @@
     <button class="btn blue add" data-modal="true" data-target="#addClientModal">Add Client</button>
 </div>
 
-<div class="table">
+<div class="item-list">
     @if (Model != null)
         foreach (var client in Model)
         {
-            <div class="table-row">
+            <div class="list-item" data-search="@client.Name">
                 <h6>@client.Name</h6>
                 <button class="btn edit" data-modal="true" data-target=@("#editForm-" + client.Id)>Edit</button>
                 <a class="btn delete" asp-controller="Clients" asp-action="Delete" asp-route-id=@client.Id>Remove</a>
+                @await Html.PartialAsync("Partials/Components/_EditClient", ClientFactory.Create(client))
             </div>
-            @await Html.PartialAsync("Partials/Components/_EditClient", ClientFactory.Create(client))
         }
 </div>

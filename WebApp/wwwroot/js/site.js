@@ -69,6 +69,13 @@
     // handle form submit
     const forms = document.querySelectorAll('form')
     forms.forEach(form => {
+        form.addEventListener('change', () => {
+            const span = form.querySelector('.submit-error')
+            if (span) {
+                span.innerText = ''
+                span.classList.remove('field-validation-error')
+            }
+        })
         // Authenitaction forms return a view instead of request, this is needed for returnUrl and redirections to work
         if (!form.classList.contains('auth-form')) {
             form.addEventListener('submit', async (e) => {
@@ -120,13 +127,6 @@
                 }
             })
         }
-        form.addEventListener('change', () => {
-            const span = form.querySelector('.submit-error')
-            if (span) {
-                span.innerText = ''
-                span.classList.remove('field-validation-error')
-            }
-        })
     })
 })
 

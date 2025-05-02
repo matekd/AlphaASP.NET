@@ -3,10 +3,12 @@
     var user = res.Result;
 }
 <section class="top">
-    <label class="search" for="search">
-        <input type="text" class="search-input" id="search" placeholder="Search anything..." autocomplete="off">
-    </label>
-
+    <div class="search">
+        <label for="search">
+            <input type="text" class="search-input" id="search" placeholder="Search anything..." autocomplete="off">
+        </label>
+    </div>
+    
     <div class="icons">
         @await Html.PartialAsync("Partials/Components/_NotificationsModal")
         @await Html.PartialAsync("Partials/Components/_SettingsModal", user)
@@ -17,7 +19,9 @@
     <div class="profile">
         @if (user != null)
         {
-            <img src=@(!string.IsNullOrEmpty(user.ImageUrl) ? user.ImageUrl : "/images/DefaultProfile.png") alt="" />
+            <img class="member-img" src=@(!string.IsNullOrEmpty(user.ImageUrl) ? user.ImageUrl : "/images/DefaultProfile.png") alt="" />
         }
     </div>
 </section>
+
+@await Html.PartialAsync("Partials/_SearchScript")
