@@ -184,7 +184,10 @@ public class MembersController(IMemberService memberService, IAddressService add
     [Route("delete")]
     public async Task<IActionResult> Delete(string id)
     {
-        //var result = await _memberService.DeleteAsync(id);
+        var res = await _memberService.GetUserAsync(x => x.UserName == User.Identity!.Name);
+        // a member deleting themselves causes issues
+        if (res.Success && res.Result!.Id != id)
+            await _memberService.DeleteAsync(id);
 
         return RedirectToAction("Members");
     }

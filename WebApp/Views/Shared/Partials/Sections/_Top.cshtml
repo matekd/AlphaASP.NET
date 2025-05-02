@@ -1,6 +1,8 @@
 ﻿@{
     var res = await _memberService.GetUserAsync(x => x.UserName == User.Identity!.Name);
-    var user = res.Result;
+    var user = new Member();
+    if (res.Success)
+        user = res.Result;
 }
 <section class="top">
     <div class="search">
