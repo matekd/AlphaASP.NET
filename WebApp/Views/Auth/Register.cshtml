@@ -36,15 +36,17 @@
                 <input class="input" asp-for="Email">
                 <span asp-validation-for="Email"></span>
             </div>
-            <div class="input-group">
+            <div class="input-group password-group">
                 <label asp-for="Password"></label>
                 <input class="input" asp-for="Password">
                 <span asp-validation-for="Password"></span>
+                <span class="eye" data-visible="false"></span>
             </div>
-            <div class="input-group">
+            <div class="input-group password-group">
                 <label asp-for="ConfirmPassword"></label>
                 <input class="input" asp-for="ConfirmPassword">
                 <span asp-validation-for="ConfirmPassword"></span>
+                <span class="eye" data-visible="false"></span>
             </div>
         </div>
 
@@ -61,3 +63,4 @@
 </div>
 
 @await Html.PartialAsync("Partials/_ValidationScript")
+@await Html.PartialAsync("Partials/_TogglePasswordScript")

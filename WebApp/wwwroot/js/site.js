@@ -128,6 +128,7 @@
             })
         }
     })
+    // clear image file input
     const clearImageButtons = document.querySelectorAll(".clear-image-btn")
     clearImageButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -139,10 +140,7 @@
             const imagePreview = form.querySelector(".image-preview")
             imagePreview.src = ""
             const fileInput = form.querySelector('[type="file"]')
-                fileInput.value = ""
-            try {
-            }
-            catch { }
+            fileInput.value = ""
         })
     })
 })
@@ -187,8 +185,4 @@ async function processImage(file, imagePreview, previewer, previewSize = 150) {
     catch (error) {
         console.error("Failed on image processing: ", error)
     }
-}
-
-function removeImage() {
-
 }
