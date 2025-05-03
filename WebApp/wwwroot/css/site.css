@@ -111,8 +111,6 @@
 
 /* Base */
 html, body {
-    /* for switching between light and dark mode */
-    transition: background-color .5s ease-in;
     font-size: var(--text-size);
     font-weight: var(--font-regular);
     font-family: var(--font-standard);
@@ -230,8 +228,6 @@ a:hover, a:focus {
 }
 
 .surface {
-    /* for switching between light and dark mode */
-    transition: background-color .5s ease-in;
     border-radius: 16px;
     background-color: var(--surface-color);
     box-shadow: var(--box-shadow);
@@ -599,7 +595,26 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
 }
 .file-group {
-    margin-inline: auto;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    width: 100%;
+    .btn.gray.clear-image-btn {
+        position: absolute;
+        display: flex;
+        right: 3rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        padding: 1rem;
+        color: var(--red);
+        font-weight: 100;
+        &:hover, &:focus {
+            color: var(--heading-color);
+        }
+    }
 }
 .image-previewer {
     cursor: pointer;

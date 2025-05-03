@@ -17,11 +17,12 @@ public class ProjectModel
     public string ProjectName { get; set; } = null!;
 
     [Display(Name = "Client Name", Prompt = "Client Name")]
-    [Required(ErrorMessage = "Client name is required")]
+
+    [NotDefaultOption(ErrorMessage = "Client name is required")]
     public int ClientId { get; set; }
 
     [Display(Name = "Project status", Prompt = "Status")]
-    [Required(ErrorMessage = "A status is required")]
+    [NotDefaultOption(ErrorMessage = "A status is required")]
     public int StatusId { get; set; }
 
     [Display(Name = "Description", Prompt = "Type something")]

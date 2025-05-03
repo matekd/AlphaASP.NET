@@ -46,21 +46,22 @@ public class AuthController(IAuthService authService, SignInManager<MemberEntity
         if (result.Success)
         {
             var member = await _userManager.FindByEmailAsync(model.Email);
-            //if (member != null)
-            //{
-            //    var notification = new NotificationEntity {
-            //        Message = $"{member.FirstName} {member.LastName} logged in.",
-            //        NotificationType = "Member",
-            //        TargetGroup = "Admin",
-            //        Icon = member.ImageUrl
-            //    };
-            //    await _notificationService.AddNotificationAsync(notification);
-            //    var notifications = await _notificationService.GetNotificationsAsync("");
-            //    var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
+            if (member != null)
+            {
+                var notification = new NotificationEntity
+                {
+                    Message = $"{member.FirstName} {member.LastName} logged in.",
+                    NotificationType = "Member",
+                    TargetGroup = "Admin",
+                    Icon = member.ImageUrl
+                };
+                await _notificationService.AddNotificationAsync(notification);
+                var notifications = await _notificationService.GetNotificationsAsync("");
+                var newNotification = notifications.OrderByDescending(x => x.Created).FirstOrDefault();
 
-            //    if (newNotification != null)
-            //        await _notificationHub.Clients.Group("Admin").SendAsync("ReceiveNotification", newNotification);
-            //}
+                if (newNotification != null)
+                    await _notificationHub.Clients.Group("Admin").SendAsync("ReceiveNotification", newNotification);
+            }
 
             ViewBag.ReturnUrl = returnUrl;
             return LocalRedirect(returnUrl);

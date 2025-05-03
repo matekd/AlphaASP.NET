@@ -13,7 +13,6 @@ public class NotificationService(DataContext context, UserManager<MemberEntity> 
 
     public async Task AddNotificationAsync(NotificationEntity entity)
     {
-        // string message, string notificationType, string targetGroup = "Member", string icon = null!
         if (string.IsNullOrEmpty(entity.Icon))
         {
             switch (entity.NotificationType)
@@ -29,14 +28,6 @@ public class NotificationService(DataContext context, UserManager<MemberEntity> 
                     break;
             }
         }
-        //var notificationEntity = new NotificationEntity
-        //{
-        //    Message = message,
-        //    NotificationType = notificationType,
-        //    TargetGroup = targetGroup,
-        //    Icon = icon
-        //};
-
         _context.Add(entity);
         await _context.SaveChangesAsync();
     }

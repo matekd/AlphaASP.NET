@@ -23,6 +23,7 @@
 			<img src="@(Model.ImageUrl ?? "")" class="image-preview" />
 			<input asp-for="ProjectImage" accept="image/*" />
 		</div>
+		<button class="btn gray clear-image-btn" type="button" data-clear-image="true"><i class="fa-solid fa-trash-can"></i></button>
 	</div>
 	<div class="input-group">
 		<label asp-for="ProjectName"></label>

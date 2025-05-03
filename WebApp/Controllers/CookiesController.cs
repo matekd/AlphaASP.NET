@@ -14,21 +14,6 @@ public class CookiesController : Controller
         if (consent == null)
             return BadRequest();
 
-        //if (consent.Functional)
-        //{
-        //    Response.Cookies.Append("DarkmodeCookie", "light", new CookieOptions
-        //    {
-        //        IsEssential = false,
-        //        Expires = DateTimeOffset.UtcNow.AddDays(365),
-        //        SameSite = SameSiteMode.Lax,
-        //        Path = "/"
-        //    });
-        //}
-        //else
-        //{
-        //    Response.Cookies.Delete("DarkmodeCookie");
-        //}
-
         if (!consent.Functional)
         {
             Response.Cookies.Delete("ThemeCookie");
